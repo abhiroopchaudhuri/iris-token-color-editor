@@ -1,0 +1,17 @@
+{
+  "name": "iris",
+  "version": "1.0.0",
+  "private": true,
+  "scripts": {
+    "dev": "concurrently --kill-others --names \"editor,storybook\" --prefix-colors \"cyan,magenta\" \"npm run dev:editor\" \"npm run dev:storybook\"",
+    "dev:editor": "npm --prefix token-editor run dev",
+    "dev:storybook": "npm --prefix design-system run dev",
+    "build": "npm run build:storybook && npm run copy:storybook && npm run build:editor",
+    "build:storybook": "npm --prefix design-system run build-storybook",
+    "copy:storybook": "node -e \"const fs=require('fs');const p=require('path');function cp(s,d){fs.mkdirSync(d,{recursive:true});for(const f of fs.readdirSync(s)){const sp=p.join(s,f),dp=p.join(d,f);fs.statSync(sp).isDirectory()?cp(sp,dp):fs.copyFileSync(sp,dp)}}cp('design-system/.dist','token-editor/public/mds-storybook')\"",
+    "build:editor": "npm --prefix token-editor run build"
+  },
+  "devDependencies": {
+    "concurrently": "^9.1.2"
+  }
+}
