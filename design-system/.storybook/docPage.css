@@ -1,0 +1,159 @@
+html, body {
+  height: 100%;
+  overflow-y: auto;
+}
+
+.DocPage-editorTabs .TabsWrapper-header {
+  margin-left: var(--spacing-30)
+}
+
+.DocPage-codeBlock {
+  position: relative;
+  font-family: monospace !important;
+  font-size: 13px !important;
+  background: #f8f8f8 !important;
+  margin-top: var(--spacing-20) !important;
+  margin-bottom: var(--spacing-20) !important;
+  padding: var(--spacing-20) !important;
+  white-space: break-spaces !important;
+  border-radius: var(--border-radius-10);
+}
+
+.Utilities-example {
+  padding:var(--spacing-60);
+  margin-right: 0;
+  margin-left: 0;
+  border-width:var(--border-width-05) ;
+  font-size:var(--font-size-m);
+  background-color: var(--inverse-lightest);
+}
+.Utilities-text--color{
+  color: var(--secondary);
+}
+.width-color{
+  background-color: var(--inverse-lightest);
+}
+.height-color{
+  background-color: var(--inverse-lightest);
+}
+.height{
+  height: 100px;
+  background-color:  var(--secondary);;
+}
+.Utilities-overflow{
+  background-color:var(--inverse-lightest);
+  width: 200px;
+  height: 100px;
+  border: var(--border-width-2-5) dotted black;
+}
+
+.sbdocs.sbdocs-wrapper {
+  padding: 0 !important;
+}
+
+table.docblock-argstable {
+  border-collapse: collapse;
+  border-radius: var(--border-radius-10);
+  border-style: hidden; 
+  box-shadow: 0 0 0 1px var(--secondary-light);
+}
+
+table.docblock-argstable tbody {
+  box-shadow: none !important;
+  border-top: var(--border-width-2-5) solid var(--secondary-light);
+}
+
+/* Accessibility Prop Table */
+.a11y-prop-table-wrapper {
+  border: 1px solid var(--secondary-light);
+  border-radius: 4px;
+  overflow: hidden;
+}
+
+.a11y-prop-table-trigger {
+  display: flex;
+  align-items: center;
+  width: 100%;
+  padding: 12px 16px;
+  background: var(--secondary-lightest, #f4f4f4);
+  border: none;
+  cursor: pointer;
+  text-align: left;
+  transition: background 0.15s ease;
+}
+
+.a11y-prop-table-trigger:hover {
+  background: var(--secondary-lighter, #ebebeb);
+}
+
+.a11y-prop-table-trigger:focus-visible {
+  outline: 2px solid var(--primary, #0070d2);
+  outline-offset: -2px;
+}
+
+table.a11y-prop-table {
+  width: 100%;
+  border-collapse: collapse;
+  border-radius: 0;
+  border-style: none;
+  box-shadow: none;
+  margin: 0;
+  border-top: 1px solid var(--secondary-light);
+}
+
+.a11y-prop-table-head th {
+  text-align: left;
+  padding: 10px 16px;
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--inverse-lighter, #666);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  background: var(--secondary-lightest, #f4f4f4);
+  border-bottom: 1px solid var(--secondary-light);
+}
+
+.a11y-prop-table-body tr {
+  border-bottom: 1px solid var(--secondary-light);
+}
+
+.a11y-prop-table-body tr:last-child {
+  border-bottom: none;
+}
+
+.a11y-prop-table-body td {
+  padding: 10px 16px;
+  font-size: 13px;
+  vertical-align: top;
+  color: var(--inverse, #333);
+}
+
+td.a11y-prop-name code {
+  color: var(--primary-dark, #0054B6);
+  font-family: 'SFMono-Regular', Consolas, 'Liberation Mono', Menlo, monospace;
+  font-size: 12px;
+  font-weight: 600;
+  white-space: nowrap;
+}
+
+td.a11y-prop-type code {
+  color: var(--inverse-lighter, #666);
+  font-family: 'SFMono-Regular', Consolas, 'Liberation Mono', Menlo, monospace;
+  font-size: 11px;
+  background: var(--secondary-lightest, #f4f4f4);
+  padding: 2px 6px;
+  border-radius: 3px;
+  white-space: nowrap;
+}
+
+td.a11y-prop-description {
+  color: var(--inverse-light, #555);
+  line-height: 1.5;
+  max-width: 400px;
+}
+
+td.a11y-prop-default code {
+  color: var(--inverse-lighter, #666);
+  font-family: 'SFMono-Regular', Consolas, 'Liberation Mono', Menlo, monospace;
+  font-size: 12px;
+}

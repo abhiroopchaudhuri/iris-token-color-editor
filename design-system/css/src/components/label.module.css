@@ -1,0 +1,56 @@
+/* Label */
+.Label {
+  display: inline-flex;
+}
+.Label--small {
+  font-size: var(--font-size-s);
+}
+
+.Label--withInput {
+  margin-bottom: var(--spacing-10);
+}
+
+.Label--optional {
+  align-items: center;
+}
+
+.Label-text {
+  line-height: var(--font-height-s);
+  font-weight: var(--font-weight-medium);
+  word-break: break-word;
+}
+
+.Label-optionalText {
+  line-height: var(--font-height-s);
+  margin-left: var(--spacing-10);
+}
+
+.Label-optionalText--small {
+  font-size: var(--font-size-s);
+}
+
+.Label--disabled {
+  color: var(--text-disabled);
+}
+
+.Label-srOnly {
+  position: absolute;
+  width: var(--spacing-2-5);
+  height: var(--spacing-2-5);
+  padding: 0;
+  margin: calc(-1 * var(--spacing-2-5));
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+.Label-requiredIndicator {
+  height: var(--spacing-15);
+  width: var(--spacing-15);
+  border-radius: var(--border-radius-full);
+  background: var(--alert);
+  margin-left: var(--spacing-10);
+  margin-bottom: var(--spacing-15);
+  display: inline-flex;
+}

@@ -1,0 +1,84 @@
+.DropdownButton {
+  width: 100%;
+  justify-content: space-between;
+  padding-top: unset;
+  padding-bottom: unset;
+  background: var(--secondary-light);
+  color: var(--text);
+  transition: var(--duration--fast-01) var(--standard-productive-curve);
+}
+
+.DropdownButton-wrapper {
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  overflow: hidden;
+  align-items: center;
+}
+
+.DropdownButton-text {
+  text-align: left;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.DropdownButton--tiny {
+  height: var(--spacing-60);
+  padding-right: var(--spacing-20);
+  padding-left: var(--spacing-20);
+}
+
+.DropdownButton--regular {
+  height: var(--spacing-80);
+  padding-right: var(--spacing-20);
+  padding-left: var(--spacing-30);
+}
+
+.DropdownButton--tinySquare {
+  padding-left: var(--spacing-10);
+  padding-right: var(--spacing-10);
+}
+
+.DropdownButton--regularSquare {
+  padding-left: var(--spacing-20);
+  padding-right: var(--spacing-20);
+}
+
+.DropdownButton--placeholder {
+  color: var(--text);
+}
+
+.DropdownButton:hover {
+  background: var(--secondary);
+  color: var(--text);
+}
+
+.DropdownButton:focus-visible {
+  background-color: var(--secondary-light);
+  box-shadow: none;
+  outline: var(--border-width-05) solid var(--primary-focus);
+  outline-offset: var(--spacing-05);
+}
+
+.DropdownButton:active,
+.DropdownButton--open {
+  background-color: var(--secondary-dark) !important;
+  color: var(--text) !important;
+  animation-timing-function: cubic-bezier(0, 0, 0.38, 0.9);
+  animation-duration: 120ms;
+}
+
+.DropdownButton:disabled {
+  background: var(--secondary-lighter);
+  color: var(--text-disabled);
+  pointer-events: none;
+}
+
+.DropdownButton--icon {
+  padding-left: var(--spacing-20);
+}
+
+.DropdownButton--error {
+  border: var(--border-width-2-5) solid var(--alert);
+}

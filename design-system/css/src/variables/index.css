@@ -1,0 +1,277 @@
+:root {
+  /* Colors */
+
+  /* default */
+  --primary: var(--jal);
+  --secondary: var(--stone);
+  --success: var(--neem);
+  --alert: var(--mirch);
+  --warning: var(--haldi);
+  --accent1: var(--tawak);
+  --accent2: var(--jamun);
+  --accent3: var(--neel);
+  --accent4: var(--nimbu);
+  --inverse: var(--night);
+
+  /* dark */
+  --primary-dark: var(--jal-dark);
+  --secondary-dark: var(--stone-dark);
+  --success-dark: var(--neem-dark);
+  --alert-dark: var(--mirch-dark);
+  --warning-dark: var(--haldi-dark);
+  --accent1-dark: var(--tawak-dark);
+  --accent2-dark: var(--jamun-dark);
+  --accent3-dark: var(--neel-dark);
+  --accent4-dark: var(--nimbu-dark);
+
+  /* darker */
+  --primary-darker: var(--jal-darker);
+  --success-darker: var(--neem-darker);
+  --alert-darker: var(--mirch-darker);
+  --warning-darker: var(--haldi-darker);
+  --accent1-darker: var(--tawak-darker);
+  --accent2-darker: var(--jamun-darker);
+  --accent3-darker: var(--neel-darker);
+  --accent4-darker: var(--nimbu-darker);
+
+  /* light */
+  --primary-light: var(--jal-light);
+  --secondary-light: var(--stone-light);
+  --success-light: var(--neem-light);
+  --alert-light: var(--mirch-light);
+  --warning-light: var(--haldi-light);
+  --accent1-light: var(--tawak-light);
+  --accent2-light: var(--jamun-light);
+  --accent3-light: var(--neel-light);
+  --accent4-light: var(--nimbu-light);
+  --inverse-light: var(--night-light);
+
+  /* lighter */
+  --primary-lighter: var(--jal-lighter);
+  --secondary-lighter: var(--stone-lighter);
+  --success-lighter: var(--neem-lighter);
+  --alert-lighter: var(--mirch-lighter);
+  --warning-lighter: var(--haldi-lighter);
+  --accent1-lighter: var(--tawak-lighter);
+  --accent2-lighter: var(--jamun-lighter);
+  --accent3-lighter: var(--neel-lighter);
+  --accent4-lighter: var(--nimbu-lighter);
+  --inverse-lighter: var(--night-lighter);
+
+  /* lightest */
+  --primary-lightest: var(--jal-lightest);
+  --secondary-lightest: var(--stone-lightest);
+  --success-lightest: var(--neem-lightest);
+  --alert-lightest: var(--mirch-lightest);
+  --warning-lightest: var(--haldi-lightest);
+  --accent1-lightest: var(--tawak-lightest);
+  --accent2-lightest: var(--jamun-lightest);
+  --accent3-lightest: var(--neel-lightest);
+  --accent4-lightest: var(--nimbu-lightest);
+  --inverse-lightest: var(--night-lightest);
+
+  /* Focus */
+  --primary-focus: var(--primary-dark);
+  --inverse-focus: var(--night);
+
+  /* Ultra Light */
+  --primary-ultra-light: var(--color-blue-100);
+  --success-ultra-light: var(--color-green-100);
+  --alert-ultra-light: var(--color-red-100);
+  --warning-ultra-light: var(--color-yellow-100);
+  --accent1-ultra-light: var(--color-orange-100);
+  --accent2-ultra-light: var(--color-violet-100);
+  --accent3-ultra-light: var(--color-indigo-100);
+  --accent4-ultra-light: var(--color-lime-100);
+
+  /* Avatar specific color for the time being */
+  --primary-300: var(--color-blue-300);
+  --success-300: var(--color-green-300);
+  --alert-300: var(--color-red-300);
+  --warning-300: var(--color-yellow-300);
+  --accent1-300: var(--color-orange-300);
+  --accent2-300: var(--color-violet-300);
+  --accent3-300: var(--color-indigo-300);
+  --accent4-300: var(--color-lime-300);
+
+  /* shadow */
+  --primary-shadow: color-mod(var(--primary) a(var(--opacity-4)));
+  --secondary-shadow: color-mod(var(--secondary) a(var(--opacity-4)));
+  --success-shadow: color-mod(var(--success) a(var(--opacity-4)));
+  --alert-shadow: color-mod(var(--alert) a(var(--opacity-4)));
+  --warning-shadow: color-mod(var(--warning) a(var(--opacity-4)));
+  --accent1-shadow: color-mod(var(--accent1) a(var(--opacity-4)));
+  --accent2-shadow: color-mod(var(--accent2) a(var(--opacity-4)));
+  --accent3-shadow: color-mod(var(--accent3) a(var(--opacity-4)));
+  --accent4-shadow: color-mod(var(--accent4) a(var(--opacity-4)));
+  --inverse-shadow: color-mod(var(--inverse) a(var(--opacity-4)));
+
+  /* Text colors */
+  --text: var(--night);
+  --text-subtle: var(--night-lighter);
+  --text-link: var(--primary);
+  --text-disabled: var(--inverse-lightest);
+  --text-destructive: var(--alert);
+  --text-white: var(--white);
+  --text-success: var(--success);
+
+  /* spacing - DEPRECATED */
+  --spacing-xs: 1px;
+  --spacing-s: 2px;
+  --spacing-m: 4px;
+  --spacing-0-75: 6px;
+  --spacing: 8px;
+  --spacing-l: 12px;
+  /* 8 * 2 */
+  --spacing-2: 16px;
+  /* 8 * 3 */
+  --spacing-xl: 24px;
+  /* 8 * 4 */
+  --spacing-3: 32px;
+  /* 8 * 6 */
+  --spacing-4: 48px;
+  /* 8 * 8 */
+  --spacing-5: 64px;
+  /* 8 * 12 */
+  --spacing-6: 96px;
+  /* 8 * 16 */
+  --spacing-7: 128px;
+  /* 8 * 22 */
+  --spacing-8: 176px;
+  /* 8 * 32 */
+  --spacing-9: 256px;
+
+  /* Fonts */
+  --font-family: 'Nunito Sans';
+
+  /* Font size */
+  --font-size-xxs: 4px;
+  --font-size-xs: 8px;
+  --font-size-s: 12px;
+  --font-size: 14px;
+  --font-size-m: 16px;
+  --font-size-l: 20px;
+  --font-size-xl: 28px;
+  --font-size-xxl: 32px;
+  --font-size-xxxl: 40px;
+
+  /* Font weight  */
+  --font-weight-normal: 400;
+  --font-weight-medium: 600;
+  --font-weight-bold: 700;
+  --font-weight-bolder: 800;
+
+  /* Line height or Font height  */
+  --font-height-normal: normal;
+  --font-height-s: 16px;
+  --font-height: 20px;
+  --font-height-m: 24px;
+  --font-height-l: 32px;
+  --font-height-xl: 40px;
+  --font-height-xxl: 48px;
+
+  /* Letter spacing */
+  --letter-spacing: 0.5px;
+
+  /* body settings */
+
+  /* border */
+  --border: var(--border-width-2-5) solid var(--secondary);
+  --border-s: var(--border-width-05) solid var(--secondary);
+
+  /* padding */
+
+  /* shadow */
+  --shadow-s: 0 1px 4px 0 rgba(0, 0, 0, 0.16);
+  --shadow-m: 0 2px 8px 0 rgba(0, 0, 0, 0.16);
+  --shadow-l: 0 4px 16px 0 rgba(0, 0, 0, 0.16);
+  --shadow-spread: 0 0 0 3px;
+
+  /* 
+  Grid breakpoints
+  Define the minimum dimensions at which your layout will change,
+  adapting to different screen sizes, for use in media queries. 
+  */
+
+  --grid-s-breakpoint: 576px;
+  --grid-m-breakpoint: 768px;
+  --grid-l-breakpoint: 992px;
+  --grid-xl-breakpoint: 1200px;
+
+  /* 
+  Grid columns
+  Set the number of columns and specify the width of the gutters. 
+  */
+
+  --grid-columns: 12;
+
+  /* Undefined colors */
+  --card-subdued-bg: #fcfafa;
+
+  /* Transparancy (Opacity) */
+  --transparent-58: 0.58;
+
+  /* Transition curve timing function */
+  /* Use standard-easing when an element is visible from the beginning to the end of a motion. Ex-Expanding cards. */
+  --standard-productive-curve: cubic-bezier(0.2, 0, 0.38, 0.9);
+  --standard-expressive-curve: cubic-bezier(0.4, 0.14, 0.3, 1);
+  /* Use entrance-easing when an element quickly appears and slows down to a stop. Ex-when adding elements to the view, such as a modal appearing. */
+  --entrance-productive-curve: cubic-bezier(0, 0, 0.38, 0.9);
+  --entrance-expressive-curve: cubic-bezier(0, 0, 0.3, 1);
+  /* Use exit-easing when removing elements from view, such as closing a modal or toaster. */
+  --exit-productive-curve: cubic-bezier(0.2, 0, 1, 0.9);
+  --exit-expressive-curve: cubic-bezier(0.4, 0.14, 1, 1);
+
+  /* Transition duration */
+  --duration--fast-01: 80ms;
+  --duration--fast-02: 120ms;
+  --duration--moderate-01: 160ms;
+  --duration--moderate-02: 240ms;
+  --duration--slow-01: 400ms;
+  --duration--slow-02: 720ms;
+
+  /* Opacity */
+  --opacity-1: 0.04;
+  --opacity-2: 0.08;
+  --opacity-3: 0.12;
+  --opacity-4: 0.16;
+  --opacity-6: 0.24;
+  --opacity-8: 0.32;
+  --opacity-10: 0.4;
+  --opacity-12: 0.48;
+  --opacity-16: 0.64;
+  --opacity-20: 0.8;
+
+  /* Spacing (value / 4) * 10 */
+  --spacing-2-5: 1px;
+  --spacing-05: 2px;
+  --spacing-10: 4px;
+  --spacing-15: 6px;
+  --spacing-20: 8px;
+  --spacing-30: 12px;
+  --spacing-40: 16px;
+  --spacing-60: 24px;
+  --spacing-80: 32px;
+  --spacing-120: 48px;
+  --spacing-160: 64px;
+  --spacing-240: 96px;
+  --spacing-320: 128px;
+  --spacing-440: 176px;
+  --spacing-640: 256px;
+
+  /* Border Radius */
+  --border-radius-2-5: 1px;
+  --border-radius-05: 2px;
+  --border-radius-10: 4px;
+  --border-radius-15: 6px;
+  --border-radius-20: 8px;
+  --border-radius-30: 12px;
+  --border-radius-40: 16px;
+  --border-radius-full: 9999px;
+
+  /* Border Width */
+  --border-width-2-5: 1px;
+  --border-width-05: 2px;
+  --border-width-7-5: 3px;
+  --border-width-10: 4px;
+}

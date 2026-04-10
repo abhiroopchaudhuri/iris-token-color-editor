@@ -1,0 +1,134 @@
+---
+title: Status Hint
+description: Status hint is used to highlight the status of an item.
+tabs: ['Usage', 'Code']
+showMobile: true
+---
+
+As the name suggests, Status Hints can be used to highlight the status of a resource in tables, lists, headers, etc.
+
+### Appearance
+
+Status hint comes in 5 Appearances -
+
+#### Info
+
+<Preview name='components-statushint-variants-info--info'/>
+
+#### Warning
+
+<Preview name='components-statushint-variants-warning--warning'/>
+
+#### Success
+
+<Preview name='components-statushint-variants-success--success'/>
+
+#### Alert
+
+<Preview name='components-statushint-variants-alert--alert'/>
+
+#### Default
+
+<Preview name='components-statushint-variants-default-status-hint--default-status-hint'/>
+
+### Sizes
+
+Status hint comes in **2 sizes** - regular and small.
+
+![Sizes in status hint](./images/sizes.png)
+<Caption>Sizes in status hint</Caption>
+
+### Structure
+<br/>
+<br/>
+
+![Structure of status hint](./images/statushint-structure.png)
+<br/>
+
+
+<table style={{width: "100%"}}>
+ <tbody>
+   <tr>
+     <th style={{width:"50%",  textAlign: "left"}}>Property</th>
+     <th style={{width:"50%",  textAlign: "left"}}>Value(s)</th>
+   </tr>
+   <tr style={{verticalAlign: "top"}}>
+      <td>Label Size</td>
+      <td>
+        <ul>
+          <li>14px (Regular)</li>
+          <li>12px (Small)</li>
+        </ul>
+      </td>
+   </tr>
+   <tr style={{verticalAlign: "top"}}>
+      <td>Spacing between Indicator and Label</td>
+      <td>
+        <ul>
+          <li>8px (Regular)</li>
+          <li>6px (Small)</li>
+        </ul>
+      </td>
+   </tr>
+   <tr style={{verticalAlign: "top"}}>
+      <td>Size of indicator</td>
+      <td>8x8 px</td>
+   </tr>
+ </tbody>
+</table>
+<br/>
+
+### Configurations
+<br/>
+<br/>
+
+
+<table style={{width: "100%"}}>
+  <tbody>
+    <tr>
+      <th style={{width:"33%", textAlign: "left"}}>Property</th>
+      <th style={{width:"33%", textAlign: "left"}}>Value(s)</th>
+      <th style={{width:"33%", textAlign: "left"}}>Default value</th>
+    </tr>
+    <tr style={{verticalAlign: "top"}}>
+      <td>Appearance</td>
+      <td>
+        <ul>
+            <li>Default</li>
+            <li>Info</li>
+            <li>Success</li>
+            <li>Warning</li>
+            <li>Alert</li>
+        </ul>
+      </td>
+      <td>Default</td>
+    </tr>
+    <tr style={{verticalAlign: "top"}}>
+      <td>Label</td>
+      <td>&#60;label&#62;</td>
+      <td>-</td>
+    </tr>
+  </tbody>
+</table>
+<br/>
+
+### Usage
+
+<br/>
+
+#### Status Hint vs Badge
+
+Status hint is used to display the status of a resource while a badge is used as a label to tag entities. 
+
+![Status hint vs Badge](./images/statusHint-vs-Badge.png)
+<Caption> Status hint vs Badge </Caption>
+
+<br/>
+
+#### Overflow Behavior in Status Hint
+
+In case of overflow, the items will get truncated and can be viewed inside a tooltip on hover.  
+
+<Preview name="components-statushint-label-wrap--label-wrap" />
+
+<br/>

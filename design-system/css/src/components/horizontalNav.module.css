@@ -1,0 +1,97 @@
+.HorizontalNav {
+  display: flex;
+}
+
+.HorizontalNav-menu {
+  box-sizing: border-box;
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+  border: 0;
+  background: transparent;
+  font: inherit;
+  text-decoration: none;
+  height: var(--spacing-80);
+  padding-right: var(--spacing-30);
+  padding-left: var(--spacing-30);
+  border-radius: var(--border-radius-40);
+  margin: 0 var(--spacing-2-5);
+}
+
+.HorizontalNav-menu--disabled {
+  pointer-events: none;
+}
+
+.HorizontalNav-menu--disabled:focus-visible,
+.HorizontalNav-menu--disabled:focus {
+  outline: none;
+}
+
+.HorizontalNav-menu--default:focus-visible,
+.HorizontalNav-menu--default:focus {
+  outline: var(--border-width-05) solid var(--primary-focus);
+  outline-offset: var(--spacing-05);
+}
+
+.HorizontalNav-menu--default:hover {
+  background-color: var(--secondary);
+}
+
+.HorizontalNav-menu--default:active {
+  background-color: var(--secondary-dark);
+}
+
+.HorizontalNav-menu--active {
+  background-color: var(--primary-ultra-light);
+  box-shadow: 0 0 0 var(--border-width-05) var(--primary);
+}
+
+.HorizontalNav-menu--active:focus-visible,
+.HorizontalNav-menu--active:focus {
+  background-color: var(--primary-ultra-light);
+  outline: var(--border-width-05) solid var(--primary-focus);
+  outline-offset: var(--spacing-10);
+}
+
+.HorizontalNav-menu--active:hover {
+  background-color: var(--primary-lightest);
+}
+
+.HorizontalNav-menu--active:active {
+  background-color: var(--primary-lighter);
+  color: var(--primary-darker);
+  box-shadow: 0 0 0 var(--border-width-05) var(--primary-dark);
+}
+
+.HorizontalNav-menu--active:active .HorizontalNav-menuText {
+  color: var(--primary-darker);
+}
+
+.HorizontalNav-menu--active:focus-visible:active,
+.HorizontalNav-menu--active:focus:active {
+  background-color: var(--primary-lighter);
+  box-shadow: 0 0 0 var(--border-width-05) var(--primary-dark);
+}
+
+.HorizontalNav-menuText {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.HorizontalNav-menu--active,
+.HorizontalNav-animate {
+  transition-delay: var(--duration--fast-02);
+}
+
+.HorizontalNav-animate {
+  transition: var(--duration--fast-02) var(--standard-productive-curve);
+}
+
+.HorizontalNav-pills {
+  margin-right: var(--spacing-10);
+}
+
+.HorizontalNav-pills--disabled {
+  opacity: var(--opacity-10);
+}

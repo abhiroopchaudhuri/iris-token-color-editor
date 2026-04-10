@@ -1,0 +1,33 @@
+.DateRangePicker {
+  display: flex;
+}
+
+.DateRangePicker--left {
+  flex-direction: row;
+}
+
+.DateRangePicker--right {
+  flex-direction: row-reverse;
+}
+
+.DateRangePicker-input {
+  box-sizing: border-box;
+}
+
+.DateRangePicker-input--startDate {
+  padding-right: var(--spacing-10);
+}
+
+.DateRangePicker-input--endDate {
+  padding-left: var(--spacing-10);
+}
+
+@media (max-width: 576px) {
+  .DateRangePicker-input {
+    padding: 0;
+  }
+
+  .DateRangePicker-input--endDate {
+    padding-top: var(--spacing-20);
+  }
+}

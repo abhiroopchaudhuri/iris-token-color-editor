@@ -1,0 +1,11 @@
+.Legend {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  width: fit-content;
+}
+
+.Legend-icon {
+  border-radius: var(--border-radius-05);
+  margin-right: var(--spacing-20);
+}

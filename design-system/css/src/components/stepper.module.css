@@ -1,0 +1,90 @@
+.Stepper {
+  display: flex;
+}
+
+.Step {
+  display: flex;
+  align-items: center;
+  padding-left: var(--spacing-30);
+  padding-right: var(--spacing-30);
+  margin-left: var(--spacing-2-5);
+  margin-right: var(--spacing-2-5);
+  border-radius: var(--border-radius-40);
+  cursor: pointer;
+}
+
+.Step:hover {
+  background-color: var(--secondary);
+}
+
+.Step:active {
+  background-color: var(--secondary-dark);
+}
+
+.Step:focus,
+.Step:focus-visible {
+  outline: var(--border-width-05) solid var(--primary-focus);
+  outline-offset: var(--spacing-05);
+}
+
+/* Completed State */
+
+.Step--completed {
+  color: var(--primary-dark);
+}
+
+.Step--completed:hover {
+  background-color: var(--secondary);
+}
+
+.Step--completed:active {
+  background-color: var(--secondary-dark);
+}
+
+.Step--completed:focus,
+.Step--completed:focus-visible {
+  outline: var(--border-width-05) solid var(--primary-focus);
+  outline-offset: var(--spacing-05);
+}
+
+/* Active State */
+
+.Step--active {
+  background-color: var(--primary-lightest);
+  color: var(--primary-dark);
+  transition-delay: var(--duration--fast-02);
+  box-shadow: inset 0 0 0 var(--border-width-05) var(--primary);
+}
+
+.Step--active:hover {
+  background-color: var(--primary-lighter);
+}
+
+.Step--active:focus,
+.Step--active:focus-visible {
+  background-color: var(--primary-lightest);
+  outline: var(--border-width-05) solid var(--primary-focus);
+  outline-offset: var(--spacing-05);
+}
+
+.Step--active:active {
+  background-color: var(--primary-lighter);
+  color: var(--primary-darker);
+}
+
+.Step--active:active .Stepper-text {
+  color: var(--primary-darker);
+}
+
+/* Disabled State */
+
+.Step--disabled {
+  cursor: not-allowed;
+  color: var(--inverse-lightest);
+  pointer-events: none;
+}
+
+.Stepper-animate {
+  transition-delay: var(--duration--fast-02);
+  transition: var(--duration--fast-02) var(--standard-productive-curve);
+}

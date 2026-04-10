@@ -1,0 +1,285 @@
+import bulkSelection from './images/appearance-of-bulk-actions.gif'
+import fadingBulkSelection from './images/fading-bulk-actions.gif'
+
+### Hover
+
+<br/>
+
+#### Resource vs Option
+
+For Resource Table, since it opens the detail page of the item, on hover changes the text to Primary color along with the change in background.
+While for the Options List, the text color remains the same.
+
+![Hover on resource vs hover on option](./images/table-22.png)
+
+<br/>
+Hover state doesn’t apply to a data table or a description list.
+
+<br/>
+<br/>
+
+#### List Item
+
+There can be instances when you want to show a specific action on hover when the table is used as a list. In that case, a button can be shown at the end.
+
+*Note: Never use the primary button for this type of use case.*
+
+![Hover on list item](./images/table-23.png)
+
+<br/>
+
+#### Author
+
+The name of an author is shown using a tooltip. This is the default behavior of an Avatar and already taken care of in that component. 
+
+![Hover on author](./images/table-24.png)
+![Hover on hidden author](./images/table-25.png)
+
+<br/>
+
+#### Exception
+
+A Popover is used to show additional information about an exception.
+
+![Exception](./images/table-26.png)
+
+<br/>
+<br/>
+
+### Table Selection
+
+<br />
+<br />
+
+<img src={bulkSelection} width='100%' height='auto' />
+
+<br />
+<br />
+
+#### Row(s) To Be Selected
+
+<br />
+
+<table style={{width: "100%"}}>
+  <tbody>
+    <tr>
+      <th style={{width:"33%",  textAlign: "left"}}>Property</th>
+      <th style={{width:"33%",  textAlign: "left"}}>Initial</th>
+      <th style={{width:"33%",  textAlign: "left"}}>Final</th>
+    </tr>
+    <tr style={{verticalAlign: "top"}}>
+      <td>State</td>
+      <td>Default</td>
+      <td>Selected</td>
+    </tr>
+  </tbody>
+</table>
+
+<br />
+
+<table style={{width: "100%"}}>
+  <tbody>
+    <tr>
+      <th style={{width:"33%",  textAlign: "left"}}>Curve</th>
+      <th style={{width:"33%",  textAlign: "left"}}>Duration</th>
+      <th style={{width:"33%",  textAlign: "left"}}>Delay</th>
+    </tr>
+    <tr style={{verticalAlign: "top"}}>
+      <td>Cubic-bezier (0.2, 0, 0.38, 0.9)</td>
+      <td>120ms</td>
+      <td>80ms</td>
+    </tr>
+  </tbody>
+</table>
+
+<br />
+<br />
+
+#### Appearance of Bulk Actions
+
+##### Checkbox and Show N Items Row
+
+<br />
+
+<table style={{width: "100%"}}>
+  <tbody>
+    <tr>
+      <th style={{width:"33%",  textAlign: "left"}}>Property</th>
+      <th style={{width:"33%",  textAlign: "left"}}>Initial</th>
+      <th style={{width:"33%",  textAlign: "left"}}>Final</th>
+    </tr>
+    <tr style={{verticalAlign: "top"}}>
+      <td>Opacity</td>
+      <td>100%</td>
+      <td>0</td>
+    </tr>
+  </tbody>
+</table>
+
+<br />
+
+<table style={{width: "100%"}}>
+  <tbody>
+    <tr>
+      <th style={{width:"50%",  textAlign: "left"}}>Curve</th>
+      <th style={{width:"50%",  textAlign: "left"}}>Duration</th>
+    </tr>
+    <tr style={{verticalAlign: "top"}}>
+      <td>Cubic-bezier (0.2, 0, 1, 0.9)</td>
+      <td>120ms</td>
+    </tr>
+  </tbody>
+</table>
+
+<br />
+<br />
+
+##### Selected N Items and Bulk Actions Row
+
+<table style={{width: "100%"}}>
+  <tbody>
+    <tr>
+      <th style={{width:"33%",  textAlign: "left"}}>Property</th>
+      <th style={{width:"33%",  textAlign: "left"}}>Initial</th>
+      <th style={{width:"33%",  textAlign: "left"}}>Final</th>
+    </tr>
+    <tr style={{verticalAlign: "top"}}>
+      <td>Opacity</td>
+      <td>0</td>
+      <td>100%</td>
+    </tr>
+  </tbody>
+</table>
+
+<br />
+
+<table style={{width: "100%"}}>
+  <tbody>
+    <tr>
+      <th style={{width:"33%",  textAlign: "left"}}>Curve</th>
+      <th style={{width:"33%",  textAlign: "left"}}>Duration</th>
+      <th style={{width:"33%",  textAlign: "left"}}>Delay</th>
+    </tr>
+    <tr style={{verticalAlign: "top"}}>
+      <td>Cubic-bezier (0, 0, 0.38, 0.9)</td>
+      <td>160ms</td>
+      <td>80ms</td>
+    </tr>
+  </tbody>
+</table>
+
+<br />
+<br />
+
+### Deselection In Table
+
+<br />
+
+<img src={fadingBulkSelection} width='100%' height='auto' />
+
+<br />
+<br />
+
+#### Row(s) To Be Deselected
+
+<table style={{width: "100%"}}>
+  <tbody>
+    <tr>
+      <th style={{width:"33%",  textAlign: "left"}}>Property</th>
+      <th style={{width:"33%",  textAlign: "left"}}>Initial</th>
+      <th style={{width:"33%",  textAlign: "left"}}>Final</th>
+    </tr>
+    <tr style={{verticalAlign: "top"}}>
+      <td>State</td>
+      <td>Selected</td>
+      <td>Default</td>
+    </tr>
+  </tbody>
+</table>
+
+<br />
+
+<table style={{width: "100%"}}>
+  <tbody>
+    <tr>
+      <th style={{width:"50%",  textAlign: "left"}}>Curve</th>
+      <th style={{width:"50%",  textAlign: "left"}}>Duration</th>
+    </tr>
+    <tr style={{verticalAlign: "top"}}>
+      <td>Cubic-bezier (0.2, 0, 0.38, 0.9)</td>
+      <td>120ms</td>
+    </tr>
+  </tbody>
+</table>
+
+<br />
+
+#### Fading Away of Bulk Actions
+
+##### Checkbox and Show N Items Row
+
+<table style={{width: "100%"}}>
+  <tbody>
+    <tr>
+      <th style={{width:"33%",  textAlign: "left"}}>Property</th>
+      <th style={{width:"33%",  textAlign: "left"}}>Initial</th>
+      <th style={{width:"33%",  textAlign: "left"}}>Final</th>
+    </tr>
+    <tr style={{verticalAlign: "top"}}>
+      <td>Opacity</td>
+      <td>0</td>
+      <td>100%</td>
+    </tr>
+  </tbody>
+</table>
+
+<br />
+
+<table style={{width: "100%"}}>
+  <tbody>
+    <tr>
+      <th style={{width:"33%",  textAlign: "left"}}>Curve</th>
+      <th style={{width:"33%",  textAlign: "left"}}>Duration</th>
+      <th style={{width:"33%",  textAlign: "left"}}>Delay</th>
+    </tr>
+    <tr style={{verticalAlign: "top"}}>
+      <td>Cubic-bezier (0, 0, 0.38, 0.9)</td>
+      <td>160ms</td>
+      <td>80ms</td>
+    </tr>
+  </tbody>
+</table>
+
+<br />
+
+##### Selected N Items and Bulk Actions Row
+
+<table style={{width: "100%"}}>
+  <tbody>
+    <tr>
+      <th style={{width:"33%",  textAlign: "left"}}>Property</th>
+      <th style={{width:"33%",  textAlign: "left"}}>Initial</th>
+      <th style={{width:"33%",  textAlign: "left"}}>Final</th>
+    </tr>
+    <tr style={{verticalAlign: "top"}}>
+      <td>Opacity</td>
+      <td>100%</td>
+      <td>0</td>
+    </tr>
+  </tbody>
+</table>
+
+<br />
+
+<table style={{width: "100%"}}>
+  <tbody>
+    <tr>
+      <th style={{width:"50%",  textAlign: "left"}}>Curve</th>
+      <th style={{width:"50%",  textAlign: "left"}}>Duration</th>
+    </tr>
+    <tr style={{verticalAlign: "top"}}>
+      <td>Cubic-bezier (0.2, 0, 1, 0.9)</td>
+      <td>120ms</td>
+    </tr>
+  </tbody>
+</table>

@@ -1,0 +1,80 @@
+.FileIcon {
+  padding: var(--spacing-20);
+  border-radius: var(--border-radius-full);
+}
+.FileItem:not(:last-child) {
+  border-bottom: var(--border);
+  width: 100%;
+  box-sizing: border-box;
+}
+.FileItem {
+  padding-top: var(--spacing-20);
+  padding-bottom: var(--spacing-20);
+  padding-left: var(--spacing-30);
+  padding-right: var(--spacing-20);
+}
+.FileItem-fileContent {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-width: 0;
+}
+.FileItem-actions {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-shrink: 0;
+}
+.FileItem-file {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.FileItem-size {
+  margin-right: var(--spacing-20);
+  margin-left: var(--spacing-20);
+  flex-shrink: 0;
+}
+.FileItem-text {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  margin-right: var(--spacing-20);
+  margin-left: var(--spacing-30);
+}
+.FileItem-error {
+  margin-left: 40px;
+}
+
+.FileIcon--image {
+  background: var(--alert-lightest);
+  color: var(--alert);
+}
+.FileIcon--audio {
+  background: var(--accent1-lightest);
+  color: var(--accent1);
+}
+.FileIcon--video {
+  background: var(--accent2-lightest);
+  color: var(--accent2);
+}
+.FileIcon--application {
+  background: var(--accent3-lightest);
+  color: var(--accent3);
+}
+.FileIcon--others {
+  background: var(--success-lightest);
+  color: var(--success);
+}
+.FileIcon--animate {
+  animation: fadeIn var(--duration--moderate-01) var(--entrance-productive-curve);
+}
+
+@keyframes fadeIn {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}

@@ -1,0 +1,4 @@
+.custom-boundaryWrapper {
+  height: var(--spacing-440);
+  border: var(--border-width-2-5) dashed;
+}

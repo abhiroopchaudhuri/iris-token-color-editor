@@ -1,0 +1,33 @@
+.StatusHint {
+  display: flex;
+  flex-direction: row;
+  width: fit-content;
+  align-items: center;
+}
+
+.StatusHint-icon {
+  flex-shrink: 0;
+  border-radius: var(--border-radius-full);
+  height: var(--spacing-20);
+  width: var(--spacing-20);
+}
+
+.StatusHint--alert {
+  background: var(--alert);
+}
+
+.StatusHint--success {
+  background: var(--success);
+}
+
+.StatusHint--warning {
+  background: var(--warning);
+}
+
+.StatusHint--info {
+  background: var(--primary);
+}
+
+.StatusHint--default {
+  background: var(--secondary-light);
+}

@@ -1,0 +1,18 @@
+base: patterns
+menus:
+  - label: Overview
+    link: /patterns/overview/all-patterns/
+  - label: Browser Tab Title
+    link: /patterns/browserTabTitle/usage/
+  - label: Email
+    link: /patterns/email/usage/
+  - label: File Uploader
+    link: /patterns/fileUploader/usage/
+  - label: Form
+    link: /patterns/form/usage/
+  - label: Layouts
+    link: /patterns/layouts/usage/
+  - label: Table Filters
+    link: /patterns/tableFilters/usage/
+  - label: UI States
+    link: /patterns/uiStates/usage/

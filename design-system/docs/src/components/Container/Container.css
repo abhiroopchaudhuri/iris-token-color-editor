@@ -1,0 +1,13 @@
+.TabHeader {
+  z-index: 450;
+  top: 0;
+}
+
+.TabBorder {
+  border-color: var(--secondary-light);
+}
+
+.TabBorder--sticky {
+  border-bottom: var(--border);
+  border-color: var(--secondary-light);
+}

@@ -1,0 +1,251 @@
+import * as React from 'react';
+import classNames from 'classnames';
+import Icon from '@/components/atoms/icon';
+import Text from '@/components/atoms/text';
+import { Name, ChipType } from '../chip/Chip';
+import { BaseProps, extractBaseProps } from '@/utils/types';
+import { IconProps, TextProps } from '@/index.type';
+import { Tooltip } from '@/index';
+import { IconType, TChipSize } from '@/common.type';
+import styles from '@css/components/chip.module.css';
+
+export interface GenericChipProps extends BaseProps {
+  label: string | React.ReactElement;
+  labelPrefix?: string;
+  icon?: string;
+  clearButton?: boolean;
+  disabled?: boolean;
+  selected?: boolean;
+  onClose?: () => void;
+  onClick?: () => void;
+  iconType?: IconType;
+  name: Name;
+  maxWidth: string | number;
+  size?: TChipSize;
+  type?: ChipType;
+  role?: string;
+  'aria-label'?: string;
+  'aria-labelledby'?: string;
+  /**
+   * Accessible name for the per-chip remove control (icon-only).
+   * @default 'Remove'
+   */
+  clearButtonAriaLabel?: string;
+  /**
+   * Overrides the chip wrapper `tabIndex` (e.g. `-1` when the remove control is the only keyboard target).
+   */
+  tabIndex?: number;
+}
+
+export const GenericChip = (props: GenericChipProps) => {
+  const {
+    label,
+    icon,
+    clearButton,
+    disabled,
+    className,
+    selected,
+    onClose,
+    onClick,
+    labelPrefix,
+    iconType,
+    maxWidth,
+    size = 'regular',
+    type,
+  } = props;
+  const wrapperStyle = { maxWidth: maxWidth };
+  const [isTextTruncated, setIsTextTruncated] = React.useState(false);
+  const { detectTruncation } = Tooltip.useAutoTooltip();
+  const contentRef = React.createRef<HTMLDivElement>();
+
+  const IconSize = size === 'small' ? 14 : 16;
+  const ClearIconSize = size === 'small' ? 12 : 16;
+
+  React.useEffect(() => {
+    const isTruncated = detectTruncation(contentRef);
+    setIsTextTruncated(isTruncated);
+  }, [contentRef]);
+
+  const baseProps = extractBaseProps(props);
+
+  const iconClass = (align: string) =>
+    classNames({
+      [styles['Chip-icon']]: true,
+      [styles[`Chip-icon--${align}`]]: align,
+      [styles['Chip-icon--rightSmall']]: size === 'small' && align === 'right',
+      [styles[`Chip-icon-disabled--right`]]: align === 'right' && disabled,
+      ['cursor-pointer']: align === 'right' && !disabled,
+      [styles['Chip-icon--selected']]: align === 'right' && selected,
+      ['p-3']: size === 'regular' && align === 'right',
+    });
+
+  const onCloseHandler = (e: React.MouseEvent | React.KeyboardEvent) => {
+    e.stopPropagation();
+    if (onClose) onClose();
+  };
+
+  const onClickHandler = () => {
+    if (onClick) onClick();
+  };
+
+  const onKeyDownHandler = (event: React.KeyboardEvent) => {
+    if (event.key === 'Enter' || event.key === ' ' || event.key === 'Spacebar') {
+      event.preventDefault();
+      onCloseHandler(event);
+    }
+  };
+
+  const onChipKeyDownHandler = (event: React.KeyboardEvent) => {
+    if (event.key === 'Enter' || event.key === ' ' || event.key === 'Spacebar') {
+      event.preventDefault();
+      onClickHandler();
+    }
+  };
+
+  const iconAppearance = (align: string) =>
+    classNames({
+      ['primary_dark']: selected && !disabled,
+      ['primary_lighter']: selected && disabled,
+      ['subtle']: !selected && align === 'right',
+      ['inverse']: !selected && align === 'left',
+    }) as IconProps['appearance'];
+
+  const chipTextClass = classNames({
+    [styles['Chip-text']]: true,
+    ['mr-3']: true,
+  });
+
+  const textColor = classNames({
+    ['primary-dark']: selected && !disabled,
+    ['primary-lighter']: selected && disabled,
+    ['inverse']: !disabled && !selected,
+  }) as TextProps['color'];
+
+  const chipWrapperClass = classNames(
+    {
+      [styles['Chip-wrapper']]: true,
+    },
+    className
+  );
+
+  const renderLabel = () => {
+    if (typeof label === 'string') {
+      return (
+        <div className={styles['Chip-text--truncate']} ref={contentRef}>
+          {labelPrefix && (
+            <Text
+              data-test="DesignSystem-GenericChip--LabelPrefix"
+              weight="medium"
+              color={textColor}
+              className={chipTextClass}
+            >
+              {labelPrefix}
+            </Text>
+          )}
+          <Text
+            data-test="DesignSystem-GenericChip--Text"
+            size={size}
+            color={textColor}
+            className={styles['Chip-text']}
+          >
+            {label}
+          </Text>
+        </div>
+      );
+    }
+    return label;
+  };
+
+  const getTooltipText = () => {
+    const labelText = typeof label === 'string' ? label : '';
+
+    if (labelPrefix) {
+      return `${labelPrefix} ${labelText}`;
+    }
+    return labelText;
+  };
+
+  const computedTabIndex = props.tabIndex !== undefined ? (disabled ? -1 : props.tabIndex) : disabled ? -1 : 0;
+
+  const clearButtonAriaAttr = props.clearButtonAriaLabel ?? (typeof label === 'string' ? `Remove ${label}` : 'Remove');
+
+  const computedAriaLabel = (() => {
+    if (props['aria-label']) return props['aria-label'];
+    if (clearButton && typeof label === 'string') {
+      return labelPrefix ? `${labelPrefix} ${label}` : label;
+    }
+    return undefined;
+  })();
+
+  const getAriaProps = () => {
+    const effectiveRole = props.role || 'button';
+    const ariaProps: React.HTMLAttributes<HTMLDivElement> = {};
+
+    if (type === 'selection') {
+      if (effectiveRole === 'button') {
+        ariaProps['aria-pressed'] = selected;
+      } else if (effectiveRole === 'checkbox' || effectiveRole === 'menuitemcheckbox') {
+        ariaProps['aria-checked'] = selected;
+      } else if (effectiveRole === 'option' || effectiveRole === 'tab' || effectiveRole === 'treeitem') {
+        ariaProps['aria-selected'] = selected;
+      }
+    }
+
+    return ariaProps;
+  };
+
+  return (
+    <Tooltip
+      showTooltip={isTextTruncated}
+      data-test="DesignSystem-GenericChip--Tooltip"
+      tooltip={getTooltipText()}
+      triggerClass="flex-grow-0"
+    >
+      <div
+        tabIndex={computedTabIndex}
+        style={wrapperStyle}
+        data-test="DesignSystem-GenericChip--Wrapper"
+        role={props.role || 'button'}
+        aria-label={computedAriaLabel}
+        aria-labelledby={props['aria-labelledby']}
+        {...getAriaProps()}
+        onKeyDown={onChipKeyDownHandler}
+        {...baseProps}
+        className={chipWrapperClass}
+        onClick={onClickHandler}
+      >
+        {icon && (
+          <Icon
+            data-test="DesignSystem-GenericChip--Icon"
+            name={icon}
+            type={iconType}
+            size={IconSize}
+            appearance={iconAppearance('left')}
+            className={iconClass('left')}
+          />
+        )}
+        {renderLabel()}
+        {clearButton && (
+          <div
+            role="button"
+            aria-label={clearButtonAriaAttr}
+            onClick={onCloseHandler}
+            tabIndex={disabled ? -1 : 0}
+            onKeyDown={onKeyDownHandler}
+            className={iconClass('right')}
+            data-test="DesignSystem-GenericChip--clearButton"
+          >
+            <Icon name="clear" appearance={iconAppearance('right')} size={ClearIconSize} />
+          </div>
+        )}
+      </div>
+    </Tooltip>
+  );
+};
+
+GenericChip.displayName = 'GenericChip';
+GenericChip.defaultProps = {
+  maxWidth: 'var(--spacing-640)',
+};
+
+export default GenericChip;

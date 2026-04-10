@@ -1,0 +1,130 @@
+.editor {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  position: relative;
+}
+
+.dragOverlay {
+  position: absolute;
+  top: 0; left: 0; right: 0; bottom: 0;
+  background: rgba(10, 10, 15, 0.85);
+  backdrop-filter: blur(8px);
+  z-index: 1000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 4px dashed var(--accent);
+}
+
+.dragContent {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1rem;
+  color: var(--accent);
+}
+
+.dragContent h2 {
+  font-size: 1.5rem;
+  font-weight: 600;
+  color: #fff;
+}
+
+.info {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0.5rem 1.5rem;
+  background: var(--surface-2);
+  border-bottom: 1px solid var(--border-subtle);
+}
+
+.fileInfo {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  color: var(--text-secondary);
+}
+
+.fileName {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.8rem;
+  font-weight: 500;
+  color: var(--text-primary);
+}
+
+.stats {
+  font-size: 0.75rem;
+  color: var(--text-tertiary);
+  padding-left: 0.5rem;
+  border-left: 1px solid var(--border-color);
+}
+
+.infoActions {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.storybookBtn {
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+  padding: 0.35rem 0.75rem;
+  border: 1px solid rgba(244, 114, 182, 0.4);
+  border-radius: 32px;
+  background: linear-gradient(135deg, rgba(139, 92, 246, 0.15), rgba(244, 114, 182, 0.15));
+  color: #f472b6;
+  font-size: 0.8rem;
+  font-weight: 500;
+  text-decoration: none;
+  cursor: pointer;
+  transition: all 0.15s ease;
+}
+
+.storybookBtn:hover {
+  background: linear-gradient(135deg, rgba(139, 92, 246, 0.25), rgba(244, 114, 182, 0.25));
+  border-color: rgba(244, 114, 182, 0.6);
+  color: #fbcfe8;
+  transform: translateY(-1px);
+}
+
+.liveDot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: #27b933;
+  animation: pulse 2s infinite;
+}
+
+@keyframes pulse {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.3; }
+}
+
+.newFileBtn {
+  display: flex;
+  align-items: center;
+  gap: 0.35rem;
+  padding: 0.3rem 0.65rem;
+  border: 1px solid rgba(245, 107, 79, 0.3);
+  border-radius: 32px;
+  background: rgba(245, 107, 79, 0.05);
+  color: #f56b4f;
+  font-size: 0.75rem;
+  cursor: pointer;
+  transition: all 0.15s ease;
+}
+
+.newFileBtn:hover {
+  background: rgba(245, 107, 79, 0.15);
+  border-color: rgba(245, 107, 79, 0.5);
+  color: #ff8c73;
+}
+
+.swatchArea {
+  flex: 1;
+  padding: 1rem 1.5rem;
+  overflow-y: auto;
+}

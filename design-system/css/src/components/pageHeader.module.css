@@ -1,0 +1,66 @@
+.PageHeader {
+  width: 100%;
+}
+
+.PageHeader-wrapper {
+  padding: var(--spacing-20) var(--spacing-40) var(--spacing-20) 0;
+}
+
+.PageHeader-wrapper--withTabs {
+  padding-bottom: 0;
+}
+
+.PageHeader-wrapper--withTabs .TabsWrapper-header {
+  border-bottom: none;
+}
+
+.PageHeader .Row {
+  width: 100%;
+}
+
+.PageHeader-titleWrapper {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  padding-right: var(--spacing-20);
+}
+
+.PageHeader-titleWrapper .Badge {
+  margin-left: var(--spacing-30);
+  flex-shrink: 0;
+}
+
+.PageHeader-statusWrapper {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+}
+
+.PageHeader-statusWrapper .StatusHint {
+  margin-right: var(--spacing-20);
+}
+
+.PageHeader-navigationWrapper {
+  margin-top: var(--spacing-10);
+}
+
+.PageHeader .PageHeader-navigationWrapper {
+  justify-content: center;
+  align-items: center;
+  margin-top: 0 !important;
+  padding-right: var(--spacing-20);
+  padding-left: var(--spacing-20);
+  display: flex;
+}
+
+.PageHeader-title {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.PageHeader-actionsWrapper {
+  display: flex;
+  justify-content: flex-end;
+  padding-left: var(--spacing-20);
+}

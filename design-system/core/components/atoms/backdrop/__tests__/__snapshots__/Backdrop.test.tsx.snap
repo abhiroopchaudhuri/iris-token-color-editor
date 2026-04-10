@@ -1,0 +1,33 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Backdrop component 
+  open: false
+ 1`] = `
+<body
+  style=""
+>
+  <div />
+  <div
+    class="Backdrop Backdrop-animation--close"
+    data-layer="true"
+    data-opened="false"
+    data-test="DesignSystem-Backdrop"
+  />
+</body>
+`;
+
+exports[`Backdrop component 
+  open: true
+ 1`] = `
+<body
+  style="overflow: hidden;"
+>
+  <div />
+  <div
+    class="Backdrop Backdrop--open Backdrop-animation--open"
+    data-layer="true"
+    data-opened="true"
+    data-test="DesignSystem-Backdrop"
+  />
+</body>
+`;

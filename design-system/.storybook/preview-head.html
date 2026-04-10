@@ -1,0 +1,40 @@
+<link
+  href="https://fonts.googleapis.com/css?family=Nunito+Sans:300,300i,400,400i,600,600i,700,700i,800,800i,900,900i&display=swap"
+  rel="stylesheet">
+
+<script src="https://cdn.jsdelivr.net/npm/css-vars-ponyfill@2"></script>
+<script>
+  cssVars({
+    onlyLegacy: true
+  });
+</script>
+
+<!-- Token Editor Live Sync -->
+<script>
+(function() {
+  function applyVars(vars) {
+    if (!vars || typeof vars !== 'object') return;
+    var root = document.documentElement;
+    Object.keys(vars).forEach(function(key) {
+      root.style.setProperty(key, vars[key]);
+    });
+  }
+
+  // Listen via BroadcastChannel (same-origin tabs)
+  try {
+    var channel = new BroadcastChannel('token-editor-live');
+    channel.onmessage = function(e) {
+      if (e.data && e.data.type === 'token-update') {
+        applyVars(e.data.vars);
+      }
+    };
+  } catch(err) { /* BroadcastChannel not supported */ }
+
+  // Listen via postMessage (iframe embedding)
+  window.addEventListener('message', function(e) {
+    if (e.data && e.data.type === 'token-update') {
+      applyVars(e.data.vars);
+    }
+  });
+})();
+</script>

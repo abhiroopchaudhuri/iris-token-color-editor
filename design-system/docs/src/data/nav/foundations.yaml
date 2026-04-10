@@ -1,0 +1,44 @@
+base: foundations
+menus:
+  - label: Principles
+    link: /foundations/principles/
+    hideInMobile: true
+
+  - label: Colors
+    link: /foundations/colors/
+    hideInMobile: true
+
+  - label: Opacity
+    link: /foundations/opacity/
+    hideInMobile: true
+
+  - label: Logos
+    link: /foundations/logos/
+    hideInMobile: true
+
+  - label: Layout
+    link: /foundations/layout/
+
+  - label: Typography
+    link: /foundations/typography/
+
+  - label: Interactions
+    link: /foundations/interactions/
+    hideInMobile: true
+
+  - label: States
+    link: /foundations/states/
+    hideInMobile: true
+
+  - label: Response Time
+    link: /foundations/response-time/
+    hideInMobile: true
+
+  - label: Spacing
+    link: /foundations/spacing/
+    hideInWeb: true
+
+
+  - label: Page types
+    link: /foundations/page-types/
+    hideInWeb: true  

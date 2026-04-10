@@ -1,0 +1,277 @@
+import * as React from 'react';
+import classNames from 'classnames';
+import { Text, Tooltip, Icon } from '@/index';
+import { BaseProps, extractBaseProps } from '@/utils/types';
+import { TooltipProps } from '@/index.type';
+import { AccentAppearance, AvatarSize, AvatarShape } from '@/common.type';
+import AvatarIcon from './avatarIcon';
+import AvatarImage from './avatarImage';
+import AvatarProvider from './AvatarProvider';
+import { iconAppearanceMapper } from './constants';
+import styles from '@css/components/avatar.module.css';
+import { IconAppearance } from 'types';
+
+type TPresence = 'active' | 'away';
+
+export interface AvatarProps extends BaseProps {
+  /**
+   * Color of the `Avatar`
+   */
+  appearance?: AccentAppearance;
+  /**
+   * **Only first 2 characters are rendered (SOON TO BE DEPRECATED)**
+   */
+  children?: string | React.ReactNode;
+  /**
+   * First Name
+   */
+  firstName?: string;
+  /**
+   * Last Name
+   */
+  lastName?: string;
+  /**
+   * Determines if tooltip is visible
+   */
+  withTooltip: boolean;
+  /**
+   * Position to place the tooltip
+   */
+  tooltipPosition: TooltipProps['position'];
+  /**
+   * Label to be displayed inside tooltip after name
+   */
+  tooltipSuffix?: string;
+  /**
+   * Determines size of `Avatar`
+   */
+  size: AvatarSize;
+  /**
+   * Determines the shape of `Avatar`
+   */
+  shape: AvatarShape;
+  /**
+   * Disables the `Avatar`
+   */
+  disabled?: boolean;
+  /**
+   * Describe aria-role for the `Avatar`
+   */
+  role?: string;
+  /**
+   * Defines tabIndex of the `Avatar`
+   */
+  tabIndex?: number;
+  /**
+   * Accessible label for the avatar
+   */
+  'aria-label'?: string;
+  /**
+   * Show presence indicator for the `Avatar`
+   */
+  presence?: TPresence;
+  /**
+   * Show status indicator for the `Avatar`
+   */
+  status?: React.ReactNode;
+  /**
+   * Stroke color of `Presence indicator` & `Status indicator` in `Avatar`
+   */
+  strokeColor?: string;
+  /**
+   * Hides avatar from assistive technologies.
+   * Internally sets role to `presentation`, removes `aria-label`, and applies `tabIndex={-1}`.
+   */
+  'aria-hidden'?: boolean;
+}
+
+const initialsLength = 2;
+const DefaultAppearance = 'secondary';
+const colors = ['accent4', 'primary', 'accent3', 'alert', 'accent2', 'warning', 'accent1', 'success'];
+
+export const Avatar = (props: AvatarProps) => {
+  const {
+    withTooltip,
+    tooltipPosition,
+    size,
+    children,
+    firstName,
+    lastName,
+    className,
+    appearance,
+    shape,
+    disabled,
+    tooltipSuffix,
+    tabIndex,
+    presence,
+    status,
+    strokeColor,
+    role,
+    'aria-hidden': ariaHidden,
+    'aria-label': ariaLabelProp,
+  } = props;
+
+  const baseProps = extractBaseProps(props);
+
+  const initials =
+    children && typeof children === 'string'
+      ? children.trim().slice(0, initialsLength)
+      : `${firstName ? firstName.trim()[0] : ''}${lastName ? lastName.trim()[0] : ''}`;
+
+  const getTooltipName = () => {
+    if (children && typeof children === 'string') {
+      return `${children} ${tooltipSuffix || ''}`;
+    }
+
+    return `${firstName || ''} ${lastName || ''} ${tooltipSuffix || ''}` || '';
+  };
+
+  const AvatarAppearance =
+    appearance || colors[(initials.charCodeAt(0) + (initials.charCodeAt(1) || 0)) % 8] || DefaultAppearance;
+  const isDecorative = ariaHidden === true;
+  const resolvedRole = isDecorative ? 'presentation' : role ?? (tabIndex !== undefined ? 'button' : 'img');
+  const ariaLabel = isDecorative ? undefined : ariaLabelProp || getTooltipName().trim() || initials || 'Avatar';
+  const resolvedTabIndex = isDecorative ? -1 : disabled ? -1 : tabIndex !== undefined ? tabIndex : 0;
+
+  const darkAppearance = ['secondary', 'success', 'warning', 'accent1', 'accent4'];
+  const showPresence =
+    presence && !disabled && size !== 'micro' && shape === 'round' && (presence === 'active' || presence === 'away');
+  const showStatus = status && size !== 'micro' && size === 'regular' && shape === 'round';
+
+  const AvatarClassNames = classNames(
+    {
+      [styles.Avatar]: true,
+      [styles['Avatar--square']]: shape === 'square',
+      [styles[`Avatar--${size}`]]: shape !== 'square',
+      [styles[`Avatar--${AvatarAppearance}`]]: AvatarAppearance,
+      [styles['Avatar--noInitials']]: !initials || !withTooltip,
+      [styles['Avatar--disabled']]: disabled,
+      [styles['Avatar--default']]: !disabled,
+    },
+    className
+  );
+
+  const AvatarWrapperClassNames = classNames({
+    [styles['Avatar-wrapper']]: true,
+    [styles['Avatar-wrapper--square']]: shape === 'square',
+    [styles[`Avatar--${size}`]]: shape === 'square',
+  });
+
+  const TextClassNames = classNames({
+    [styles[`Avatar-content--${size}`]]: size,
+    [styles[`Avatar-content--${AvatarAppearance}`]]: AvatarAppearance,
+  });
+
+  const presenceClassNames = classNames({
+    [styles['Avatar-presence']]: presence,
+    [styles['Avatar-presence--active']]: presence === 'active',
+    [styles['Avatar-presence--away']]: presence === 'away',
+  });
+
+  const borderStyle = {
+    boxShadow: `0 0 0 var(--spacing-05) ${strokeColor}`,
+  };
+
+  const sharedProp = {
+    size,
+    firstName,
+    lastName,
+    appearance: AvatarAppearance,
+    darkAppearance,
+  };
+
+  const renderFallbackIcon = () => {
+    const iconName = shape === 'square' ? 'groups' : 'person';
+    const iconAppearance = iconAppearanceMapper[AvatarAppearance] || 'inverse';
+    return (
+      <Icon
+        data-test="DesignSystem-Avatar--Icon"
+        name={iconName}
+        size={size === 'regular' ? 20 : 16}
+        appearance={iconAppearance as IconAppearance}
+      />
+    );
+  };
+
+  const renderAvatar = () => {
+    if (children && typeof children !== 'string') {
+      return (
+        <span data-test="DesignSystem-AvatarWrapper" className={AvatarWrapperClassNames}>
+          <AvatarProvider value={sharedProp}>
+            <span
+              data-test="DesignSystem-Avatar"
+              {...baseProps}
+              className={AvatarClassNames}
+              role={resolvedRole}
+              aria-label={ariaLabel}
+              aria-hidden={ariaHidden}
+              tabIndex={resolvedTabIndex}
+            >
+              {children}
+            </span>
+          </AvatarProvider>
+        </span>
+      );
+    }
+
+    return (
+      <span data-test="DesignSystem-AvatarWrapper" className={AvatarWrapperClassNames}>
+        <span
+          data-test="DesignSystem-Avatar"
+          {...baseProps}
+          className={AvatarClassNames}
+          role={resolvedRole}
+          aria-label={ariaLabel}
+          aria-hidden={ariaHidden}
+          tabIndex={resolvedTabIndex}
+        >
+          <>
+            {initials && (
+              <Text weight="medium" className={TextClassNames}>
+                {initials}
+              </Text>
+            )}
+            {!initials && renderFallbackIcon()}
+          </>
+        </span>
+      </span>
+    );
+  };
+
+  const renderTooltip = () => (
+    <span className="position-relative d-inline-flex">
+      {withTooltip && initials ? (
+        <Tooltip tooltip={getTooltipName()} position={tooltipPosition} triggerClass="flex-grow-0">
+          {renderAvatar()}
+        </Tooltip>
+      ) : (
+        renderAvatar()
+      )}
+      {showPresence && (
+        <span data-test="DesignSystem-Avatar--Presence" className={presenceClassNames} style={borderStyle} />
+      )}
+      {showStatus && (
+        <span data-test="DesignSystem-Avatar--Status" className={styles['Avatar-status']} style={borderStyle}>
+          {status}
+        </span>
+      )}
+    </span>
+  );
+
+  return renderTooltip();
+};
+
+Avatar.displayName = 'Avatar';
+
+Avatar.Icon = AvatarIcon;
+Avatar.Image = AvatarImage;
+
+Avatar.defaultProps = {
+  tooltipPosition: 'bottom',
+  withTooltip: true,
+  size: 'regular',
+  shape: 'round',
+  strokeColor: 'var(--white)',
+};
+
+export default Avatar;

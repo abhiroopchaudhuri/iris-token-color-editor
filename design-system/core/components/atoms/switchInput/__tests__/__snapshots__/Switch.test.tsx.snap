@@ -1,0 +1,122 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Switch component 
+  checked: true
+ 1`] = `
+<body>
+  <div>
+    <div
+      class="Switch Switch--regular"
+    >
+      <input
+        aria-checked="true"
+        checked=""
+        class="Switch-input"
+        role="switch"
+        type="checkbox"
+        value=""
+      />
+      <span
+        class="Switch-wrapper Switch-wrapper--regular Switch-wrapper--checked"
+      />
+    </div>
+  </div>
+</body>
+`;
+
+exports[`Switch component 
+  checked: true, disabled: false
+ 1`] = `
+<body>
+  <div>
+    <div
+      class="Switch Switch--regular"
+    >
+      <input
+        aria-checked="true"
+        checked=""
+        class="Switch-input"
+        role="switch"
+        type="checkbox"
+        value=""
+      />
+      <span
+        class="Switch-wrapper Switch-wrapper--regular Switch-wrapper--checked"
+      />
+    </div>
+  </div>
+</body>
+`;
+
+exports[`Switch component 
+  checked: true, disabled: true
+ 1`] = `
+<body>
+  <div>
+    <div
+      class="Switch Switch--disabled Switch--regular"
+    >
+      <input
+        aria-checked="true"
+        checked=""
+        class="Switch-input"
+        disabled=""
+        role="switch"
+        type="checkbox"
+        value=""
+      />
+      <span
+        class="Switch-wrapper Switch-wrapper--disabled Switch-wrapper--regular Switch-wrapper--checked Switch-wrapper--checkedDisabled"
+      />
+    </div>
+  </div>
+</body>
+`;
+
+exports[`Switch component 
+  checked: true, size: "regular"
+ 1`] = `
+<body>
+  <div>
+    <div
+      class="Switch Switch--regular"
+    >
+      <input
+        aria-checked="true"
+        checked=""
+        class="Switch-input"
+        role="switch"
+        type="checkbox"
+        value=""
+      />
+      <span
+        class="Switch-wrapper Switch-wrapper--regular Switch-wrapper--checked"
+      />
+    </div>
+  </div>
+</body>
+`;
+
+exports[`Switch component 
+  checked: true, size: "tiny"
+ 1`] = `
+<body>
+  <div>
+    <div
+      class="Switch Switch--tiny"
+    >
+      <input
+        aria-checked="true"
+        checked=""
+        class="Switch-input"
+        role="switch"
+        type="checkbox"
+        value=""
+      />
+      <span
+        class="Switch-wrapper Switch-wrapper--tiny Switch-wrapper--checked"
+      />
+    </div>
+  </div>
+</body>
+`;

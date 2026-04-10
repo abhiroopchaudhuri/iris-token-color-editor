@@ -1,0 +1,28 @@
+- label: Introduction
+  link: /introduction/get-started/designers/
+  mobileTab: false
+
+- label: Foundations
+  link: /foundations/principles/
+  mobileTab: true
+
+- label: Content
+  link: /content/voice-and-tone-guidelines/tabs/voice-and-tone/
+  mobileTab: false
+
+- label: Components
+  link: /components/overview/all-components/
+  mobileTab: true
+
+- label: Patterns
+  link: /patterns/overview/all-patterns/
+  mobileTab: false
+
+- label: Data Visualizations
+  link: /data-visualizations/overview/all/
+  mobileTab: false
+
+- label: Storybook
+  link: https://mds.innovaccer.com
+  img: Storybook
+  mobileTab: false

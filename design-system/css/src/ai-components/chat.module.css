@@ -1,0 +1,31 @@
+.AIResponse-container--glow {
+  background: linear-gradient(white, white) padding-box,
+    linear-gradient(to right, rgba(254, 172, 95, 1) 9%, rgba(255, 31, 136, 1) 48%, rgba(227, 28, 121, 0.48) 100%)
+      border-box;
+  border: var(--spacing-2-5) solid transparent;
+  border-radius: var(--border-radius-30);
+}
+
+.AIResponse-container {
+  border-radius: var(--border-radius-30);
+  border: var(--border-width-2-5) solid var(--secondary);
+  padding: var(--spacing-20) var(--spacing-30);
+}
+
+.AIResponse-box--glow {
+  padding: var(--spacing-20) var(--spacing-30);
+  border-radius: var(--spacing-30);
+  background: linear-gradient(to right, rgba(240, 125, 0, 0.04), rgba(227, 28, 121, 0.0192));
+}
+
+.AIResponse-actionBar {
+  margin-top: var(--spacing-10);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+}
+
+.AIResponse-metaData {
+  margin-left: calc(var(--spacing-80) + var(--spacing-20));
+}

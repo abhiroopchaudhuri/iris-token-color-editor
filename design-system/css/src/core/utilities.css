@@ -1,0 +1,20 @@
+.PopperWrapper-trigger {
+  display: inline-flex;
+  flex-grow: 1;
+}
+
+.Overlay-container {
+  display: flex;
+  position: relative;
+  flex-direction: row;
+  justify-content: center;
+  z-index: 1500;
+}
+
+.Overlay-container--open {
+  animation-timing-function: cubic-bezier(0, 0, 0.3, 1);
+}
+
+.Overlay-container--close {
+  animation-timing-function: cubic-bezier(0.4, 0.14, 1, 1);
+}

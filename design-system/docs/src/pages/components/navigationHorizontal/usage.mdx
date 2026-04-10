@@ -1,0 +1,134 @@
+---
+title: Navigation - Horizontal
+description: Horizontal navigation helps the users to quickly move among different pages in a module.
+tabs: ['Usage', 'Code', 'Interactions']
+showMobile: true
+keywords: ['Navbar']
+---
+
+Horizontal navigation helps the users to quickly move among different pages in a module. It is typically found at the top of a section/page e.g. in the page header.
+
+### Variants
+<br/>
+
+#### Default
+
+This variant consists only of a label.
+
+<Preview name='components-horizontalnav-variants-default-horizontal-nav--default-horizontal-nav'/>
+
+#### With Icon
+
+This variant consists of an icon and a label.
+
+<Preview name='components-horizontalnav-variants-with-icon--with-icon'/>
+
+#### With Count
+
+This variant consists of the pill component and a label. The pill component helps display the count involved in a navigation item.
+
+<Preview name='components-horizontalnav-variants-with-count--with-count'/>
+
+### Structure
+<br/>
+<br/>
+
+![Structure of horizontal navigation](./images/horizontalnav-structure.png)
+<br/>
+
+<table style={{width: "100%"}}>
+ <tbody>
+   <tr>
+     <th style={{width:"50%",  textAlign: "left"}}>Property</th>
+     <th style={{width:"50%",  textAlign: "left"}}>Value(s)</th>
+   </tr>
+   <tr style={{verticalAlign: "top"}}>
+     <td>Height</td>
+     <td> 32 px </td>
+   </tr>
+   <tr style={{verticalAlign: "top"}}>
+     <td>Corner radius</td>
+     <td> 16 px </td>
+   </tr>
+   <tr style={{verticalAlign: "top"}}>
+     <td>Padding (right, left)</td>
+     <td> 12 px, 12 px</td>
+   </tr>
+   <tr style={{verticalAlign: "top"}}>
+     <td>Margin (right, left)</td>
+     <td> 1 px, 1 px</td>
+   </tr>
+   <tr style={{verticalAlign: "top"}}>
+      <td>Spacing between nav items</td>
+      <td>0px</td>
+   </tr>
+ </tbody>
+</table>
+<br/>
+
+### Properties
+<table style={{width: "100%"}}>
+  <tbody>
+    <tr>
+      <th style={{width:"33%", textAlign: "left"}}>Property</th>
+      <th style={{width:"33%", textAlign: "left"}}>Value(s)</th>
+      <th style={{width:"33%", textAlign: "left"}}>Default value</th>
+    </tr>
+    <tr style={{verticalAlign: "top"}}>
+      <td>Label</td>
+      <td>&#60;label&#62;</td>
+      <td>-</td>
+    </tr>
+    <tr style={{verticalAlign: "top"}}>
+      <td>Link</td>
+      <td>&#60;link&#62;</td>
+      <td>-</td>
+    </tr>
+    <tr style={{verticalAlign: "top"}}>
+      <td>Icon left</td>
+      <td>&#60;icon name&#62;</td>
+      <td>-</td>
+    </tr>
+    <tr style={{verticalAlign: "top"}}>
+      <td>Pill</td>
+      <td>&#60;count&#62;</td>
+      <td>-</td>
+    </tr>
+  </tbody>
+</table>
+<br/>
+
+### Usage
+
+<br/>
+
+#### Alignment
+
+Horizontal navigation at the top of a section or page can have one of the following two alignment options:
+
+-   Center Aligned
+-   Left Aligned
+
+<br/>
+
+##### Center Aligned
+
+Use this type of alignment when there are no space constraints.
+
+![Center aligned](./images/navigationhoriz-1.png)
+<Caption> Center aligned </Caption>
+
+<br/>
+<br/>
+
+##### Left Aligned
+
+Use this type of alignment when there is a space constraint. Often times there is not much space available in a component e.g. in modals, side sheets, etc. In such cases, horizontal navigation comes just below the header.
+
+<Preview name='components-horizontalnav-left-aligned--left-aligned'/>
+
+![Left aligned](./images/navigationhoriz-2.png)
+<Caption> Left aligned </Caption>
+
+<br/>
+<br/>

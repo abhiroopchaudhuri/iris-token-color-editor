@@ -1,0 +1,781 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Toast component 
+  title: "Sample Toast", appearance: "alert", onClose: "[Function]"
+ 1`] = `
+<body>
+  <div>
+    <div
+      aria-live="assertive"
+      class="Toast Toast--alert"
+      role="alert"
+    >
+      <i
+        aria-hidden="true"
+        class="material-symbols material-symbols-rounded Icon Toast-icon Toast-icon--left Toast-icon--alert"
+        data-test="DesignSystem-Icon"
+        style="font-size: 16px; width: 16px;"
+      >
+        error
+      </i>
+      <div
+        class="Toast-body"
+      >
+        <div
+          class="Toast-title"
+        >
+          <h5
+            class="Heading Heading--s Heading--white Toast-heading Toast-heading--alert"
+            data-test="DesignSystem-Heading"
+          >
+            Sample Toast
+          </h5>
+          <button
+            aria-label="Close"
+            class="Button Button--regular Button--regularSquare Button--transparent Toast-icon--right Toast-close-icon Toast-close-icon--alert Toast-icon--alert"
+            data-test="DesignSystem-Toast--CloseButton"
+            tabindex="0"
+          >
+            <div
+              class="Button-icon"
+              data-test="DesignSystem-Button--Icon-Wrapper"
+            >
+              <i
+                class="material-symbols material-symbols-rounded Icon"
+                data-test="DesignSystem-Button--Icon"
+                style="font-size: 16px; width: 16px;"
+              >
+                close
+              </i>
+            </div>
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</body>
+`;
+
+exports[`Toast component 
+  title: "Sample Toast", appearance: "info", onClose: "[Function]"
+ 1`] = `
+<body>
+  <div>
+    <div
+      aria-live="polite"
+      class="Toast Toast--info"
+      role="status"
+    >
+      <i
+        aria-hidden="true"
+        class="material-symbols material-symbols-rounded Icon Toast-icon Toast-icon--left Toast-icon--info"
+        data-test="DesignSystem-Icon"
+        style="font-size: 16px; width: 16px;"
+      >
+        info
+      </i>
+      <div
+        class="Toast-body"
+      >
+        <div
+          class="Toast-title"
+        >
+          <h5
+            class="Heading Heading--s Heading--white Toast-heading Toast-heading--info"
+            data-test="DesignSystem-Heading"
+          >
+            Sample Toast
+          </h5>
+          <button
+            aria-label="Close"
+            class="Button Button--regular Button--regularSquare Button--transparent Toast-icon--right Toast-close-icon Toast-close-icon--info Toast-icon--info"
+            data-test="DesignSystem-Toast--CloseButton"
+            tabindex="0"
+          >
+            <div
+              class="Button-icon"
+              data-test="DesignSystem-Button--Icon-Wrapper"
+            >
+              <i
+                class="material-symbols material-symbols-rounded Icon"
+                data-test="DesignSystem-Button--Icon"
+                style="font-size: 16px; width: 16px;"
+              >
+                close
+              </i>
+            </div>
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</body>
+`;
+
+exports[`Toast component 
+  title: "Sample Toast", appearance: "success", onClose: "[Function]"
+ 1`] = `
+<body>
+  <div>
+    <div
+      aria-live="polite"
+      class="Toast Toast--success"
+      role="status"
+    >
+      <i
+        aria-hidden="true"
+        class="material-symbols material-symbols-rounded Icon Toast-icon Toast-icon--left Toast-icon--success"
+        data-test="DesignSystem-Icon"
+        style="font-size: 16px; width: 16px;"
+      >
+        check_circle
+      </i>
+      <div
+        class="Toast-body"
+      >
+        <div
+          class="Toast-title"
+        >
+          <h5
+            class="Heading Heading--s Heading--white Toast-heading Toast-heading--success"
+            data-test="DesignSystem-Heading"
+          >
+            Sample Toast
+          </h5>
+          <button
+            aria-label="Close"
+            class="Button Button--regular Button--regularSquare Button--transparent Toast-icon--right Toast-close-icon Toast-close-icon--success Toast-icon--success"
+            data-test="DesignSystem-Toast--CloseButton"
+            tabindex="0"
+          >
+            <div
+              class="Button-icon"
+              data-test="DesignSystem-Button--Icon-Wrapper"
+            >
+              <i
+                class="material-symbols material-symbols-rounded Icon"
+                data-test="DesignSystem-Button--Icon"
+                style="font-size: 16px; width: 16px;"
+              >
+                close
+              </i>
+            </div>
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</body>
+`;
+
+exports[`Toast component 
+  title: "Sample Toast", appearance: "warning", onClose: "[Function]"
+ 1`] = `
+<body>
+  <div>
+    <div
+      aria-live="assertive"
+      class="Toast Toast--warning"
+      role="alert"
+    >
+      <i
+        aria-hidden="true"
+        class="material-symbols material-symbols-rounded Icon Toast-icon Toast-icon--left Toast-icon--warning"
+        data-test="DesignSystem-Icon"
+        style="font-size: 16px; width: 16px;"
+      >
+        warning
+      </i>
+      <div
+        class="Toast-body"
+      >
+        <div
+          class="Toast-title"
+        >
+          <h5
+            class="Heading Heading--s Heading--default Toast-heading Toast-heading--warning"
+            data-test="DesignSystem-Heading"
+          >
+            Sample Toast
+          </h5>
+          <button
+            aria-label="Close"
+            class="Button Button--regular Button--regularSquare Button--transparent Toast-icon--right Toast-close-icon Toast-close-icon--warning Toast-icon--warning"
+            data-test="DesignSystem-Toast--CloseButton"
+            tabindex="0"
+          >
+            <div
+              class="Button-icon"
+              data-test="DesignSystem-Button--Icon-Wrapper"
+            >
+              <i
+                class="material-symbols material-symbols-rounded Icon"
+                data-test="DesignSystem-Button--Icon"
+                style="font-size: 16px; width: 16px;"
+              >
+                close
+              </i>
+            </div>
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</body>
+`;
+
+exports[`Toast component 
+  title: "Sample Toast", message: "Sample string", appearance: "alert", onClose: "[Function]"
+ 1`] = `
+<body>
+  <div>
+    <div
+      aria-live="assertive"
+      class="Toast Toast--withMessage Toast--alert"
+      role="alert"
+    >
+      <i
+        aria-hidden="true"
+        class="material-symbols material-symbols-rounded Icon Toast-icon Toast-icon--left Toast-icon--alert"
+        data-test="DesignSystem-Icon"
+        style="font-size: 16px; width: 16px;"
+      >
+        error
+      </i>
+      <div
+        class="Toast-body"
+      >
+        <div
+          class="Toast-title Toast-title--withMessage"
+        >
+          <h5
+            class="Heading Heading--s Heading--white Toast-heading Toast-heading--alert"
+            data-test="DesignSystem-Heading"
+          >
+            Sample Toast
+          </h5>
+          <button
+            aria-label="Close"
+            class="Button Button--regular Button--regularSquare Button--transparent Toast-icon--right Toast-close-icon Toast-close-icon--alert Toast-icon--alert"
+            data-test="DesignSystem-Toast--CloseButton"
+            tabindex="0"
+          >
+            <div
+              class="Button-icon"
+              data-test="DesignSystem-Button--Icon-Wrapper"
+            >
+              <i
+                class="material-symbols material-symbols-rounded Icon"
+                data-test="DesignSystem-Button--Icon"
+                style="font-size: 16px; width: 16px;"
+              >
+                close
+              </i>
+            </div>
+          </button>
+        </div>
+        <span
+          class="Text Text--white Text--regular Toast-text Toast-text--alert"
+          data-test="DesignSystem-Text"
+        >
+          Sample string
+        </span>
+      </div>
+    </div>
+  </div>
+</body>
+`;
+
+exports[`Toast component 
+  title: "Sample Toast", message: "Sample string", appearance: "alert", onClose: "[Function]", actions: [{"label":"Action 1","onClick":"[Function]"}]
+ 1`] = `
+<body>
+  <div>
+    <div
+      aria-live="assertive"
+      class="Toast Toast--withMessage Toast--alert"
+      role="alert"
+    >
+      <i
+        aria-hidden="true"
+        class="material-symbols material-symbols-rounded Icon Toast-icon Toast-icon--left Toast-icon--alert"
+        data-test="DesignSystem-Icon"
+        style="font-size: 16px; width: 16px;"
+      >
+        error
+      </i>
+      <div
+        class="Toast-body"
+      >
+        <div
+          class="Toast-title Toast-title--withMessage"
+        >
+          <h5
+            class="Heading Heading--s Heading--white Toast-heading Toast-heading--alert"
+            data-test="DesignSystem-Heading"
+          >
+            Sample Toast
+          </h5>
+          <button
+            aria-label="Close"
+            class="Button Button--regular Button--regularSquare Button--transparent Toast-icon--right Toast-close-icon Toast-close-icon--alert Toast-icon--alert"
+            data-test="DesignSystem-Toast--CloseButton"
+            tabindex="0"
+          >
+            <div
+              class="Button-icon"
+              data-test="DesignSystem-Button--Icon-Wrapper"
+            >
+              <i
+                class="material-symbols material-symbols-rounded Icon"
+                data-test="DesignSystem-Button--Icon"
+                style="font-size: 16px; width: 16px;"
+              >
+                close
+              </i>
+            </div>
+          </button>
+        </div>
+        <span
+          class="Text Text--white Text--regular Toast-text Toast-text--alert"
+          data-test="DesignSystem-Text"
+        >
+          Sample string
+        </span>
+        <div
+          class="Toast-actions"
+        >
+          <button
+            class="Button Button--tiny Toast-actionButton Toast-actionButton--alert"
+            type="button"
+          >
+            <span
+              class="Toast-actionButton-label"
+              data-test="DesignSystem-Toast-ActionButton-Label"
+            >
+              Action 1
+            </span>
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</body>
+`;
+
+exports[`Toast component 
+  title: "Sample Toast", message: "Sample string", appearance: "info", onClose: "[Function]"
+ 1`] = `
+<body>
+  <div>
+    <div
+      aria-live="polite"
+      class="Toast Toast--withMessage Toast--info"
+      role="status"
+    >
+      <i
+        aria-hidden="true"
+        class="material-symbols material-symbols-rounded Icon Toast-icon Toast-icon--left Toast-icon--info"
+        data-test="DesignSystem-Icon"
+        style="font-size: 16px; width: 16px;"
+      >
+        info
+      </i>
+      <div
+        class="Toast-body"
+      >
+        <div
+          class="Toast-title Toast-title--withMessage"
+        >
+          <h5
+            class="Heading Heading--s Heading--white Toast-heading Toast-heading--info"
+            data-test="DesignSystem-Heading"
+          >
+            Sample Toast
+          </h5>
+          <button
+            aria-label="Close"
+            class="Button Button--regular Button--regularSquare Button--transparent Toast-icon--right Toast-close-icon Toast-close-icon--info Toast-icon--info"
+            data-test="DesignSystem-Toast--CloseButton"
+            tabindex="0"
+          >
+            <div
+              class="Button-icon"
+              data-test="DesignSystem-Button--Icon-Wrapper"
+            >
+              <i
+                class="material-symbols material-symbols-rounded Icon"
+                data-test="DesignSystem-Button--Icon"
+                style="font-size: 16px; width: 16px;"
+              >
+                close
+              </i>
+            </div>
+          </button>
+        </div>
+        <span
+          class="Text Text--white Text--regular Toast-text Toast-text--info"
+          data-test="DesignSystem-Text"
+        >
+          Sample string
+        </span>
+      </div>
+    </div>
+  </div>
+</body>
+`;
+
+exports[`Toast component 
+  title: "Sample Toast", message: "Sample string", appearance: "info", onClose: "[Function]", actions: [{"label":"Action 1","onClick":"[Function]"}]
+ 1`] = `
+<body>
+  <div>
+    <div
+      aria-live="polite"
+      class="Toast Toast--withMessage Toast--info"
+      role="status"
+    >
+      <i
+        aria-hidden="true"
+        class="material-symbols material-symbols-rounded Icon Toast-icon Toast-icon--left Toast-icon--info"
+        data-test="DesignSystem-Icon"
+        style="font-size: 16px; width: 16px;"
+      >
+        info
+      </i>
+      <div
+        class="Toast-body"
+      >
+        <div
+          class="Toast-title Toast-title--withMessage"
+        >
+          <h5
+            class="Heading Heading--s Heading--white Toast-heading Toast-heading--info"
+            data-test="DesignSystem-Heading"
+          >
+            Sample Toast
+          </h5>
+          <button
+            aria-label="Close"
+            class="Button Button--regular Button--regularSquare Button--transparent Toast-icon--right Toast-close-icon Toast-close-icon--info Toast-icon--info"
+            data-test="DesignSystem-Toast--CloseButton"
+            tabindex="0"
+          >
+            <div
+              class="Button-icon"
+              data-test="DesignSystem-Button--Icon-Wrapper"
+            >
+              <i
+                class="material-symbols material-symbols-rounded Icon"
+                data-test="DesignSystem-Button--Icon"
+                style="font-size: 16px; width: 16px;"
+              >
+                close
+              </i>
+            </div>
+          </button>
+        </div>
+        <span
+          class="Text Text--white Text--regular Toast-text Toast-text--info"
+          data-test="DesignSystem-Text"
+        >
+          Sample string
+        </span>
+        <div
+          class="Toast-actions"
+        >
+          <button
+            class="Button Button--tiny Toast-actionButton Toast-actionButton--info"
+            type="button"
+          >
+            <span
+              class="Toast-actionButton-label"
+              data-test="DesignSystem-Toast-ActionButton-Label"
+            >
+              Action 1
+            </span>
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</body>
+`;
+
+exports[`Toast component 
+  title: "Sample Toast", message: "Sample string", appearance: "success", onClose: "[Function]"
+ 1`] = `
+<body>
+  <div>
+    <div
+      aria-live="polite"
+      class="Toast Toast--withMessage Toast--success"
+      role="status"
+    >
+      <i
+        aria-hidden="true"
+        class="material-symbols material-symbols-rounded Icon Toast-icon Toast-icon--left Toast-icon--success"
+        data-test="DesignSystem-Icon"
+        style="font-size: 16px; width: 16px;"
+      >
+        check_circle
+      </i>
+      <div
+        class="Toast-body"
+      >
+        <div
+          class="Toast-title Toast-title--withMessage"
+        >
+          <h5
+            class="Heading Heading--s Heading--white Toast-heading Toast-heading--success"
+            data-test="DesignSystem-Heading"
+          >
+            Sample Toast
+          </h5>
+          <button
+            aria-label="Close"
+            class="Button Button--regular Button--regularSquare Button--transparent Toast-icon--right Toast-close-icon Toast-close-icon--success Toast-icon--success"
+            data-test="DesignSystem-Toast--CloseButton"
+            tabindex="0"
+          >
+            <div
+              class="Button-icon"
+              data-test="DesignSystem-Button--Icon-Wrapper"
+            >
+              <i
+                class="material-symbols material-symbols-rounded Icon"
+                data-test="DesignSystem-Button--Icon"
+                style="font-size: 16px; width: 16px;"
+              >
+                close
+              </i>
+            </div>
+          </button>
+        </div>
+        <span
+          class="Text Text--white Text--regular Toast-text Toast-text--success"
+          data-test="DesignSystem-Text"
+        >
+          Sample string
+        </span>
+      </div>
+    </div>
+  </div>
+</body>
+`;
+
+exports[`Toast component 
+  title: "Sample Toast", message: "Sample string", appearance: "success", onClose: "[Function]", actions: [{"label":"Action 1","onClick":"[Function]"}]
+ 1`] = `
+<body>
+  <div>
+    <div
+      aria-live="polite"
+      class="Toast Toast--withMessage Toast--success"
+      role="status"
+    >
+      <i
+        aria-hidden="true"
+        class="material-symbols material-symbols-rounded Icon Toast-icon Toast-icon--left Toast-icon--success"
+        data-test="DesignSystem-Icon"
+        style="font-size: 16px; width: 16px;"
+      >
+        check_circle
+      </i>
+      <div
+        class="Toast-body"
+      >
+        <div
+          class="Toast-title Toast-title--withMessage"
+        >
+          <h5
+            class="Heading Heading--s Heading--white Toast-heading Toast-heading--success"
+            data-test="DesignSystem-Heading"
+          >
+            Sample Toast
+          </h5>
+          <button
+            aria-label="Close"
+            class="Button Button--regular Button--regularSquare Button--transparent Toast-icon--right Toast-close-icon Toast-close-icon--success Toast-icon--success"
+            data-test="DesignSystem-Toast--CloseButton"
+            tabindex="0"
+          >
+            <div
+              class="Button-icon"
+              data-test="DesignSystem-Button--Icon-Wrapper"
+            >
+              <i
+                class="material-symbols material-symbols-rounded Icon"
+                data-test="DesignSystem-Button--Icon"
+                style="font-size: 16px; width: 16px;"
+              >
+                close
+              </i>
+            </div>
+          </button>
+        </div>
+        <span
+          class="Text Text--white Text--regular Toast-text Toast-text--success"
+          data-test="DesignSystem-Text"
+        >
+          Sample string
+        </span>
+        <div
+          class="Toast-actions"
+        >
+          <button
+            class="Button Button--tiny Toast-actionButton Toast-actionButton--success"
+            type="button"
+          >
+            <span
+              class="Toast-actionButton-label"
+              data-test="DesignSystem-Toast-ActionButton-Label"
+            >
+              Action 1
+            </span>
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</body>
+`;
+
+exports[`Toast component 
+  title: "Sample Toast", message: "Sample string", appearance: "warning", onClose: "[Function]"
+ 1`] = `
+<body>
+  <div>
+    <div
+      aria-live="assertive"
+      class="Toast Toast--withMessage Toast--warning"
+      role="alert"
+    >
+      <i
+        aria-hidden="true"
+        class="material-symbols material-symbols-rounded Icon Toast-icon Toast-icon--left Toast-icon--warning"
+        data-test="DesignSystem-Icon"
+        style="font-size: 16px; width: 16px;"
+      >
+        warning
+      </i>
+      <div
+        class="Toast-body"
+      >
+        <div
+          class="Toast-title Toast-title--withMessage"
+        >
+          <h5
+            class="Heading Heading--s Heading--default Toast-heading Toast-heading--warning"
+            data-test="DesignSystem-Heading"
+          >
+            Sample Toast
+          </h5>
+          <button
+            aria-label="Close"
+            class="Button Button--regular Button--regularSquare Button--transparent Toast-icon--right Toast-close-icon Toast-close-icon--warning Toast-icon--warning"
+            data-test="DesignSystem-Toast--CloseButton"
+            tabindex="0"
+          >
+            <div
+              class="Button-icon"
+              data-test="DesignSystem-Button--Icon-Wrapper"
+            >
+              <i
+                class="material-symbols material-symbols-rounded Icon"
+                data-test="DesignSystem-Button--Icon"
+                style="font-size: 16px; width: 16px;"
+              >
+                close
+              </i>
+            </div>
+          </button>
+        </div>
+        <span
+          class="Text Text--default Text--regular Toast-text Toast-text--warning"
+          data-test="DesignSystem-Text"
+        >
+          Sample string
+        </span>
+      </div>
+    </div>
+  </div>
+</body>
+`;
+
+exports[`Toast component 
+  title: "Sample Toast", message: "Sample string", appearance: "warning", onClose: "[Function]", actions: [{"label":"Action 1","onClick":"[Function]"}]
+ 1`] = `
+<body>
+  <div>
+    <div
+      aria-live="assertive"
+      class="Toast Toast--withMessage Toast--warning"
+      role="alert"
+    >
+      <i
+        aria-hidden="true"
+        class="material-symbols material-symbols-rounded Icon Toast-icon Toast-icon--left Toast-icon--warning"
+        data-test="DesignSystem-Icon"
+        style="font-size: 16px; width: 16px;"
+      >
+        warning
+      </i>
+      <div
+        class="Toast-body"
+      >
+        <div
+          class="Toast-title Toast-title--withMessage"
+        >
+          <h5
+            class="Heading Heading--s Heading--default Toast-heading Toast-heading--warning"
+            data-test="DesignSystem-Heading"
+          >
+            Sample Toast
+          </h5>
+          <button
+            aria-label="Close"
+            class="Button Button--regular Button--regularSquare Button--transparent Toast-icon--right Toast-close-icon Toast-close-icon--warning Toast-icon--warning"
+            data-test="DesignSystem-Toast--CloseButton"
+            tabindex="0"
+          >
+            <div
+              class="Button-icon"
+              data-test="DesignSystem-Button--Icon-Wrapper"
+            >
+              <i
+                class="material-symbols material-symbols-rounded Icon"
+                data-test="DesignSystem-Button--Icon"
+                style="font-size: 16px; width: 16px;"
+              >
+                close
+              </i>
+            </div>
+          </button>
+        </div>
+        <span
+          class="Text Text--default Text--regular Toast-text Toast-text--warning"
+          data-test="DesignSystem-Text"
+        >
+          Sample string
+        </span>
+        <div
+          class="Toast-actions"
+        >
+          <button
+            class="Button Button--tiny Toast-actionButton Toast-actionButton--warning"
+            type="button"
+          >
+            <span
+              class="Toast-actionButton-label"
+              data-test="DesignSystem-Toast-ActionButton-Label"
+            >
+              Action 1
+            </span>
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</body>
+`;

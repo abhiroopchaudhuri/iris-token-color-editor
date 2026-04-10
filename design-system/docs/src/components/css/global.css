@@ -1,0 +1,20 @@
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  font-family: 'Nunito Sans', sans-serif;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+.border-right {
+  border-right: var(--border);
+}
+
+p {
+  margin-top: 8px;
+  width: 80%;
+}

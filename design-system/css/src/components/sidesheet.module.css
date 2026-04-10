@@ -1,0 +1,118 @@
+@keyframes sidesheet-open {
+  from {
+    right: -100%;
+  }
+  to {
+    right: 0;
+  }
+}
+
+@keyframes sidesheet-close {
+  from {
+    right: 0;
+  }
+  to {
+    right: -100%;
+  }
+}
+
+@keyframes shift-right-spacing-3 {
+  from {
+    transform: translateX(calc(-1 * var(--spacing-80)));
+  }
+  to {
+    transform: translateX(0);
+  }
+}
+
+@keyframes shift-left-spacing-3 {
+  from {
+    transform: translateX(var(--spacing-80));
+  }
+  to {
+    transform: translateX(0);
+  }
+}
+
+.Sidesheet {
+  position: fixed !important;
+  top: 0;
+  right: 0;
+  height: 100vh;
+  box-shadow: var(--shadow-l);
+  background-color: var(--white);
+  display: flex;
+  flex-direction: column;
+  visibility: hidden;
+}
+
+.Sidesheet--open {
+  visibility: visible;
+}
+
+.Sidesheet-animation--open {
+  animation: sidesheet-open 240ms cubic-bezier(0, 0, 0.3, 1);
+}
+
+.Sidesheet-animation--close {
+  animation: sidesheet-close 120ms cubic-bezier(0.4, 0.14, 1, 1);
+  animation-fill-mode: forwards;
+}
+
+.Sidesheet-header {
+  display: flex;
+  justify-content: flex-start;
+  padding-top: var(--spacing-40);
+  padding-bottom: var(--spacing-30);
+  padding-right: var(--spacing-40);
+}
+
+.Sidesheet-header--withSeperator {
+  border-bottom: var(--border-width-2-5) solid var(--secondary-light);
+}
+
+.Sidesheet-body {
+  padding: 0 var(--spacing-60);
+}
+
+.Sidesheet-body--withMargin {
+  margin-bottom: 80px;
+}
+
+.Sidesheet-footer {
+  padding-top: var(--spacing-60);
+  padding-bottom: var(--spacing-60);
+}
+
+.Sidesheet-footer--withSeperator {
+  border-top: var(--border-width-2-5) solid var(--secondary-light);
+}
+
+.Sidesheet-footer--stickToBottom {
+  position: absolute;
+  bottom: 0;
+}
+
+.Sidesheet-header--shiftRight {
+  animation: shift-right-spacing-3 var(--duration--fast-01) var(--standard-productive-curve);
+}
+
+.Sidesheet-header--shiftLeft {
+  animation: shift-left-spacing-3 var(--duration--fast-01) var(--standard-productive-curve);
+}
+
+.Sidesheet-body--nextPage {
+  animation: fadeIn var(--duration--fast-02) var(--standard-productive-curve);
+}
+
+.Sidesheet-body--firstPage {
+  animation: fadeIn var(--duration--fast-02) var(--standard-expressive-curve);
+}
+
+.Sidesheet:focus {
+  outline: none;
+}
+
+.Sidesheet-header [tabindex='-1']:focus {
+  outline: none;
+}

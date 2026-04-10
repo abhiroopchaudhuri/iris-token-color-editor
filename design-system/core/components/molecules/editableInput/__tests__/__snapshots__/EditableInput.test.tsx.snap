@@ -1,0 +1,73 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`EditableInput component 
+  placeholer: "String Value", disableSaveAction: true, size: "regular", error: true, errorMessage: "String Value"
+ 1`] = `
+<DocumentFragment>
+  <div
+    class="EditableInput"
+    data-test="DesignSystem-EditableInput"
+    role="button"
+    tabindex="0"
+  >
+    <div
+      class="Editable"
+      data-test="DesignSystem-Editable"
+    >
+      <div
+        data-test="DesignSystem-EditableWrapper"
+      >
+        <div
+          class="EditableInput-default EditableInput-default--regular"
+          data-test="DesignSystem-EditableInput--Default"
+        >
+          <i
+            aria-hidden="true"
+            class="material-symbols material-symbols-rounded Icon Icon--alert d-flex align-items-center EditableInput-errorIcon--regular"
+            data-test="DesignSystem-Icon"
+            style="font-size: 16px; width: 16px;"
+          >
+            error
+          </i>
+        </div>
+      </div>
+    </div>
+  </div>
+</DocumentFragment>
+`;
+
+exports[`EditableInput component 
+  placeholer: "String Value", disableSaveAction: true, size: "tiny", error: true, errorMessage: "String Value"
+ 1`] = `
+<DocumentFragment>
+  <div
+    class="EditableInput"
+    data-test="DesignSystem-EditableInput"
+    role="button"
+    tabindex="0"
+  >
+    <div
+      class="Editable"
+      data-test="DesignSystem-Editable"
+    >
+      <div
+        data-test="DesignSystem-EditableWrapper"
+      >
+        <div
+          class="EditableInput-default EditableInput-default--tiny"
+          data-test="DesignSystem-EditableInput--Default"
+        >
+          <i
+            aria-hidden="true"
+            class="material-symbols material-symbols-rounded Icon Icon--alert d-flex align-items-center EditableInput-errorIcon--tiny"
+            data-test="DesignSystem-Icon"
+            style="font-size: 14px; width: 14px;"
+          >
+            error
+          </i>
+        </div>
+      </div>
+    </div>
+  </div>
+</DocumentFragment>
+`;

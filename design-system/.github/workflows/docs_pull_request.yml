@@ -1,0 +1,28 @@
+name: Docs pull request
+
+on: 
+  pull_request:
+    paths: ['docs/**']
+
+jobs:
+  lint_test_build:
+    name: lint, test and build
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: ./docs
+    steps:
+      - uses: actions/checkout@v1
+
+      - uses: actions/setup-node@v1
+        with:
+          node-version: '20.x'
+
+      - name: npm install
+        run: npm install 
+
+      - name: lint
+        run: npm run lint:check
+
+      - name: build
+        run: npm run build

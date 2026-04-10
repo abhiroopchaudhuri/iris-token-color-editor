@@ -1,0 +1,59 @@
+.Collapsible-wrapper {
+  position: relative;
+  z-index: 600;
+}
+
+.Collapsible-wrapper--overlay {
+  margin-right: 40px;
+}
+
+.Collapsible {
+  display: inline-flex;
+  flex-direction: column;
+  background-color: var(--secondary-lightest);
+  width: var(--spacing-120);
+  height: 100%;
+  transition: width 240ms;
+  transition-timing-function: cubic-bezier(0.4, 0.14, 0.3, 1);
+}
+
+.Collapsible--overlay {
+  position: absolute;
+}
+
+.Collapsible--shadow {
+  box-shadow: var(--shadow-l);
+  clip-path: inset(0px -16px 0px 0px);
+}
+
+.Collapsible-body {
+  flex-grow: 1;
+  overflow-y: auto;
+  overflow-x: hidden;
+}
+
+.Collapsible-footer {
+  padding-top: var(--spacing-10);
+  padding-bottom: var(--spacing-10);
+  box-sizing: border-box;
+  cursor: pointer;
+  display: flex;
+}
+
+.Collapsible-footer:hover {
+  background-color: var(--secondary-lighter);
+}
+
+.Collapsible-footer:focus,
+.Collapsible-footer:focus-visible {
+  outline: var(--border-width-05) solid var(--primary-focus);
+  outline-offset: var(--spacing-05);
+}
+
+.Collapsible-footer:active {
+  background-color: var(--secondary-light);
+}
+
+.Collapsible-footer--seperator {
+  border-top: var(--border-width-2-5) solid var(--secondary-light);
+}

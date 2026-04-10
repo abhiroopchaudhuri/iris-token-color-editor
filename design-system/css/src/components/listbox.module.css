@@ -1,0 +1,156 @@
+.Listbox {
+  margin: 0;
+  padding: 0;
+  display: flex;
+  list-style-type: none;
+  flex-direction: column;
+}
+
+.Listbox-item {
+  display: flex;
+  align-items: center;
+  padding-left: var(--spacing-40);
+  padding-right: var(--spacing-40);
+}
+
+.Listbox-item-wrapper {
+  width: 100%;
+}
+
+.Listbox-item-wrapper:last-child > .Listbox-divider,
+.Listbox-item--draggable:last-child .Listbox-divider {
+  background: transparent;
+}
+
+/* Sizes */
+
+.Listbox-item--tight {
+  padding-top: var(--spacing-10);
+  padding-bottom: var(--spacing-10);
+}
+
+.Listbox-item--compressed {
+  padding-top: var(--spacing-20);
+  padding-bottom: var(--spacing-20);
+}
+
+.Listbox-item--standard {
+  padding-top: var(--spacing-30);
+  padding-bottom: var(--spacing-30);
+}
+
+/* Listbox type - option  */
+
+.Listbox-item--option {
+  cursor: pointer;
+}
+
+.Listbox-item--option:hover {
+  background-color: var(--secondary-lightest);
+}
+
+.Listbox-item--option:focus-visible {
+  outline: var(--border-width-05) solid var(--primary-focus);
+  outline-offset: calc(-1 * var(--border-width-05));
+}
+
+.Listbox-item--option:active {
+  background: var(--secondary-lighter);
+}
+
+.Listbox-item--selected {
+  position: relative;
+  background: color-mod(var(--primary-lightest) a(var(--opacity-12)));
+}
+
+.Listbox-item--selected::before {
+  content: '';
+  position: absolute;
+  top: var(--spacing-10);
+  left: var(--spacing-10);
+  width: var(--spacing-20);
+  height: var(--spacing-20);
+  background-color: var(--primary);
+  clip-path: polygon(0 0, 100% 0, 0 100%);
+}
+
+.Listbox-item--selected:hover {
+  background: color-mod(var(--primary-lighter) a(var(--opacity-12)));
+}
+
+.Listbox-item--selected:focus-visible {
+  outline: var(--border-width-05) solid var(--primary-focus);
+  outline-offset: calc(-1 * var(--border-width-05));
+}
+
+.Listbox-item--selected:active {
+  background: var(--primary-lighter);
+}
+
+/* Listbox type - resource  */
+
+.Listbox-item--resource {
+  cursor: pointer;
+}
+
+.Listbox-item--resource:hover {
+  background-color: var(--secondary-lightest);
+}
+
+.Listbox-item--resource:focus-visible {
+  outline: var(--border-width-05) solid var(--primary-focus);
+  outline-offset: calc(-1 * var(--border-width-05));
+}
+
+.Listbox-item--resource:active {
+  background: var(--secondary-lighter);
+}
+
+.Listbox-item--activated {
+  position: relative;
+  background: var(--primary-lightest);
+}
+
+.Listbox-item--activated::before {
+  content: '';
+  position: absolute;
+  top: var(--spacing-10);
+  left: var(--spacing-10);
+  width: var(--spacing-20);
+  height: var(--spacing-20);
+  background-color: var(--primary);
+  clip-path: polygon(0 0, 100% 0, 0 100%);
+}
+
+/* Listbox type - description  */
+
+.Listbox-item--description:focus-visible {
+  outline: none;
+}
+
+/* Listbox type - disabled  */
+
+.Listbox-item--disabled {
+  opacity: var(--opacity-10);
+  pointer-events: none;
+}
+
+/* Listbox type - draggable  */
+
+.Listbox-item--draggable:focus-visible {
+  outline: var(--border-width-05) solid var(--primary-focus);
+  outline-offset: calc(-1 * var(--border-width-05));
+}
+
+.Listbox-item--drag-icon {
+  cursor: grab;
+  margin-right: var(--spacing-20);
+}
+
+.Listbox-item--drag-icon:hover {
+  color: var(--inverse);
+}
+
+.Listbox-item--drag-icon:active {
+  color: var(--primary);
+}

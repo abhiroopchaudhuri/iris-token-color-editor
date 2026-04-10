@@ -1,0 +1,184 @@
+/* tabs */
+
+.TabsWrapper {
+  display: flex;
+  flex-grow: 1;
+  flex-direction: column;
+}
+
+.TabsWrapper-header {
+  box-sizing: border-box;
+  display: flex;
+  align-items: center;
+  flex-direction: row;
+}
+
+.TabsWrapper-header--withSeparator {
+  border-bottom: var(--border);
+}
+
+.Tab {
+  position: relative;
+  display: flex;
+  flex-direction: row;
+  cursor: pointer;
+  min-width: 40px;
+  margin-bottom: calc(-1 * var(--spacing-2-5));
+  text-align: center;
+}
+
+.Tab--small {
+  padding: var(--spacing-20) var(--spacing-30) var(--spacing-30);
+}
+
+.Tab--regular {
+  padding: var(--spacing-30) var(--spacing-30) var(--spacing-40);
+}
+
+.Tab--withIconRegular {
+  padding-top: calc(var(--spacing-20) + var(--spacing-05));
+  padding-bottom: calc(var(--spacing-20) + var(--spacing-15));
+  padding-right: var(--spacing-15);
+  padding-left: calc(var(--spacing-40) + var(--spacing-05));
+  align-items: center;
+}
+
+.Tab--withIconSmall {
+  padding-top: var(--spacing-15);
+  padding-bottom: calc(var(--spacing-20) + var(--spacing-05));
+  padding-right: var(--spacing-15);
+  padding-left: calc(var(--spacing-40) + var(--spacing-05));
+  align-items: center;
+}
+
+.Tab:last-child {
+  margin-right: 0;
+}
+
+.Tab::after {
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  content: '';
+  width: calc(100% - 2 * var(--spacing-30));
+  height: var(--spacing-05);
+  background-color: transparent;
+  margin-left: var(--spacing-30);
+  border-top-left-radius: var(--border-radius-2-5);
+  border-top-right-radius: var(--border-radius-2-5);
+}
+
+.Tab--withDismissIcon::after {
+  margin-left: calc(var(--spacing-40) + var(--spacing-05));
+}
+
+.Tab:hover::after {
+  background-color: var(--inverse-lighter);
+}
+
+.Tab:active::after {
+  background-color: var(--inverse-light);
+}
+
+.Tab--active::after {
+  background-color: var(--primary);
+}
+
+.Tab:focus {
+  outline: var(--border-width-05) solid var(--primary-focus);
+  outline-offset: 0;
+  border-radius: var(--border-radius-10);
+}
+
+.Tab--active:hover .Tab-selected {
+  color: var(--primary-dark);
+}
+
+.Tab-selected:hover::after {
+  background-color: var(--primary-dark);
+}
+
+.Tab:active:focus {
+  outline: var(--border-width-05) solid var(--primary-focus);
+  outline-offset: 0;
+}
+
+.Tab--disabled {
+  cursor: not-allowed;
+}
+
+.Tab--disabled:focus {
+  outline: none;
+}
+
+.Tab--disabled:hover::after {
+  background-color: transparent;
+}
+
+.Tab-icon {
+  display: flex;
+  min-width: inherit;
+  justify-content: space-between;
+}
+
+.Tabs {
+  display: flex;
+  box-sizing: border-box;
+  flex-direction: row;
+}
+
+.Tabs--withSeparator {
+  border-bottom: var(--border);
+}
+
+.Tab-pills {
+  cursor: pointer;
+  margin-right: var(--spacing-20);
+  overflow: visible;
+}
+
+.Tab-pills--disabled {
+  opacity: var(--opacity-10);
+  cursor: not-allowed;
+}
+
+.DismissibleRegularTab-icon--right {
+  padding: var(--spacing-10);
+  outline: none;
+  border-radius: var(--border-radius-full);
+}
+
+.DismissibleSmallTab-icon--right {
+  padding: var(--spacing-15);
+  outline: none;
+  border-radius: var(--border-radius-full);
+}
+
+.DismissibleTab-icon--default:focus-visible {
+  outline: var(--spacing-05) solid var(--primary-focus);
+}
+
+.DismissibleTab-icon--default:hover {
+  background-color: var(--secondary);
+}
+
+.DismissibleTab-icon--default:active {
+  background-color: var(--secondary-dark);
+}
+
+.DismissibleTab-icon--selected:focus-visible {
+  outline: var(--spacing-05) solid var(--primary-focus);
+}
+
+.DismissibleTab-icon--selected:hover {
+  background-color: var(--primary-lighter);
+}
+
+.DismissibleTab-icon--selected:active {
+  background-color: var(--primary-light);
+}
+
+.Tab--overflow {
+  display: flex;
+  box-sizing: border-box;
+}

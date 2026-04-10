@@ -1,0 +1,418 @@
+#### Dates
+
+<br />
+
+<Paragraph>
+  Spell out the day of the week and month. Use abbreviations
+  if there are space constraints
+</Paragraph>
+Format: <b>MM/DD/YYYY</b>
+
+<Rules>
+  <DOs>
+    <InlineMessage>
+      <IconWrapper> Jan 5 </IconWrapper>
+    </InlineMessage>
+    <InlineMessage>
+      <IconWrapper> January 5 </IconWrapper>
+    </InlineMessage>
+    <InlineMessage>
+      <IconWrapper>January 5, 2011</IconWrapper>
+    </InlineMessage>
+    <InlineMessage>
+      <IconWrapper>Wednesday, January 5, 2011 </IconWrapper>
+    </InlineMessage>
+    <InlineMessage>
+      <IconWrapper> 10/17/2018 </IconWrapper>
+    </InlineMessage>
+  </DOs>
+  <DONTs>
+    <InlineMessage>
+      <IconWrapper iconType='error'>Jan, 5</IconWrapper>
+    </InlineMessage>
+    <InlineMessage>
+      <IconWrapper iconType='error'>
+        January Fifth
+      </IconWrapper>
+    </InlineMessage>
+    <InlineMessage>
+      <IconWrapper iconType='error'>
+        January, 5 2011
+      </IconWrapper>
+    </InlineMessage>
+    <InlineMessage>
+      <IconWrapper iconType='error'>
+        January 5, 2011, Wednesday
+      </IconWrapper>
+    </InlineMessage>
+    <InlineMessage>
+      <IconWrapper iconType='error'>
+        10 / 17 / 2018
+      </IconWrapper>
+    </InlineMessage>
+  </DONTs>
+</Rules>
+<br />
+
+#### Months
+
+Avoid using abbreviations unless there are space constraints. Never use period or apostrophe with the abbreviations and make sure you use sentence case for writing these months.
+
+<Rules>
+  <DOs>
+    <InlineMessage>
+      <IconWrapper>
+        January, February, March, April, May, June, July,
+        August, September, October, November, and December
+      </IconWrapper>
+    </InlineMessage>
+    <InlineMessage>
+      <IconWrapper>
+        Jan, Feb, Mar, Apr, May, Jun, Jul, Aug, Sep, Oct,
+        Nov, and Dec
+      </IconWrapper>
+    </InlineMessage>
+  </DOs>
+  <DONTs>
+    <InlineMessage>
+      <IconWrapper iconType='error'>
+        JANUARY, FEBRUARY, MARCH, APRIL, MAY, JUNE, JULY,
+        AUGUST, SEPTEMBER, OCTOBER, NOVEMBER, AND DECEMBER
+      </IconWrapper>
+    </InlineMessage>
+    <InlineMessage>
+      <IconWrapper iconType='error'>
+        Jan., Feb., Mar., Apr., May, Jun., Jul., Aug., Sep.,
+        Oct., Nov., and Dec.
+      </IconWrapper>
+    </InlineMessage>
+  </DONTs>
+</Rules>
+<br />
+
+#### Days of the Week
+
+Avoid using abbreviations unless there are space constraints. Never use period with the abbreviations and make sure you use sentence case for writing these days of the week.
+
+<Rules>
+  <DOs>
+    <InlineMessage>
+      <IconWrapper>
+        Sunday, Monday, Tuesday, Wednesday, Thursday,
+        Friday, and Saturday
+      </IconWrapper>
+    </InlineMessage>
+    <InlineMessage>
+      <IconWrapper>
+        Sun, Mon, Tue, Wed, Thu, Fri, and Sat
+      </IconWrapper>
+    </InlineMessage>
+  </DOs>
+  <DONTs>
+    <InlineMessage>
+      <IconWrapper iconType='error'>
+        SUNDAY, MONDAY, TUESDAY, WEDNESDAY, THURSDAY,
+        FRIDAY, AND SATURDAY
+      </IconWrapper>
+    </InlineMessage>
+    <InlineMessage>
+      <IconWrapper iconType='error'>
+        Sun., Mon., Tue, Wed., Thu., Fri., & Sat. SUN.,
+        MON.,TUE.,WED.,THU.,FRI., & SAT.
+      </IconWrapper>
+    </InlineMessage>
+  </DONTs>
+</Rules>
+<br />
+
+#### Seasons
+
+Avoid referring to seasons if you can, instead try and use months or calendar quarters. If you really have to use seasons, remember to only capitalize it when it's the first word of a sentence. Otherwise keep all season in lowercase unless you are referring to an issue of a publication like (Spring 2019)
+
+<Rules>
+  <DOs>
+    <InlineMessage>
+      <IconWrapper>
+        A lot has happened since last summer.
+      </IconWrapper>
+    </InlineMessage>
+    <InlineMessage>
+      <IconWrapper>
+        Fall 2019 semester ends in December.
+      </IconWrapper>
+    </InlineMessage>
+  </DOs>
+  <DONTs>
+    <InlineMessage>
+      <IconWrapper iconType='error'>
+        A lot has happened since last Summer.
+      </IconWrapper>
+    </InlineMessage>
+    <InlineMessage>
+      <IconWrapper iconType='error'>
+        fall 2019 semester ends in December.
+      </IconWrapper>
+    </InlineMessage>
+  </DONTs>
+</Rules>
+<br />
+
+#### Time
+
+Always use 12-hour clock for writing time. Make use of AM and PM preceded by a space and in capital letters.
+
+<Rules>
+  <DOs>
+    <InlineMessage>
+      <IconWrapper>2:00 PM</IconWrapper>
+    </InlineMessage>
+    <InlineMessage>
+      <IconWrapper>6:00 AM</IconWrapper>
+    </InlineMessage>
+    <InlineMessage>
+      <IconWrapper>12:00 (noon)</IconWrapper>
+    </InlineMessage>
+    <InlineMessage>
+      <IconWrapper>00:00 (midnight)</IconWrapper>
+    </InlineMessage>
+    <InlineMessage>
+      <IconWrapper>12:01 AM</IconWrapper>
+    </InlineMessage>
+  </DOs>
+  <DONTs>
+    <InlineMessage>
+      <IconWrapper iconType='error'>14:00 hrs</IconWrapper>
+    </InlineMessage>
+    <InlineMessage>
+      <IconWrapper iconType='error'>6:00 hrs</IconWrapper>
+    </InlineMessage>
+    <InlineMessage>
+      <IconWrapper iconType='error'>
+        12:00 (midnight)
+      </IconWrapper>
+    </InlineMessage>
+    <InlineMessage>
+      <IconWrapper iconType='error'>
+        00:00 (noon)
+      </IconWrapper>
+    </InlineMessage>
+    <InlineMessage>
+      <IconWrapper iconType='error'>Midnight</IconWrapper>
+    </InlineMessage>
+  </DONTs>
+</Rules>
+<br />
+
+#### Relative Date and Time
+
+Mention relative timestamps when the exact dates are not important.
+
+**Note:** Always provide a way to see the exact timestamp such as using a tooltip.
+
+<Card shadow='none'>
+  <Table
+    showMenu={false}
+    separator={true}
+    data={[
+      {
+        description: 'Within last few seconds',
+        display: 'just now',
+        display_when_limited_space: 'now',
+      },
+      {
+        description: 'Within the last minute',
+        display: '1 minute ago or 1 min ago',
+        display_when_limited_space: '1 m',
+      },
+      {
+        description: 'Within 59 minutes',
+        display: 'x minutes ago or x mins ago',
+        display_when_limited_space: 'x m',
+      },
+      {
+        description: '60 minutes ago',
+        display: '1 hour ago or 1 hr ago',
+        display_when_limited_space: '1 h',
+      },
+      {
+        description: 'x hours ago',
+        display: 'x hours ago or x hrs ago',
+        display_when_limited_space: 'x hrs',
+      },
+      {
+        description: '1 day ago',
+        display: 'yesterday',
+        display_when_limited_space: '1 d',
+      },
+      {
+        description: '1 day ago (with time)',
+        display: 'yesterday at 5:05 PM',
+        display_when_limited_space: 'Default value',
+      },
+      {
+        description: '7 days ago',
+        display: '1 week ago',
+        display_when_limited_space: '1 w',
+      },
+      {
+        description: '2 days ago < 7 days',
+        display: 'x days ago',
+        display_when_limited_space: 'x d',
+      },
+      {
+        description: '> 7 days ago',
+        display: 'Timestamp "January 10,2023"',
+        display_when_limited_space: 'Jan 10',
+      },
+    ]}
+    schema={[
+      {
+        name: 'description',
+        displayName: 'Description',
+        width: '33%',
+        sorting: false,
+        separator: true,
+      },
+      {
+        name: 'display',
+        displayName: 'Display',
+        width: '33%',
+        sorting: false,
+        separator: true,
+      },
+      {
+        name: 'display_when_limited_space',
+        displayName: 'Display when limited space',
+        width: '34%',
+        sorting: false,
+        separator: true,
+      },
+    ]}
+    withHeader={false}
+  />
+</Card>
+<br/>
+<br/>
+
+#### Time Zone
+
+Common time zones referred in U.S. Pacific standard time (PST), Mountain standard time (MST), Central daylight time (CDT), Eastern daylight time (EDT) etc.
+
+<Rules>
+  <DOs>
+    <InlineMessage>
+      <IconWrapper>4:42 PM (PST)</IconWrapper>
+    </InlineMessage>
+    <InlineMessage>
+      <IconWrapper>2:30 AM (CST)</IconWrapper>
+    </InlineMessage>
+    <InlineMessage>
+      <IconWrapper>
+        Wednesday, January 5, 2011, 9:30 PM (IST)
+      </IconWrapper>
+    </InlineMessage>
+    <InlineMessage>
+      <IconWrapper>
+        Wed, Jan 5, 2011, 9:30 PM (IST)
+      </IconWrapper>
+    </InlineMessage>
+  </DOs>
+  <DONTs>
+    <InlineMessage>
+      <IconWrapper iconType='error'>
+        4:42 p.m. pst
+      </IconWrapper>
+    </InlineMessage>
+    <InlineMessage>
+      <IconWrapper iconType='error'>
+        2:30 a.m. cst
+      </IconWrapper>
+    </InlineMessage>
+    <InlineMessage>
+      <IconWrapper iconType='error'>
+        9:30 PM (IST) January 5, 2011, Wednesday
+      </IconWrapper>
+    </InlineMessage>
+    <InlineMessage>
+      <IconWrapper iconType='error'>
+        Jan 5, 2011, Wed, 9:30 PM (IST)
+      </IconWrapper>
+    </InlineMessage>
+  </DONTs>
+</Rules>
+<br />
+
+#### Abbreviation Chart
+
+Abbreviation chart for units of time
+
+<Card shadow='none'>
+  <Table
+    showMenu={false}
+    separator={true}
+    data={[
+      {
+        unit: 'Nanosecond',
+        abbreviation: 'Do not abbreviate',
+      },
+      {
+        unit: 'Microsecond',
+        abbreviation: 'Do not abbreviate',
+      },
+      {
+        unit: 'Millisecond, milliseconds',
+        abbreviation: 'ms',
+      },
+      {
+        unit: 'Second, seconds',
+        abbreviation: 'sec, secs',
+      },
+      {
+        unit: 'Minute, minutes',
+        abbreviation: 'min, mins',
+      },
+      {
+        unit: 'Hour, hours',
+        abbreviation: 'h, hr, hrs',
+      },
+      {
+        unit: 'Day, days',
+        abbreviation: 'd',
+      },
+      {
+        unit: 'As',
+        abbreviation: 'from',
+      },
+      {
+        unit: 'Week, weeks',
+        abbreviation: 'wk, wks',
+      },
+      {
+        unit: 'Month, months',
+        abbreviation: 'mo, mos',
+      },
+      {
+        unit: 'Year. years',
+        abbreviation: 'yr, yrs',
+      },
+    ]}
+    schema={[
+      {
+        name: 'unit',
+        displayName: 'Unit',
+        width: '50%',
+        sorting: false,
+        separator: true,
+      },
+      {
+        name: 'abbreviation',
+        displayName: 'Abbreviation',
+        width: '50%',
+        sorting: false,
+        separator: true,
+      },
+    ]}
+    withHeader={false}
+  />
+</Card>
+<br />

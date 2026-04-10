@@ -1,0 +1,15 @@
+.live-editor-card {
+  background-color: rgb(30, 30, 30);
+}
+
+.codesandBox-icon {
+  fill: var(--white);
+}
+
+.live-provider {
+  width: 1440px;
+}
+
+.overflow-scroll {
+  overflow: scroll;
+}

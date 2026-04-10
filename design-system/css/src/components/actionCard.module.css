@@ -1,0 +1,42 @@
+.ActionCard {
+  border-radius: var(--border-radius-10);
+  width: 100%;
+}
+
+.ActionCard--default {
+  cursor: pointer;
+  border: var(--border-width-2-5) solid var(--secondary-dark);
+}
+
+.ActionCard--default:hover {
+  box-shadow: var(--shadow-l);
+  transition: var(--duration--fast-01) var(--standard-productive-curve);
+}
+
+.ActionCard--default:focus,
+.ActionCard--default:focus-visible {
+  outline: var(--border-width-05) solid var(--primary-focus);
+  outline-offset: var(--spacing-05);
+}
+
+.ActionCard--default:active {
+  box-shadow: var(--shadow-m);
+  transition: var(--duration--fast-01) var(--standard-productive-curve);
+}
+
+.ActionCard--disabled {
+  cursor: not-allowed;
+  position: relative;
+  border: var(--border-width-2-5) solid var(--secondary-lighter);
+}
+
+.ActionCard-overlay--disabled {
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  z-index: 2;
+  opacity: var(--opacity-10);
+  background: var(--secondary-lightest);
+}

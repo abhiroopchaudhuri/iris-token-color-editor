@@ -1,0 +1,211 @@
+---
+title: Rules Guidelines
+description: Use this guide to make DOs & DONTs components.
+---
+
+#### Single
+
+<Rules>
+  <DOs>
+    <InlineMessage>
+      <IconWrapper> Create account </IconWrapper>
+    </InlineMessage>
+  </DOs>
+
+  <DONTs>
+    <InlineMessage>
+      <IconWrapper iconType = 'error'> Create a new account </IconWrapper>
+    </InlineMessage>
+  </DONTs>
+</Rules>
+
+<br />
+
+#### Multiple
+
+<Rules>
+  <DOs>
+    <InlineMessage>
+      <IconWrapper> Create account </IconWrapper>
+    </InlineMessage>
+    <InlineMessage>
+      <IconWrapper> Create group </IconWrapper>
+    </InlineMessage>
+  </DOs>
+
+  <DONTs>
+    <InlineMessage>
+      <IconWrapper iconType = 'error'> Create a new account </IconWrapper>
+    </InlineMessage>
+    <InlineMessage>
+      <IconWrapper iconType = 'error'> Create this group </IconWrapper>
+    </InlineMessage>
+  </DONTs>
+</Rules>
+
+<br />
+
+#### Multi-Line
+
+<Rules>
+  <DOs>
+    <InlineMessage>
+      <IconWrapper> This is where all the care conversations happen between the team members. </IconWrapper>
+    </InlineMessage>
+  </DOs>
+
+  <DONTs>
+    <InlineMessage>
+      <IconWrapper iconType = 'error'> This is where all the care conversations happen between the team members. </IconWrapper>
+    </InlineMessage>
+  </DONTs>
+</Rules>
+
+<br />
+
+#### Multi-Line With a Heading
+
+<Rules>
+  <DOs>
+    <InlineMessage>
+      <IconWrapper>
+        <b>Here's to new beginnings! Let all your care conversations happen here</b>
+      </IconWrapper>
+      <p class='ml-7'>This is where all the care conversations happen between the team members.</p>
+    </InlineMessage>
+  </DOs>
+
+  <DONTs>
+    <InlineMessage>
+      <IconWrapper iconType = 'error'> <b>No Messages</b> </IconWrapper>
+      <p class='ml-7'>This is where all the care conversations happen between the team members.</p>
+    </InlineMessage>
+  </DONTs>
+</Rules>
+
+<br />
+
+#### Multi-Line With a Heading
+
+<Rules>
+  <DOs>
+    <InlineMessage>
+      <IconWrapper> 
+        <b>Here's to new beginnings! Let all your care conversations happen here</b>
+      </IconWrapper>
+      <div class='ml-7'>
+        <p>Let all your care conversations happen here.</p>
+        <Button>Start conversation</Button>
+      </div>
+    </InlineMessage>
+  </DOs>
+
+  <DONTs>
+    <InlineMessage>
+      <IconWrapper iconType = 'error'> <b>No Messages</b> </IconWrapper>
+      <div class='ml-7'>
+        <p>This is where all the care conversations happen between the team members.</p>
+        <Button>Begin conversation</Button>
+      </div>
+    </InlineMessage>
+  </DONTs>
+</Rules>
+
+<br />
+
+#### Landscape
+
+<Rules isPortraitMode={true} BgColor='#f7f7f7'>
+  <DOs>
+    <InlineMessage>
+      <IconWrapper>
+        <b>Here's to new beginnings! Here's to new beginnings Here's to new</b>
+      </IconWrapper>
+      <p class='ml-7' >Let all your care conversations happen here.</p>
+    </InlineMessage>
+  </DOs>
+
+  <DONTs>
+    <InlineMessage> 
+      <IconWrapper iconType = 'error'> <b>No Messages</b> </IconWrapper>
+      <p class='ml-7'>This is where all the care conversations happen between the team members.</p>
+    </InlineMessage>
+  </DONTs>
+</Rules>
+<br/>
+
+#### Image
+
+<Rules>
+  <DOs>
+    <InlineMessage>
+      <IconWrapper> 
+        <b>Do</b>
+      </IconWrapper>
+      <div class='ml-5 mt-3'>
+        <img src="/images/img_do.png" width='100%' height='auto' alt="Image Do"/>
+      </div>
+    </InlineMessage>
+  </DOs>
+
+  <DONTs>
+    <InlineMessage>
+      <IconWrapper iconType = 'error'> <b>Don't</b> </IconWrapper>
+      <div class='ml-5 mt-3'>
+        <img src="/images/img_dont.png" width='100%' height='auto' alt="Image Don’t"/>
+      </div>
+    </InlineMessage>
+  </DONTs>
+</Rules>
+<br/>
+
+#### Image With Caption
+
+<Rules>
+  <DOs>
+    <InlineMessage>
+      <IconWrapper> 
+        <b>Do</b>
+      </IconWrapper>
+      <div class='ml-6 mt-7'>
+        <img src="/images/image_do.png" width='100%' height='auto' alt="Image with caption Do"/>
+        <p>Caption if there is any.</p>
+      </div>
+    </InlineMessage>
+  </DOs>
+
+  <DONTs>
+    <InlineMessage>
+      <IconWrapper iconType = 'error'> <b>Don't</b> </IconWrapper>
+      <div class='ml-6 mt-7'>
+        <img src="/images/image_dont.png" width='100%' height='auto' alt="Image with caption Don’t"/>
+        <p>Caption if there is any. Also, the caption can be multi-line.</p>
+      </div>
+    </InlineMessage>
+  </DONTs>
+</Rules>
+<br/>
+
+#### Landscape Image
+
+<Rules isPortraitMode={true}>
+  <DOs>
+    <InlineMessage>
+      <IconWrapper> 
+        <b>Do</b>
+      </IconWrapper>
+      <div class='ml-6 mt-7'>
+        <img src="/images/landscape_do.png" width='100%' height='auto' alt="Landscape Image Do"/>
+      </div>
+    </InlineMessage>
+  </DOs>
+
+  <DONTs>
+    <InlineMessage>
+      <IconWrapper iconType = 'error'> <b>Don't</b> </IconWrapper>
+      <div class='ml-6 mt-7'>
+        <img src="/images/landscape_do.png" width='100%' height='auto' alt="Landscape Image Don’t"/>
+      </div>
+    </InlineMessage>
+  </DONTs>
+</Rules>

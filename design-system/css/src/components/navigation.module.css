@@ -1,0 +1,136 @@
+/* Navigation */
+
+.Navigation {
+  display: flex;
+}
+
+.Navigation--horizontal {
+  flex-grow: 1;
+  justify-content: center;
+}
+
+.Navigation--vertical {
+  flex-direction: column;
+  height: 100%;
+  width: var(--spacing-640);
+}
+
+.Navigation--collapsed {
+  width: fit-content;
+}
+
+.Navigation-body {
+  height: 100%;
+  overflow-y: auto;
+  overflow-x: hidden;
+  padding-right: var(--spacing-20);
+}
+
+.Navigation-menu {
+  box-sizing: border-box;
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+}
+
+.Navigation-menu--horizontal {
+  height: var(--spacing-80);
+  padding-right: var(--spacing-30);
+  padding-left: var(--spacing-30);
+  border-radius: var(--border-radius-40);
+  margin: 0 var(--spacing-2-5);
+}
+
+.Navigation-menu--disabled {
+  pointer-events: none;
+}
+
+.Navigation-menu:hover {
+  background-color: var(--secondary-light);
+}
+
+.Navigation-menu--active,
+.Navigation-menu--active:hover {
+  background: var(--primary-lightest);
+}
+
+.Navigation-menu--vertical {
+  /* padding-top: var(--spacing-10); */
+  /* padding-bottom: var(--spacing-10); */
+  padding-left: var(--spacing-20);
+  margin-top: var(--spacing-10);
+  margin-bottom: var(--spacing-10);
+  /* margin-right: var(--spacing-20); */
+  border-radius: 0px var(--border-radius-40) var(--border-radius-40) 0px;
+}
+
+.Navigation-menu--rounded {
+  border-radius: var(--border-radius-40);
+}
+
+.Navigation-menu--subMenu {
+  padding-top: var(--spacing-05);
+  padding-bottom: var(--spacing-05);
+  padding-left: 40px;
+  margin-top: 0;
+}
+
+.Navigation-menuIcon {
+  padding: 8px;
+  border-radius: 50%;
+  cursor: pointer;
+}
+
+.Navigation-menuIcon--active {
+  background: var(--primary-lightest);
+}
+
+.Navigation-menuLabel {
+  display: flex;
+  flex-grow: 1;
+  overflow: hidden;
+}
+
+.Navigation-menu .Text {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.Navigation-horizontalPills {
+  margin-right: var(--spacing-10);
+}
+
+.Navigation-horizontalPills--disabled {
+  opacity: var(--opacity-10);
+}
+
+.Navigation-footer {
+  display: flex;
+  align-items: center;
+  padding: var(--spacing-10) var(--spacing-20);
+}
+
+.Navigation-footer--border {
+  border-top: var(--border);
+}
+
+.Navigation-footerButton {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: none;
+  border: none;
+  padding: 0;
+  cursor: pointer;
+  border-radius: 50%;
+}
+
+.Navigation-footerButton:focus-visible {
+  outline: var(--border-width-05) solid var(--primary-focus);
+  outline-offset: var(--spacing-05);
+}
+
+.Navigation--collapsed .Navigation-menuIcon--footer {
+  transform: rotate(180deg);
+}

@@ -1,0 +1,177 @@
+/* input */
+
+.Input-input::-ms-clear {
+  display: none;
+}
+
+.Input {
+  display: flex;
+  flex-grow: 1;
+  flex-direction: row;
+  align-items: center;
+  box-sizing: border-box;
+  border-radius: var(--border-radius-10);
+  border: var(--border);
+  background: var(--white);
+  transition: var(--duration--fast-01) var(--standard-productive-curve);
+}
+
+.Input--tiny {
+  height: var(--font-height-m);
+  padding-top: var(--spacing-10);
+  padding-bottom: var(--spacing-10);
+  padding-left: var(--spacing-20);
+  padding-right: var(--spacing-10);
+}
+
+.Input--regular {
+  height: var(--font-height-l);
+  padding-top: var(--spacing-10);
+  padding-bottom: var(--spacing-10);
+  padding-right: var(--spacing-15);
+  padding-left: var(--spacing-20);
+}
+
+.Input--large {
+  height: 40px;
+  padding-top: var(--spacing-20);
+  padding-bottom: var(--spacing-20);
+  padding-right: var(--spacing-15);
+  padding-left: var(--spacing-20);
+}
+
+.Input:hover {
+  background: var(--secondary-lighter);
+  border-color: var(--secondary-dark);
+  cursor: text;
+}
+
+.Input:focus-within {
+  background: var(--white);
+  outline: var(--border-width-05) solid var(--primary-focus);
+  outline-offset: var(--spacing-05);
+}
+
+.Input:focus-within .Input-icon--left {
+  color: var(--primary);
+}
+
+.Input--error:focus-within {
+  border-color: var(--alert);
+}
+
+.Input--error:focus-within .Input-icon--left {
+  color: var(--alert);
+}
+
+.Input--disabled {
+  background: var(--secondary-lightest);
+  border-color: var(--secondary-lighter);
+  pointer-events: none;
+}
+
+.Input--readOnly {
+  background: var(--secondary-lightest);
+  border-color: var(--secondary);
+  pointer-events: none;
+}
+
+.Input--disabled .Input-icon--left {
+  color: var(--inverse-lightest);
+}
+
+.Input--error,
+.Input--error:hover {
+  background: var(--white);
+  border-color: var(--alert);
+}
+
+.Input-input {
+  display: flex;
+  width: 100%;
+  font-family: var(--font-family);
+  font-weight: var(--font-weight-normal);
+  font-size: var(--font-size);
+  line-height: var(--font-height-s);
+  color: var(--night);
+  padding: 0;
+  border: none;
+  background: transparent;
+}
+
+.Input-input::placeholder {
+  color: var(--inverse-lighter);
+}
+
+.Input-input:focus {
+  outline: 0;
+}
+
+.Input-input:disabled .Input-input::placeholder {
+  color: var(--inverse-lighter);
+}
+
+.Input-input--regular {
+  line-height: var(--font-height);
+}
+
+.Input-input--large {
+  line-height: var(--font-height-m);
+  font-size: var(--font-size-m);
+}
+
+.Input-input--tiny {
+  line-height: var(--font-height-s);
+  font-size: var(--font-size-s);
+  font-weight: var(--font-weight-medium);
+}
+
+.Input-icon {
+  display: flex;
+  align-content: center;
+  font-size: var(--font-size-m);
+}
+
+.Input-icon--left {
+  margin-right: var(--spacing-20);
+  color: var(--inverse);
+}
+
+.Input-icon--inputBlank {
+  color: var(--inverse-lighter);
+}
+
+.Input-icon--error {
+  color: var(--alert);
+}
+
+.Input-icon--right {
+  cursor: pointer;
+  color: var(--inverse-lighter);
+  border-radius: var(--border-radius-full);
+}
+
+.Input-iconWrapper--right:focus-visible .Input-icon--right {
+  outline: var(--spacing-05) solid var(--primary-focus);
+}
+
+.Input-icon--right:focus-visible {
+  outline: var(--spacing-05) solid var(--primary-focus);
+  border-radius: var(--border-radius-full);
+}
+
+.Input-iconWrapper--right:hover .Input-icon--right {
+  background-color: var(--secondary);
+}
+
+.Input-iconWrapper--right:active .Input-icon--right {
+  background-color: var(--secondary-dark);
+}
+
+.Input-inlineLabel {
+  margin-right: var(--spacing-20);
+}
+
+.Input-iconWrapper--right:focus-visible {
+  outline: none;
+}

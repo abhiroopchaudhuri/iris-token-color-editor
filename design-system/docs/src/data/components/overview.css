@@ -1,0 +1,54 @@
+.card-opacity {
+  opacity: var(--opacity-16);
+  flex: 1;
+}
+
+.overview-card .gatsby-image-wrapper img {
+  object-fit: contain;
+  max-height: 100%;
+  max-width: 100%;
+  width: auto;
+  height: 100%;
+  margin: 0 auto;
+}
+
+.overview-card .gatsby-image-wrapper {
+  height: 100%;
+}
+
+.overview-card:hover .card-opacity {
+  opacity: 1;
+}
+
+.overview-card:hover {
+  box-shadow: var(--shadow-s);
+}
+
+.min-width-100 {
+  min-width: 100% !important;
+}
+
+.scrollbar {
+  width: var(--spacing-l);
+  border-radius: var(--spacing);
+  height: var(--spacing-6);
+}
+
+.card-link,
+.card-link:hover {
+  text-decoration: none !important;
+}
+
+.card-link[disabled],
+.card-link[disabled] * {
+  pointer-events: none;
+}
+
+.card-heading {
+  bottom: var(--spacing-l);
+}
+
+.overview-container-card {
+  width: 220px;
+  height: 184px;
+}

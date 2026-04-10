@@ -1,0 +1,610 @@
+.Grid {
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1;
+  height: 100%;
+  overflow: hidden;
+  background: var(--white);
+}
+
+.Grid-wrapper {
+  display: flex;
+  position: relative;
+  overflow: hidden;
+  height: 100%;
+}
+
+.Grid--pinned {
+  position: absolute;
+  height: 100%;
+  z-index: 5;
+  overflow-x: hidden;
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+  border-right: var(--border-width-7-5) solid var(--secondary);
+}
+
+.Grid-pinned::-webkit-scrollbar {
+  display: none;
+}
+
+.Grid--main {
+  flex-grow: 1;
+}
+
+.Grid--comfortable .Grid-cell--head {
+  min-height: 40px;
+}
+
+.Grid--comfortable .Grid-cell--body {
+  padding-top: var(--spacing-30);
+  padding-bottom: var(--spacing-30);
+}
+
+.Grid--standard .Grid-cell--head {
+  min-height: 40px;
+}
+
+.Grid--standard .Grid-cell--body {
+  padding-top: var(--spacing-30);
+  padding-bottom: var(--spacing-30);
+}
+
+.Grid--compressed .Grid-cell--head {
+  min-height: 40px;
+}
+
+.Grid--compressed .Grid-cell--body {
+  padding-top: var(--spacing-20);
+  padding-bottom: var(--spacing-20);
+}
+
+.Grid--tight .Grid-cell--head {
+  min-height: var(--spacing-80);
+}
+
+.Grid--tight .Grid-cell--body {
+  padding-top: var(--spacing-10);
+  padding-bottom: var(--spacing-10);
+}
+
+.Grid-head {
+  display: flex;
+  flex: 0 0 auto;
+  overflow-x: auto;
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+  border-bottom: var(--border);
+}
+
+.Grid-head::-webkit-scrollbar {
+  display: none;
+}
+
+.Grid-headCell {
+  display: flex;
+  height: 100%;
+  flex-direction: row;
+  align-items: center;
+}
+
+.Grid-headCell--draggable {
+  cursor: grab;
+}
+
+.Grid-headCell--draggable:active {
+  cursor: grabbing;
+  z-index: 3;
+  opacity: 1;
+  background-color: inherit;
+  color: inherit;
+}
+
+.Grid-body {
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1;
+  overflow-x: auto;
+  overflow-y: auto;
+}
+
+.Grid-rowWrapper {
+  display: inline-flex;
+  flex-direction: column;
+  min-width: fit-content;
+  flex-shrink: 0;
+  border-bottom: var(--border);
+}
+
+.Grid-rowWrapper:last-child .Grid-row--body {
+  border-bottom: 0;
+}
+
+.GridBody-padding {
+  flex-shrink: 0;
+}
+
+.Grid-nestedRow {
+  width: 100%;
+  overflow: hidden;
+}
+
+.Grid-nestedRowTrigger {
+  margin-right: var(--spacing-30);
+  cursor: pointer;
+}
+
+.Grid-nestedRow .Grid-rowWrapper {
+  border-bottom: 0;
+}
+
+.Grid-nestedRow .Grid-cell:first-child {
+  padding-left: calc(var(--spacing-80) + var(--spacing-20));
+}
+
+.Grid-nestedRowPlaceholder {
+  width: var(--spacing-60);
+  margin-right: var(--spacing-30);
+}
+
+.Grid-cell {
+  position: relative;
+  box-sizing: border-box;
+  padding-left: var(--spacing-30);
+  padding-right: var(--spacing-30);
+  flex-grow: 1;
+}
+
+.Grid-cell--body {
+  padding-right: var(--spacing-30);
+}
+
+.Grid-cell--head {
+  overflow: hidden;
+  padding-right: var(--spacing-10);
+}
+
+.Grid-cell--dragged {
+  z-index: 3;
+  opacity: 1;
+  background-color: inherit;
+  color: inherit;
+}
+
+.Grid-cell--separator {
+  border-left: var(--border);
+  border-color: var(--secondary-light);
+}
+
+.Grid-cell--selected {
+  background: var(--primary-lightest);
+}
+
+.Grid-cell--nestedRow {
+  padding-left: var(--spacing-20);
+}
+
+.Grid-cell--head.Grid-cell:first-of-type {
+  border-left: none;
+}
+
+.Grid-cell--head.Grid-cell--selected {
+  background: var(--primary-light);
+}
+
+.Grid-cell--checkbox {
+  width: unset;
+  min-width: unset;
+  display: flex;
+  align-items: center;
+  z-index: 1;
+  padding-right: 0 !important;
+  overflow: visible !important;
+}
+
+.Grid-cell--separator {
+  border-left: var(--border);
+  border-color: var(--secondary-light);
+}
+
+.Grid-cell--selected {
+  background: var(--primary-lightest);
+}
+
+.Grid-sortingIcons {
+  display: flex;
+  align-items: center;
+  padding-left: var(--spacing-10);
+}
+
+.Grid-cellReorder {
+  display: flex;
+  align-items: center;
+  cursor: grab;
+}
+
+.Grid-cellReorder:active {
+  cursor: grabbing;
+}
+
+.Grid-cellContent {
+  display: flex;
+  align-items: center;
+  flex-grow: 1;
+  height: 100%;
+  box-sizing: border-box;
+  z-index: inherit;
+}
+
+.Grid-cell--head .Grid-cellContent {
+  overflow: hidden;
+}
+
+.Grid-cellResize {
+  position: absolute;
+  right: 0;
+  width: var(--spacing-10);
+  cursor: ew-resize;
+  height: 100%;
+}
+
+.Grid-cellSortIcon {
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+}
+
+.Grid-cellSortIcon:hover {
+  background: var(--secondary);
+}
+
+.Grid-cellResize:hover {
+  background: var(--primary);
+}
+
+.Grid-reorderHighlighter {
+  position: absolute;
+  height: 100%;
+  border: var(--border-width-7-5) solid var(--primary-light);
+  z-index: 10;
+}
+
+.Grid-cellGroup {
+  display: flex;
+  box-sizing: border-box;
+  height: 100%;
+}
+
+.Grid-cellGroup--pinned {
+  position: sticky;
+  z-index: 4;
+}
+
+.Grid-cellGroup--pinned-left {
+  left: 0;
+}
+
+.Grid-cellGroup--pinned-right {
+  right: 0;
+}
+
+.Grid .Checkbox-wrapper {
+  margin-right: 0;
+}
+
+/** Grid Cell **/
+
+.GridCell {
+  display: flex;
+  align-items: center;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.GridCell--align-left {
+  justify-content: flex-start;
+  text-align: left;
+}
+
+.GridCell--align-right {
+  justify-content: flex-end;
+  text-align: right;
+}
+
+.GridCell--align-center {
+  justify-content: center;
+  text-align: center;
+}
+
+.GridCell--default {
+}
+
+.GridCell--metaList {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-start;
+  overflow: hidden;
+}
+
+.GridCell--statusHint .StatusHint {
+  overflow: hidden;
+}
+
+.GridCell--statusHint .StatusHint .Text {
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.GridCell--avatar .Avatar {
+  margin: 0;
+}
+
+.GridCell-metaListWrapper {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  width: 100%;
+  overflow: hidden;
+}
+
+.GridCell-metaList {
+  display: flex;
+}
+
+.GridCell-metaList .Text {
+  display: flex;
+  align-items: center;
+}
+
+.GridCell-metaSeparator {
+  content: '';
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: var(--spacing-10);
+  height: var(--spacing-10);
+  border-radius: var(--border-radius-full);
+  background: var(--inverse-lightest);
+  margin: 0 var(--spacing-20);
+}
+
+.GridCell-mark--default {
+  background: var(--warning-light);
+  border-radius: var(--border-radius-05);
+}
+
+.GridCell-mark--metaList {
+  font-size: var(--font-size-s);
+  line-height: var(--font-height-normal);
+  color: var(--text-subtle);
+  background: var(--warning-light);
+  border-radius: var(--border-radius-05);
+}
+
+.GridCell--metaList ul li:first-child {
+  margin-left: 0;
+}
+
+/** Header **/
+
+/** Table-header **/
+
+.Header {
+  background: var(--white);
+  padding: var(--spacing-30);
+  border-bottom: var(--border);
+}
+
+.Header-content {
+  display: flex;
+}
+
+.Header-content--bottom {
+  align-items: center;
+  justify-content: space-between;
+}
+
+.Header-search {
+  width: var(--spacing-640);
+  margin-bottom: var(--spacing-40);
+}
+
+.Header-label {
+  display: flex;
+  flex-grow: 1;
+  align-items: center;
+}
+
+.Header-label .Checkbox {
+  margin-right: var(--spacing-20);
+}
+
+.Header-dropdown {
+  display: flex;
+  margin-left: var(--spacing-10);
+  margin-bottom: var(--spacing-40);
+}
+
+.Header-dropdown .Dropdown {
+  margin: 0 var(--spacing-10);
+}
+
+.Header-draggableDropdown .Dropdown-wrapper {
+  max-height: 200px;
+  overflow-y: auto;
+}
+
+.Header-filters {
+  display: flex;
+}
+
+.Header-sorting {
+  display: flex;
+}
+
+.Header-actions {
+  margin-bottom: var(--spacing-40);
+}
+
+.Header-global-actions {
+  justify-content: flex-end;
+  margin-left: auto;
+  margin-bottom: var(--spacing-40);
+}
+
+/* Grid row */
+
+.Grid-row--disabled {
+  opacity: var(--opacity-10);
+  pointer-events: none;
+}
+
+.Grid-row {
+  display: flex;
+  flex-grow: 1;
+  flex-shrink: 0;
+  box-sizing: border-box;
+  background: var(--white);
+}
+
+.Grid-row--body {
+  border-color: var(--secondary-light);
+}
+
+.Grid--resource .Grid-row--body:hover {
+  cursor: pointer;
+  background: var(--secondary-lightest);
+}
+
+.Grid--resource .Grid-row--body:active {
+  background: var(--secondary-lighter);
+}
+
+.Grid--resource .Grid-row--body:focus {
+  box-shadow: var(--shadow-spread) color-mod(var(--secondary) a(var(--opacity-4)));
+  outline: none;
+}
+
+/* Selected States */
+
+.Grid-row--selected {
+  background: color-mod(var(--primary-lightest) a(var(--opacity-12)));
+}
+
+.Grid-row--selected:hover {
+  background: color-mod(var(--primary-lighter) a(var(--opacity-12))) !important;
+}
+
+.Grid-row--selected:active {
+  background: var(--primary-lighter) !important;
+}
+
+.Grid-row--selected:focus {
+  outline: none;
+  box-shadow: var(--shadow-spread) color-mod(var(--primary) a(var(--opacity-4)));
+}
+
+/* Activated States */
+
+.Grid-row--activated {
+  background: var(--primary-lightest);
+}
+
+/* Pinned Columns Default State */
+
+.Grid--resource .Grid-row--body:hover .Grid-cellWrapper--pinned {
+  cursor: pointer;
+  background: var(--secondary-lightest);
+}
+
+.Grid--resource .Grid-row--body:active .Grid-cellWrapper--pinned {
+  background: var(--secondary-lighter);
+}
+
+.Grid--resource .Grid-row--body:focus .Grid-cellWrapper--pinned {
+  box-shadow: var(--shadow-spread) color-mod(var(--secondary) a(var(--opacity-4)));
+  outline: none;
+}
+
+/* Pinned Columns Selected State */
+
+.Grid-row--selected .Grid-cellWrapper--pinned {
+  background: color-mod(var(--primary-lightest) a(var(--opacity-12)));
+}
+
+.Grid-row--selected:hover .Grid-cellWrapper--pinned {
+  background: color-mod(var(--primary-lighter) a(var(--opacity-12))) !important;
+}
+
+.Grid-row--selected:active .Grid-cellWrapper--pinned {
+  background: var(--primary-lighter) !important;
+}
+
+.Grid-row--selected:focus .Grid-cellWrapper--pinned {
+  outline: none;
+  box-shadow: var(--shadow-spread) color-mod(var(--primary) a(var(--opacity-4)));
+}
+
+/* Grid header */
+.Grid-row--head .Grid-cellGroup--pinned {
+  background: var(--white);
+}
+
+.Grid-row--head .Grid-cellGroup--pinned-left {
+  border-style: inset;
+  border-right: var(--spacing-xs) solid rgba(213, 213, 213, var(--opacity-3));
+  border-right-width: 4px;
+  border-image: linear-gradient(
+      to right,
+      var(--secondary-light),
+      var(--secondary-light) 25%,
+      color-mod(var(--secondary) a(0.1)) 25%,
+      color-mod(var(--secondary) a(0.1))
+    )
+    1 100%;
+}
+
+.Grid-row--head .Grid-cellGroup--pinned-right {
+  border-style: inset;
+  border-left: var(--spacing-xs) solid rgba(213, 213, 213, var(--opacity-3));
+  border-left-width: 4px;
+  border-image: linear-gradient(
+      to left,
+      var(--secondary-light),
+      var(--secondary-light) 25%,
+      color-mod(var(--secondary) a(0.1)) 25%,
+      color-mod(var(--secondary) a(0.1))
+    )
+    1 100%;
+}
+
+/* Pinned Column Border */
+
+.Grid-cellWrapper--pinned-left {
+  border-style: inset;
+  border-right: var(--spacing-xs) solid rgba(213, 213, 213, var(--opacity-3));
+  border-right-width: 4px;
+  border-image: linear-gradient(
+      to right,
+      var(--secondary-light),
+      var(--secondary-light) 25%,
+      color-mod(var(--secondary) a(0.1)) 25%,
+      color-mod(var(--secondary) a(0.1))
+    )
+    1 100%;
+}
+
+.Grid-cellWrapper--pinned-right {
+  border-style: inset;
+  border-left: var(--spacing-xs) solid rgba(213, 213, 213, var(--opacity-3));
+  border-left-width: 4px;
+  border-image: linear-gradient(
+      to left,
+      var(--secondary-light),
+      var(--secondary-light) 25%,
+      color-mod(var(--secondary) a(0.1)) 25%,
+      color-mod(var(--secondary) a(0.1))
+    )
+    1 100%;
+}

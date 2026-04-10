@@ -1,0 +1,203 @@
+.Dropdown {
+  width: 100%;
+  position: relative;
+}
+
+.Dropdown-wrapper {
+  margin-top: var(--spacing-10);
+  margin-bottom: var(--spacing-10);
+}
+
+.Dropdown-inputWrapper {
+  border-bottom: var(--border-width-2-5) solid var(--secondary-dark);
+}
+
+.Dropdown-inputWrapper:focus-within {
+  border-bottom: var(--border-width-2-5) solid var(--primary);
+}
+
+.Dropdown-input {
+  min-width: unset !important;
+  background: transparent;
+  border-bottom-left-radius: 0;
+  border-bottom-right-radius: 0;
+  height: 36px;
+}
+
+.Dropdown-input,
+.Dropdown-input:focus-within {
+  border: unset !important;
+  box-shadow: none !important;
+  outline: none !important;
+}
+
+.Dropdown-input:hover {
+  background-color: var(--secondary-lightest);
+}
+
+.Dropdown-section {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-left: var(--spacing-30);
+  margin-top: var(--spacing-30);
+  margin-bottom: var(--spacing-15);
+}
+
+.Dropdown-section--withClear {
+  margin-top: var(--spacing-20);
+  margin-bottom: var(--spacing-05);
+}
+
+.Dropdown-buttonWrapper {
+  display: flex;
+  justify-content: flex-end;
+  padding-top: var(--spacing-20);
+  padding-right: var(--spacing-20);
+  padding-bottom: var(--spacing-20);
+  border-top: var(--border-width-2-5) solid var(--secondary-light);
+}
+
+.Dropdown-footer {
+  padding-left: var(--spacing-30);
+  padding-bottom: var(--spacing-10);
+  padding-top: var(--spacing-20);
+  box-sizing: border-box;
+}
+
+.Option {
+  display: flex;
+  transition: var(--duration--fast-01) var(--standard-productive-curve);
+  color: var(--text);
+  cursor: pointer;
+}
+
+.Option,
+.Option-loading {
+  padding-top: var(--spacing-15);
+  padding-bottom: var(--spacing-15);
+  padding-left: var(--spacing-30);
+  padding-right: var(--spacing-20);
+}
+
+.Option-checkbox .Checkbox-outerWrapper {
+  background-color: var(--shadow-0);
+}
+
+.Option-checkboxWrapper {
+  display: block;
+}
+
+.OptionCheckbox {
+  width: 100%;
+  padding-left: var(--spacing-30);
+  padding-top: var(--spacing-15);
+  padding-bottom: var(--spacing-15);
+}
+
+.Option--interactive:hover,
+.Option-checkbox--interactive:hover {
+  background-color: var(--secondary-lightest);
+}
+
+.Option--interactive:hover:active,
+.Option-checkbox--interactive:hover:active {
+  background-color: var(--secondary-light);
+}
+
+.Option:focus,
+.Option:focus-visible,
+.Option-checkbox:focus,
+.Option-checkbox:focus-visible {
+  outline: var(--border-width-05) solid var(--primary-focus);
+  outline-offset: calc(-1 * var(--border-width-05));
+}
+
+.OptionWrapper:focus,
+.OptionWrapper:focus-visible {
+  outline: var(--border-width-05) solid var(--primary-focus);
+  outline-offset: calc(-1 * var(--border-width-05));
+}
+
+.Option-loading {
+  pointer-events: none;
+}
+
+.Option--selected {
+  background-color: var(--primary-lightest);
+}
+
+.Option--selected:focus,
+.Option--selected:focus-visible {
+  outline: var(--border-width-05) solid var(--primary-focus);
+  outline-offset: calc(-1 * var(--border-width-05));
+}
+
+.Option--selected.Option--interactive:hover {
+  background-color: var(--primary-lighter);
+}
+
+.Option--selected.Option--interactive:active {
+  background-color: var(--primary-lighter);
+  color: var(--primary-darker);
+}
+
+.Option--selected:active .Option-text,
+.Option--selected:active .Option-subInfo {
+  color: var(--primary-darker);
+}
+
+.Option--disabled,
+.OptionWrapper--disabled {
+  pointer-events: auto;
+  cursor: default;
+}
+
+.Option-label {
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  min-width: 0;
+}
+
+.Option-checkIcon {
+  display: flex;
+  flex-shrink: 0;
+  align-self: center;
+  margin-left: auto;
+  padding-left: var(--spacing-20);
+}
+
+.OptionCheckbox .Checkbox-label {
+  padding-right: var(--spacing-30);
+  width: 100%;
+  display: flex;
+  overflow: hidden;
+  cursor: pointer;
+}
+
+.Option-text,
+.OptionCheckbox .Text {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.Option-text--wrap,
+.Dropdown-wrapper--wrap .OptionCheckbox .Text {
+  white-space: unset;
+}
+
+.Option--icon {
+  padding-left: var(--spacing-20);
+}
+
+.Option-icon {
+  display: flex;
+}
+
+.Option-icon {
+  height: fit-content;
+  line-height: var(--font-height);
+}

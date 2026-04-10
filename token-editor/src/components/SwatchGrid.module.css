@@ -1,0 +1,253 @@
+.grouped {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+  padding: 1rem 0;
+}
+
+.familyGroup {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.familyHeader {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.familyTitle {
+  font-size: 0.8rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--text-secondary);
+  padding-left: 4px;
+}
+
+.groupHslBtn {
+  display: flex;
+  align-items: center;
+  gap: 0.25rem;
+  padding: 0.2rem 0.5rem;
+  border: 1px solid var(--border-color);
+  border-radius: 6px;
+  background: transparent;
+  color: var(--text-tertiary);
+  font-size: 0.65rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.15s ease;
+}
+
+.groupHslBtn:hover {
+  border-color: rgba(255, 255, 255, 0.4);
+  color: #fff;
+  background: rgba(255, 255, 255, 0.08);
+}
+
+/* Per-group HSL panel */
+.groupHslPanel {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 0.5rem 0.75rem;
+  background: var(--surface-2);
+  border: 1px solid var(--border-color);
+  border-radius: 8px;
+  animation: fadeIn 0.15s ease;
+  flex-wrap: wrap;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(-4px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.groupSliderRow {
+  display: flex;
+  align-items: center;
+  gap: 0.35rem;
+}
+
+.groupSliderLabel {
+  width: 14px;
+  font-size: 0.65rem;
+  font-weight: 600;
+  color: var(--text-tertiary);
+  text-transform: uppercase;
+}
+
+.groupSlider {
+  width: 100px;
+  -webkit-appearance: none;
+  appearance: none;
+  height: 4px;
+  border-radius: 2px;
+  background: var(--surface-4);
+  outline: none;
+  cursor: pointer;
+}
+
+.groupSlider::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  background: var(--accent);
+  cursor: pointer;
+  border: 1px solid rgba(255,255,255,0.2);
+}
+
+.groupSlider::-moz-range-thumb {
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  background: var(--accent);
+  cursor: pointer;
+  border: 1px solid rgba(255,255,255,0.2);
+}
+
+.groupNum {
+  width: 40px;
+  padding: 2px 3px;
+  border: 1px solid var(--border-color);
+  border-radius: 4px;
+  background: var(--surface-1);
+  color: var(--text-primary);
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.65rem;
+  text-align: center;
+  outline: none;
+  -moz-appearance: textfield;
+}
+
+.groupNum::-webkit-outer-spin-button,
+.groupNum::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+.groupResetBtn {
+  padding: 0.2rem 0.4rem;
+  border: 1px solid var(--border-color);
+  border-radius: 4px;
+  background: transparent;
+  color: var(--text-tertiary);
+  font-size: 0.6rem;
+  cursor: pointer;
+  transition: all 0.15s ease;
+}
+
+.groupResetBtn:hover {
+  color: var(--text-primary);
+  background: var(--surface-3);
+}
+
+.familySwatches {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+
+/* List */
+.list {
+  display: flex;
+  flex-direction: column;
+  padding: 1rem 0;
+  font-size: 0.8rem;
+}
+
+.listHeader {
+  display: grid;
+  grid-template-columns: 36px 1fr 120px 140px 48px;
+  gap: 0.75rem;
+  padding: 0.5rem 0.75rem;
+  color: var(--text-tertiary);
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  font-size: 0.7rem;
+  border-bottom: 1px solid var(--border-color);
+}
+
+.listRow {
+  display: grid;
+  grid-template-columns: 36px 1fr 120px 140px 48px;
+  gap: 0.75rem;
+  padding: 0.4rem 0.75rem;
+  align-items: center;
+  border-bottom: 1px solid var(--border-subtle);
+  transition: background 0.1s ease;
+}
+
+.listRow:hover {
+  background: var(--surface-2);
+}
+
+.listColorWrap {
+  position: relative;
+  width: 28px;
+  height: 28px;
+  border-radius: 6px;
+  overflow: hidden;
+}
+
+.listCheckerboard {
+  position: absolute;
+  inset: 0;
+  background-image:
+    linear-gradient(45deg, #3a3a3a 25%, transparent 25%),
+    linear-gradient(-45deg, #3a3a3a 25%, transparent 25%),
+    linear-gradient(45deg, transparent 75%, #3a3a3a 75%),
+    linear-gradient(-45deg, transparent 75%, #3a3a3a 75%);
+  background-size: 8px 8px;
+  background-position: 0 0, 0 4px, 4px -4px, -4px 0px;
+  background-color: #2a2a2a;
+}
+
+.listColor {
+  position: relative;
+  width: 28px;
+  height: 28px;
+  border-radius: 6px;
+  z-index: 1;
+}
+
+.listName {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.75rem;
+  color: var(--text-primary);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.listHex {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.75rem;
+  color: var(--text-secondary);
+}
+
+.listHsl {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.75rem;
+  color: var(--text-tertiary);
+}
+
+.listLockBtn {
+  border: none;
+  background: none;
+  cursor: pointer;
+  font-size: 1rem;
+  padding: 2px;
+  opacity: 0.5;
+  transition: opacity 0.15s ease;
+}
+
+.listLockBtn:hover,
+.listLocked {
+  opacity: 1;
+}

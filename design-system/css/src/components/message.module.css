@@ -1,0 +1,101 @@
+.Message {
+  display: flex;
+  flex-direction: row;
+  overflow: hidden;
+  padding: var(--spacing-30) var(--spacing-60) var(--spacing-30) var(--spacing-40);
+  border: var(--border-width-2-5) solid;
+  width: 100%;
+  border-radius: var(--border-radius-10);
+  box-sizing: border-box;
+}
+
+.Message--small {
+  padding: var(--spacing-20);
+}
+
+.Message--alert {
+  border-color: var(--alert);
+  background-color: color-mod(var(--alert) a(var(--opacity-1)));
+}
+
+.Message--success {
+  border-color: var(--success);
+  background-color: color-mod(var(--success) a(var(--opacity-1)));
+}
+
+.Message--info {
+  border-color: var(--primary);
+  background-color: color-mod(var(--primary) a(var(--opacity-1)));
+}
+
+.Message--warning {
+  border-color: var(--accent1);
+  background-color: color-mod(var(--accent1) a(var(--opacity-1)));
+}
+
+.Message-icon--regular {
+  margin-right: var(--spacing-40);
+  padding-top: var(--spacing-05);
+}
+
+.Message-icon--small {
+  margin-right: var(--spacing-20);
+  padding-top: var(--spacing-05) !important;
+}
+
+.Message-icon--withTitle {
+  padding-top: var(--spacing-10);
+}
+
+.Message-icon--warning {
+  color: var(--accent1);
+}
+
+.Message-heading--regular {
+  margin-bottom: var(--spacing-10);
+}
+
+.Message-heading--small {
+  font-size: var(--font-size);
+  line-height: var(--font-height);
+  margin-bottom: var(--spacing-05);
+}
+
+.Message-text--small {
+  font-size: var(--font-size-s);
+  line-height: var(--font-height-s);
+  font-weight: var(--font-weight-medium);
+}
+
+.Message-heading--alert,
+.Message-text--alert {
+  color: var(--alert-darker) !important;
+}
+
+.Message-heading--info,
+.Message-text--info {
+  color: var(--primary-darker) !important;
+}
+
+.Message-heading--success,
+.Message-text--success {
+  color: var(--success-darker) !important;
+}
+
+.Message-heading--warning,
+.Message-text--warning {
+  color: var(--accent1-darker) !important;
+}
+
+.Message-actions {
+  display: flex;
+  align-items: center;
+}
+
+.Message-actions--regular {
+  margin-top: var(--spacing-30);
+}
+
+.Message-actions--small {
+  margin-top: var(--spacing-10);
+}

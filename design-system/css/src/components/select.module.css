@@ -1,0 +1,200 @@
+.Select-input {
+  min-width: unset !important;
+  background: transparent;
+  border-bottom-left-radius: 0;
+  border-bottom-right-radius: 0;
+  height: 36px;
+}
+
+.Select-input,
+.Select-input:focus-within {
+  border: unset !important;
+  box-shadow: none !important;
+  outline: none !important;
+}
+
+.Select-input:hover {
+  background-color: var(--secondary-lightest);
+}
+
+.Select-trigger {
+  width: 100%;
+  justify-content: space-between;
+  padding-top: unset;
+  padding-bottom: unset;
+  transition: var(--duration--fast-01) var(--standard-productive-curve);
+}
+
+.Select-trigger--filled {
+  background: var(--secondary-light);
+  color: var(--text);
+}
+
+.Select-trigger--filled:disabled {
+  background: var(--secondary-lighter);
+  color: var(--text-disabled);
+  pointer-events: none;
+}
+
+.Select-trigger--filled:active,
+.Select-trigger--filledOpen {
+  background-color: var(--secondary-dark) !important;
+  color: var(--text) !important;
+  animation-timing-function: cubic-bezier(0, 0, 0.38, 0.9);
+  animation-duration: 120ms;
+}
+
+.Select-trigger--filled:hover {
+  background: var(--secondary);
+  color: var(--text);
+}
+
+.Select-trigger--filled:focus-visible {
+  background-color: var(--secondary-light);
+}
+
+/* styleType Outlined */
+
+.Select-trigger--outlined {
+  background: var(--white);
+  color: var(--text);
+  border: var(--border);
+}
+
+.Select-trigger--outlined:hover {
+  background: var(--secondary-lighter);
+  color: var(--inverse);
+  border: var(--border-width-2-5) solid var(--secondary-dark);
+}
+
+.Select-trigger--outlined:active,
+.Select-trigger--outlinedOpen {
+  color: var(--inverse) !important;
+  background: var(--secondary) !important;
+  border: var(--border-width-2-5) solid var(--inverse-lightest) !important;
+  animation-timing-function: var(--entrance-productive-curve);
+  animation-duration: var(--duration--fast-02);
+}
+
+.Select-trigger--outlined:disabled {
+  color: var(--inverse-lightest) !important;
+  background: var(--secondary-lightest) !important;
+  border: var(--border-width-2-5) solid var(--secondary-lighter) !important;
+}
+
+.Select-inputWrapper {
+  border-bottom: var(--border-width-2-5) solid var(--secondary-dark);
+}
+
+.Select-inputWrapper:focus-within {
+  border-bottom: var(--border-width-2-5) solid var(--primary);
+}
+
+.Select-trigger-wrapper {
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  overflow: hidden;
+}
+
+.Select-trigger--small {
+  height: var(--spacing-60);
+  padding-right: var(--spacing-10);
+  padding-left: var(--spacing-20);
+}
+
+.Select-trigger--text,
+.Select-option--text {
+  text-align: left;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 100%;
+  margin: 0;
+  font-size: var(--font-size);
+  line-height: var(--font-height);
+  width: 100%;
+}
+
+.Select-trigger--regular {
+  height: var(--spacing-80);
+  padding-right: var(--spacing-20);
+  padding-left: var(--spacing-30);
+}
+
+.Select-trigger--filledPlaceholder {
+  color: var(--text);
+}
+
+.Select-trigger--outlinedPlaceholder {
+  color: var(--inverse-lighter);
+}
+
+.Select-trigger--icon {
+  padding-left: var(--spacing-20);
+}
+
+.Select-buttonWrapper {
+  display: flex;
+  justify-content: flex-end;
+  padding-top: var(--spacing-20);
+  padding-right: var(--spacing-20);
+  padding-bottom: var(--spacing-20);
+  border-top: var(--border-width-2-5) solid var(--secondary-light);
+}
+
+.Select-crossButton {
+  display: flex;
+  flex-shrink: 0;
+  overflow: hidden;
+  user-select: none;
+  cursor: pointer;
+  border-radius: var(--border-radius-full);
+  padding: var(--spacing-05);
+  border: none;
+  background: transparent;
+}
+
+.Select-crossButton:focus-visible {
+  outline: var(--spacing-05) solid var(--primary-focus);
+}
+
+.Select-crossButton:hover {
+  background-color: var(--secondary);
+}
+
+.Select-crossButton:active {
+  background-color: var(--secondary-dark);
+}
+
+.Select-option {
+  display: flex;
+  align-items: flex-start;
+  width: 100%;
+}
+
+.Select-trigger--textSmall {
+  font-size: var(--font-size-s);
+  line-height: var(--font-height-s);
+  font-weight: var(--font-weight-medium);
+}
+
+.Select-option--tight {
+  padding: var(--spacing-10) var(--spacing-20);
+}
+
+.Select-input--tiny {
+  padding-right: var(--spacing-10);
+  height: var(--spacing-60);
+}
+
+.Select-option--textTight {
+  font-size: var(--font-size-s);
+  line-height: var(--font-height-s);
+  font-weight: var(--font-weight-medium);
+}
+
+.Select-trigger--error {
+  border: var(--border-width-2-5) solid var(--alert) !important;
+}

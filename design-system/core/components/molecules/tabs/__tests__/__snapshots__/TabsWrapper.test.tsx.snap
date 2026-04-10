@@ -1,0 +1,99 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`TabsWrapper component 
+  activeTab: 0, onTabChange: "[Function]"
+ 1`] = `
+<DocumentFragment>
+  <div
+    class="TabsWrapper"
+    data-test="DesignSystem-TabsWrapper"
+  >
+    <div
+      class="TabsWrapper-header"
+    >
+      <div
+        class="Tab Tab--active Tab--regular"
+        data-test="DesignSystem-Tabs--Header"
+        role="button"
+        tabindex="0"
+      >
+        <span
+          class="Text Text--default Text--regular"
+          data-test="DesignSystem-Text"
+        >
+          Tab(Recommended)
+        </span>
+      </div>
+      <div
+        aria-disabled="true"
+        class="Tab Tab--disabled Tab--regular"
+        data-test="DesignSystem-Tabs--Header"
+        role="button"
+        tabindex="-1"
+      >
+        <span
+          class="Text Text--default Text--regular"
+          data-test="DesignSystem-Text"
+        >
+          Tab(Recommended)
+        </span>
+      </div>
+    </div>
+    <div
+      class="TabsWrapper-content"
+      data-test="DesignSystem-Tabs--Content"
+    >
+      Tab 1
+    </div>
+  </div>
+</DocumentFragment>
+`;
+
+exports[`TabsWrapper component 
+  activeTab: 1, onTabChange: "[Function]"
+ 1`] = `
+<DocumentFragment>
+  <div
+    class="TabsWrapper"
+    data-test="DesignSystem-TabsWrapper"
+  >
+    <div
+      class="TabsWrapper-header"
+    >
+      <div
+        class="Tab Tab--active Tab--regular"
+        data-test="DesignSystem-Tabs--Header"
+        role="button"
+        tabindex="0"
+      >
+        <span
+          class="Text Text--default Text--regular"
+          data-test="DesignSystem-Text"
+        >
+          Tab(Recommended)
+        </span>
+      </div>
+      <div
+        aria-disabled="true"
+        class="Tab Tab--disabled Tab--regular"
+        data-test="DesignSystem-Tabs--Header"
+        role="button"
+        tabindex="-1"
+      >
+        <span
+          class="Text Text--default Text--regular"
+          data-test="DesignSystem-Text"
+        >
+          Tab(Recommended)
+        </span>
+      </div>
+    </div>
+    <div
+      class="TabsWrapper-content"
+      data-test="DesignSystem-Tabs--Content"
+    >
+      Tab 1
+    </div>
+  </div>
+</DocumentFragment>
+`;

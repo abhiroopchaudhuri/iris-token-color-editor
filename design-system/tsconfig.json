@@ -1,0 +1,27 @@
+{
+  "compilerOptions": {
+    "sourceMap": true,
+    "strict": true,
+    "target": "es5",
+    "jsx": "react",
+    "module": "commonjs",
+    "moduleResolution": "node",
+    "emitDecoratorMetadata": true,
+    "experimentalDecorators": true,
+    "noImplicitAny": true,
+    "noImplicitReturns": true,
+    "noUnusedParameters": true,
+    "noUnusedLocals": true,
+    "removeComments": true,
+    "strictNullChecks": true,
+    "skipLibCheck": true,
+    "esModuleInterop": true,
+    "lib": ["es6", "es7", "es2017", "dom"],
+    "baseUrl": "./",
+    "types": [],
+    "paths": {
+      "@/*": ["core/*"]
+    }
+  },
+  "exclude": ["dist", "build", "node_modules", ".github", ".husky", "docs", "types/types-tests.tsx", "examples"]
+}

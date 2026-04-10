@@ -1,0 +1,39 @@
+.FileUploader {
+  display: flex;
+  flex-direction: column;
+}
+
+.FileUploaderButton {
+  width: fit-content;
+  position: relative;
+}
+
+.FileUploaderButton-input {
+  height: 100%;
+  width: 100%;
+  top: 0;
+  position: absolute;
+  opacity: 0;
+  font-size: 0;
+  z-index: 2;
+  cursor: pointer;
+}
+
+.FileUploaderItem {
+  width: var(--spacing-640);
+}
+
+.FileUploaderItem-text {
+  width: var(--spacing-440);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.FileUploaderItem-file {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding-top: var(--spacing-05);
+  padding-bottom: var(--spacing-05);
+}

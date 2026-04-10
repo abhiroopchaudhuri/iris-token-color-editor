@@ -1,0 +1,1927 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Navigation component 
+  tabs: "[ReactNode]", meta: "[ReactNode]", badge: "[ReactNode]", title: "PageHeader title", button: "[ReactNode]", status: "[ReactNode]", stepper: "[ReactNode]", actions: "[ReactNode]", navigation: "[ReactNode]", breadcrumbs: "[ReactNode]", separator: false, navigationPosition: "bottom"
+ 1`] = `
+<body>
+  <div>
+    <div
+      data-test="DesignSystem-PageHeader"
+    >
+      <div
+        class="PageHeader-wrapper PageHeader-wrapper--withTabs"
+      >
+        <div
+          class="pl-6"
+          data-test="DesignSystem-PageHeader--Breadcrumbs"
+        >
+          <nav
+            aria-label="Breadcrumb"
+            class="Breadcrumbs"
+            data-test="DesignSystem-Breadcrumbs"
+          >
+            <div
+              class="Breadcrumbs-item"
+              data-test="DesignSystem-Breadcrumbs-item"
+            >
+              <a
+                aria-disabled="false"
+                class="Link Link--tiny Link--subtle Breadcrumbs-link ellipsis--noWrap"
+                data-test="DesignSystem-Breadcrumbs-link"
+                href="/Senders"
+                tabindex="0"
+              >
+                Senders
+              </a>
+              <span
+                class="Breadcrumbs-itemSeparator"
+              >
+                /
+              </span>
+            </div>
+          </nav>
+        </div>
+        <div
+          class="d-flex pl-6"
+        >
+          <div
+            class="mr-5 my-3"
+            data-test="DesignSystem-PageHeader--Button"
+          >
+            <button
+              class="Button Button--tiny Button--tinySquare Button--basic"
+              data-test="DesignSystem-Button"
+              tabindex="0"
+            >
+              <div
+                class="Button-icon"
+                data-test="DesignSystem-Button--Icon-Wrapper"
+              >
+                <i
+                  class="material-symbols material-symbols-rounded Icon"
+                  data-test="DesignSystem-Button--Icon"
+                  style="font-size: 14px; width: 14px;"
+                >
+                  arrow_back
+                </i>
+              </div>
+            </button>
+          </div>
+          <div
+            class="PageHeader"
+          >
+            <div
+              class="Row w-100"
+              data-test="DesignSystem-Row"
+            >
+              <div
+                class="Col Col--8 Col--m-8 Col--xl-8"
+                data-test="DesignSystem-Column"
+              >
+                <div
+                  class="PageHeader-titleWrapper"
+                  data-test="DesignSystem-PageHeader--Title"
+                >
+                  <h4
+                    class="Heading Heading--m Heading--default PageHeader-title"
+                    data-test="DesignSystem-Heading"
+                  >
+                    PageHeader title
+                  </h4>
+                  <span
+                    class="Badge Badge--secondary"
+                    data-test="DesignSystem-Badge"
+                  >
+                    Sent
+                  </span>
+                </div>
+              </div>
+              <div
+                class="Col Col--4 Col--m-4 Col--xl-4"
+                data-test="DesignSystem-PageHeader--Actions"
+              >
+                <div
+                  class="PageHeader-actionsWrapper"
+                >
+                  <button
+                    class="Button Button--regular Button--basic Button--iconAlign-left"
+                    data-test="DesignSystem-Button"
+                    tabindex="0"
+                  >
+                    <span
+                      class="Button-text"
+                    >
+                      Action Section
+                    </span>
+                  </button>
+                </div>
+              </div>
+            </div>
+            <div
+              class="PageHeader-statusWrapper mb-3"
+              data-test="DesignSystem-PageHeader--Status"
+            >
+              <div
+                class="StatusHint"
+                data-test="DesignSystem-StatusHint"
+              >
+                <span
+                  aria-label="default status"
+                  class="StatusHint-icon StatusHint--default mr-4"
+                  data-test="DesignSystem-StatusHint--Icon"
+                  role="img"
+                />
+                <span
+                  class="Text Text--default Text--medium Text--regular"
+                  data-test="DesignSystem-StatusHint--Text"
+                >
+                  Ongoing
+                </span>
+              </div>
+              <div
+                class="MetaList"
+                data-test="DesignSystem-MetaList"
+              >
+                <span
+                  class="MetaList-item"
+                >
+                  <span
+                    class="Meta"
+                    data-test="DesignSystem-MetaList--Meta"
+                  >
+                    <span
+                      class="Text Text--subtle Text--regular"
+                      data-test="DesignSystem-MetaList--MetaLabel"
+                    >
+                      Text
+                    </span>
+                  </span>
+                  <i
+                    aria-hidden="true"
+                    class="material-symbols material-symbols-rounded Icon Icon--disabled MetaList-seperator"
+                    data-test="DesignSystem-MetaList--rightSeperator"
+                    style="font-size: 8px; width: 8px;"
+                  >
+                    fiber_manual_record
+                  </i>
+                </span>
+                <span
+                  class="MetaList-item"
+                >
+                  <span
+                    class="Meta"
+                    data-test="DesignSystem-MetaList--Meta"
+                  >
+                    <span
+                      class="Text Text--subtle Text--regular"
+                      data-test="DesignSystem-MetaList--MetaLabel"
+                    >
+                      Email
+                    </span>
+                  </span>
+                </span>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div
+          class="pl-3"
+        >
+          <div
+            class="PageHeader-navigationWrapper"
+            data-test="DesignSystem-PageHeader--Nav"
+          >
+            <nav
+              aria-label="Horizontal Navigation"
+              class="HorizontalNav"
+            >
+              <button
+                class="HorizontalNav-menu HorizontalNav-menu--default HorizontalNav-animate color-inverse"
+                data-test="DesignSystem-HorizontalNav"
+                type="button"
+              >
+                <span
+                  class="Text Text--medium Text--regular color-inverse HorizontalNav-menuText HorizontalNav-animate"
+                  data-test="DesignSystem-HorizontalNav--Text"
+                >
+                  Virtual Visits
+                </span>
+              </button>
+              <button
+                class="HorizontalNav-menu HorizontalNav-menu--default HorizontalNav-animate color-inverse"
+                data-test="DesignSystem-HorizontalNav"
+                type="button"
+              >
+                <span
+                  class="Text Text--medium Text--regular color-inverse HorizontalNav-menuText HorizontalNav-animate"
+                  data-test="DesignSystem-HorizontalNav--Text"
+                >
+                  Assesments
+                </span>
+              </button>
+            </nav>
+          </div>
+          <div
+            data-test="DesignSystem-PageHeader--Tabs"
+          >
+            <div
+              class="TabsWrapper"
+              data-test="DesignSystem-Tabs"
+            >
+              <div
+                class="TabsWrapper-header TabsWrapper-header--withSeparator"
+                data-test="DesignSystem-Tabs--Header"
+                role="tablist"
+              >
+                <div
+                  aria-label="New"
+                  aria-selected="true"
+                  class="Tab Tab--active Tab-selected align-items-center"
+                  data-test="DesignSystem-Tabs--Tab"
+                  id="tabs-5-tab-0"
+                  role="tab"
+                  tabindex="0"
+                >
+                  <span
+                    class="Tab--regular Tab--overflow"
+                    data-test="DesignSystem-Tabs--TextWrapper"
+                    style="max-width: var(--spacing-640);"
+                  >
+                    <span
+                      class="Pills Badge--primary Tab-pills"
+                      data-test="DesignSystem-Tabs--Pills"
+                    >
+                      32
+                    </span>
+                    <span
+                      class="Text Text--link Text--regular ellipsis--noWrap Tab-selected"
+                      data-test="DesignSystem-Tabs--Text"
+                    >
+                      New
+                    </span>
+                  </span>
+                </div>
+                <div
+                  aria-label="Invalid"
+                  aria-selected="false"
+                  class="Tab align-items-center"
+                  data-test="DesignSystem-Tabs--Tab"
+                  id="tabs-5-tab-1"
+                  role="tab"
+                  tabindex="0"
+                >
+                  <span
+                    class="Tab--regular Tab--overflow"
+                    data-test="DesignSystem-Tabs--TextWrapper"
+                    style="max-width: var(--spacing-640);"
+                  >
+                    <span
+                      class="Pills Badge--secondary Tab-pills"
+                      data-test="DesignSystem-Tabs--Pills"
+                    >
+                      4
+                    </span>
+                    <span
+                      class="Text Text--subtle Text--regular ellipsis--noWrap"
+                      data-test="DesignSystem-Tabs--Text"
+                    >
+                      Invalid
+                    </span>
+                  </span>
+                </div>
+                <div
+                  aria-label="Duplicate"
+                  aria-selected="false"
+                  class="Tab align-items-center"
+                  data-test="DesignSystem-Tabs--Tab"
+                  id="tabs-5-tab-2"
+                  role="tab"
+                  tabindex="0"
+                >
+                  <span
+                    class="Tab--regular Tab--overflow"
+                    data-test="DesignSystem-Tabs--TextWrapper"
+                    style="max-width: var(--spacing-640);"
+                  >
+                    <span
+                      class="Pills Badge--secondary Tab-pills"
+                      data-test="DesignSystem-Tabs--Pills"
+                    >
+                      2
+                    </span>
+                    <span
+                      class="Text Text--subtle Text--regular ellipsis--noWrap"
+                      data-test="DesignSystem-Tabs--Text"
+                    >
+                      Duplicate
+                    </span>
+                  </span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</body>
+`;
+
+exports[`Navigation component 
+  tabs: "[ReactNode]", meta: "[ReactNode]", badge: "[ReactNode]", title: "PageHeader title", button: "[ReactNode]", status: "[ReactNode]", stepper: "[ReactNode]", actions: "[ReactNode]", navigation: "[ReactNode]", breadcrumbs: "[ReactNode]", separator: false, navigationPosition: "center"
+ 1`] = `
+<body>
+  <div>
+    <div
+      data-test="DesignSystem-PageHeader"
+    >
+      <div
+        class="PageHeader-wrapper PageHeader-wrapper--withTabs"
+      >
+        <div
+          class="pl-6"
+          data-test="DesignSystem-PageHeader--Breadcrumbs"
+        >
+          <nav
+            aria-label="Breadcrumb"
+            class="Breadcrumbs"
+            data-test="DesignSystem-Breadcrumbs"
+          >
+            <div
+              class="Breadcrumbs-item"
+              data-test="DesignSystem-Breadcrumbs-item"
+            >
+              <a
+                aria-disabled="false"
+                class="Link Link--tiny Link--subtle Breadcrumbs-link ellipsis--noWrap"
+                data-test="DesignSystem-Breadcrumbs-link"
+                href="/Senders"
+                tabindex="0"
+              >
+                Senders
+              </a>
+              <span
+                class="Breadcrumbs-itemSeparator"
+              >
+                /
+              </span>
+            </div>
+          </nav>
+        </div>
+        <div
+          class="d-flex pl-6"
+        >
+          <div
+            class="mr-5 my-3"
+            data-test="DesignSystem-PageHeader--Button"
+          >
+            <button
+              class="Button Button--tiny Button--tinySquare Button--basic"
+              data-test="DesignSystem-Button"
+              tabindex="0"
+            >
+              <div
+                class="Button-icon"
+                data-test="DesignSystem-Button--Icon-Wrapper"
+              >
+                <i
+                  class="material-symbols material-symbols-rounded Icon"
+                  data-test="DesignSystem-Button--Icon"
+                  style="font-size: 14px; width: 14px;"
+                >
+                  arrow_back
+                </i>
+              </div>
+            </button>
+          </div>
+          <div
+            class="PageHeader"
+          >
+            <div
+              class="Row w-100"
+              data-test="DesignSystem-Row"
+            >
+              <div
+                class="Col Col--4 Col--m-4 Col--xl-4"
+                data-test="DesignSystem-Column"
+              >
+                <div
+                  class="PageHeader-titleWrapper"
+                  data-test="DesignSystem-PageHeader--Title"
+                >
+                  <h4
+                    class="Heading Heading--m Heading--default PageHeader-title"
+                    data-test="DesignSystem-Heading"
+                  >
+                    PageHeader title
+                  </h4>
+                  <span
+                    class="Badge Badge--secondary"
+                    data-test="DesignSystem-Badge"
+                  >
+                    Sent
+                  </span>
+                </div>
+              </div>
+              <div
+                class="Col Col--4 Col--m-4 Col--xl-4"
+                data-test="DesignSystem-PageHeader--CenterNav"
+              >
+                <div
+                  class="PageHeader-navigationWrapper"
+                  data-test="DesignSystem-PageHeader--Nav"
+                >
+                  <nav
+                    aria-label="Horizontal Navigation"
+                    class="HorizontalNav"
+                  >
+                    <button
+                      class="HorizontalNav-menu HorizontalNav-menu--default HorizontalNav-animate color-inverse"
+                      data-test="DesignSystem-HorizontalNav"
+                      type="button"
+                    >
+                      <span
+                        class="Text Text--medium Text--regular color-inverse HorizontalNav-menuText HorizontalNav-animate"
+                        data-test="DesignSystem-HorizontalNav--Text"
+                      >
+                        Virtual Visits
+                      </span>
+                    </button>
+                    <button
+                      class="HorizontalNav-menu HorizontalNav-menu--default HorizontalNav-animate color-inverse"
+                      data-test="DesignSystem-HorizontalNav"
+                      type="button"
+                    >
+                      <span
+                        class="Text Text--medium Text--regular color-inverse HorizontalNav-menuText HorizontalNav-animate"
+                        data-test="DesignSystem-HorizontalNav--Text"
+                      >
+                        Assesments
+                      </span>
+                    </button>
+                  </nav>
+                </div>
+              </div>
+              <div
+                class="Col Col--4 Col--m-4 Col--xl-4"
+                data-test="DesignSystem-PageHeader--Actions"
+              >
+                <div
+                  class="PageHeader-actionsWrapper"
+                >
+                  <button
+                    class="Button Button--regular Button--basic Button--iconAlign-left"
+                    data-test="DesignSystem-Button"
+                    tabindex="0"
+                  >
+                    <span
+                      class="Button-text"
+                    >
+                      Action Section
+                    </span>
+                  </button>
+                </div>
+              </div>
+            </div>
+            <div
+              class="PageHeader-statusWrapper mb-3"
+              data-test="DesignSystem-PageHeader--Status"
+            >
+              <div
+                class="StatusHint"
+                data-test="DesignSystem-StatusHint"
+              >
+                <span
+                  aria-label="default status"
+                  class="StatusHint-icon StatusHint--default mr-4"
+                  data-test="DesignSystem-StatusHint--Icon"
+                  role="img"
+                />
+                <span
+                  class="Text Text--default Text--medium Text--regular"
+                  data-test="DesignSystem-StatusHint--Text"
+                >
+                  Ongoing
+                </span>
+              </div>
+              <div
+                class="MetaList"
+                data-test="DesignSystem-MetaList"
+              >
+                <span
+                  class="MetaList-item"
+                >
+                  <span
+                    class="Meta"
+                    data-test="DesignSystem-MetaList--Meta"
+                  >
+                    <span
+                      class="Text Text--subtle Text--regular"
+                      data-test="DesignSystem-MetaList--MetaLabel"
+                    >
+                      Text
+                    </span>
+                  </span>
+                  <i
+                    aria-hidden="true"
+                    class="material-symbols material-symbols-rounded Icon Icon--disabled MetaList-seperator"
+                    data-test="DesignSystem-MetaList--rightSeperator"
+                    style="font-size: 8px; width: 8px;"
+                  >
+                    fiber_manual_record
+                  </i>
+                </span>
+                <span
+                  class="MetaList-item"
+                >
+                  <span
+                    class="Meta"
+                    data-test="DesignSystem-MetaList--Meta"
+                  >
+                    <span
+                      class="Text Text--subtle Text--regular"
+                      data-test="DesignSystem-MetaList--MetaLabel"
+                    >
+                      Email
+                    </span>
+                  </span>
+                </span>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div
+          class="pl-3"
+        >
+          <div
+            data-test="DesignSystem-PageHeader--Tabs"
+          >
+            <div
+              class="TabsWrapper"
+              data-test="DesignSystem-Tabs"
+            >
+              <div
+                class="TabsWrapper-header TabsWrapper-header--withSeparator"
+                data-test="DesignSystem-Tabs--Header"
+                role="tablist"
+              >
+                <div
+                  aria-label="New"
+                  aria-selected="true"
+                  class="Tab Tab--active Tab-selected align-items-center"
+                  data-test="DesignSystem-Tabs--Tab"
+                  id="tabs-4-tab-0"
+                  role="tab"
+                  tabindex="0"
+                >
+                  <span
+                    class="Tab--regular Tab--overflow"
+                    data-test="DesignSystem-Tabs--TextWrapper"
+                    style="max-width: var(--spacing-640);"
+                  >
+                    <span
+                      class="Pills Badge--primary Tab-pills"
+                      data-test="DesignSystem-Tabs--Pills"
+                    >
+                      32
+                    </span>
+                    <span
+                      class="Text Text--link Text--regular ellipsis--noWrap Tab-selected"
+                      data-test="DesignSystem-Tabs--Text"
+                    >
+                      New
+                    </span>
+                  </span>
+                </div>
+                <div
+                  aria-label="Invalid"
+                  aria-selected="false"
+                  class="Tab align-items-center"
+                  data-test="DesignSystem-Tabs--Tab"
+                  id="tabs-4-tab-1"
+                  role="tab"
+                  tabindex="0"
+                >
+                  <span
+                    class="Tab--regular Tab--overflow"
+                    data-test="DesignSystem-Tabs--TextWrapper"
+                    style="max-width: var(--spacing-640);"
+                  >
+                    <span
+                      class="Pills Badge--secondary Tab-pills"
+                      data-test="DesignSystem-Tabs--Pills"
+                    >
+                      4
+                    </span>
+                    <span
+                      class="Text Text--subtle Text--regular ellipsis--noWrap"
+                      data-test="DesignSystem-Tabs--Text"
+                    >
+                      Invalid
+                    </span>
+                  </span>
+                </div>
+                <div
+                  aria-label="Duplicate"
+                  aria-selected="false"
+                  class="Tab align-items-center"
+                  data-test="DesignSystem-Tabs--Tab"
+                  id="tabs-4-tab-2"
+                  role="tab"
+                  tabindex="0"
+                >
+                  <span
+                    class="Tab--regular Tab--overflow"
+                    data-test="DesignSystem-Tabs--TextWrapper"
+                    style="max-width: var(--spacing-640);"
+                  >
+                    <span
+                      class="Pills Badge--secondary Tab-pills"
+                      data-test="DesignSystem-Tabs--Pills"
+                    >
+                      2
+                    </span>
+                    <span
+                      class="Text Text--subtle Text--regular ellipsis--noWrap"
+                      data-test="DesignSystem-Tabs--Text"
+                    >
+                      Duplicate
+                    </span>
+                  </span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</body>
+`;
+
+exports[`Navigation component 
+  tabs: "[ReactNode]", meta: "[ReactNode]", badge: "[ReactNode]", title: "PageHeader title", button: "[ReactNode]", status: "[ReactNode]", stepper: "[ReactNode]", actions: "[ReactNode]", navigation: "[ReactNode]", breadcrumbs: "[ReactNode]", separator: true, navigationPosition: "bottom"
+ 1`] = `
+<body>
+  <div>
+    <div
+      data-test="DesignSystem-PageHeader"
+    >
+      <div
+        class="PageHeader-wrapper PageHeader-wrapper--withTabs"
+      >
+        <div
+          class="pl-6"
+          data-test="DesignSystem-PageHeader--Breadcrumbs"
+        >
+          <nav
+            aria-label="Breadcrumb"
+            class="Breadcrumbs"
+            data-test="DesignSystem-Breadcrumbs"
+          >
+            <div
+              class="Breadcrumbs-item"
+              data-test="DesignSystem-Breadcrumbs-item"
+            >
+              <a
+                aria-disabled="false"
+                class="Link Link--tiny Link--subtle Breadcrumbs-link ellipsis--noWrap"
+                data-test="DesignSystem-Breadcrumbs-link"
+                href="/Senders"
+                tabindex="0"
+              >
+                Senders
+              </a>
+              <span
+                class="Breadcrumbs-itemSeparator"
+              >
+                /
+              </span>
+            </div>
+          </nav>
+        </div>
+        <div
+          class="d-flex pl-6"
+        >
+          <div
+            class="mr-5 my-3"
+            data-test="DesignSystem-PageHeader--Button"
+          >
+            <button
+              class="Button Button--tiny Button--tinySquare Button--basic"
+              data-test="DesignSystem-Button"
+              tabindex="0"
+            >
+              <div
+                class="Button-icon"
+                data-test="DesignSystem-Button--Icon-Wrapper"
+              >
+                <i
+                  class="material-symbols material-symbols-rounded Icon"
+                  data-test="DesignSystem-Button--Icon"
+                  style="font-size: 14px; width: 14px;"
+                >
+                  arrow_back
+                </i>
+              </div>
+            </button>
+          </div>
+          <div
+            class="PageHeader"
+          >
+            <div
+              class="Row w-100"
+              data-test="DesignSystem-Row"
+            >
+              <div
+                class="Col Col--8 Col--m-8 Col--xl-8"
+                data-test="DesignSystem-Column"
+              >
+                <div
+                  class="PageHeader-titleWrapper"
+                  data-test="DesignSystem-PageHeader--Title"
+                >
+                  <h4
+                    class="Heading Heading--m Heading--default PageHeader-title"
+                    data-test="DesignSystem-Heading"
+                  >
+                    PageHeader title
+                  </h4>
+                  <span
+                    class="Badge Badge--secondary"
+                    data-test="DesignSystem-Badge"
+                  >
+                    Sent
+                  </span>
+                </div>
+              </div>
+              <div
+                class="Col Col--4 Col--m-4 Col--xl-4"
+                data-test="DesignSystem-PageHeader--Actions"
+              >
+                <div
+                  class="PageHeader-actionsWrapper"
+                >
+                  <button
+                    class="Button Button--regular Button--basic Button--iconAlign-left"
+                    data-test="DesignSystem-Button"
+                    tabindex="0"
+                  >
+                    <span
+                      class="Button-text"
+                    >
+                      Action Section
+                    </span>
+                  </button>
+                </div>
+              </div>
+            </div>
+            <div
+              class="PageHeader-statusWrapper mb-3"
+              data-test="DesignSystem-PageHeader--Status"
+            >
+              <div
+                class="StatusHint"
+                data-test="DesignSystem-StatusHint"
+              >
+                <span
+                  aria-label="default status"
+                  class="StatusHint-icon StatusHint--default mr-4"
+                  data-test="DesignSystem-StatusHint--Icon"
+                  role="img"
+                />
+                <span
+                  class="Text Text--default Text--medium Text--regular"
+                  data-test="DesignSystem-StatusHint--Text"
+                >
+                  Ongoing
+                </span>
+              </div>
+              <div
+                class="MetaList"
+                data-test="DesignSystem-MetaList"
+              >
+                <span
+                  class="MetaList-item"
+                >
+                  <span
+                    class="Meta"
+                    data-test="DesignSystem-MetaList--Meta"
+                  >
+                    <span
+                      class="Text Text--subtle Text--regular"
+                      data-test="DesignSystem-MetaList--MetaLabel"
+                    >
+                      Text
+                    </span>
+                  </span>
+                  <i
+                    aria-hidden="true"
+                    class="material-symbols material-symbols-rounded Icon Icon--disabled MetaList-seperator"
+                    data-test="DesignSystem-MetaList--rightSeperator"
+                    style="font-size: 8px; width: 8px;"
+                  >
+                    fiber_manual_record
+                  </i>
+                </span>
+                <span
+                  class="MetaList-item"
+                >
+                  <span
+                    class="Meta"
+                    data-test="DesignSystem-MetaList--Meta"
+                  >
+                    <span
+                      class="Text Text--subtle Text--regular"
+                      data-test="DesignSystem-MetaList--MetaLabel"
+                    >
+                      Email
+                    </span>
+                  </span>
+                </span>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div
+          class="pl-3"
+        >
+          <div
+            class="PageHeader-navigationWrapper"
+            data-test="DesignSystem-PageHeader--Nav"
+          >
+            <nav
+              aria-label="Horizontal Navigation"
+              class="HorizontalNav"
+            >
+              <button
+                class="HorizontalNav-menu HorizontalNav-menu--default HorizontalNav-animate color-inverse"
+                data-test="DesignSystem-HorizontalNav"
+                type="button"
+              >
+                <span
+                  class="Text Text--medium Text--regular color-inverse HorizontalNav-menuText HorizontalNav-animate"
+                  data-test="DesignSystem-HorizontalNav--Text"
+                >
+                  Virtual Visits
+                </span>
+              </button>
+              <button
+                class="HorizontalNav-menu HorizontalNav-menu--default HorizontalNav-animate color-inverse"
+                data-test="DesignSystem-HorizontalNav"
+                type="button"
+              >
+                <span
+                  class="Text Text--medium Text--regular color-inverse HorizontalNav-menuText HorizontalNav-animate"
+                  data-test="DesignSystem-HorizontalNav--Text"
+                >
+                  Assesments
+                </span>
+              </button>
+            </nav>
+          </div>
+          <div
+            data-test="DesignSystem-PageHeader--Tabs"
+          >
+            <div
+              class="TabsWrapper"
+              data-test="DesignSystem-Tabs"
+            >
+              <div
+                class="TabsWrapper-header TabsWrapper-header--withSeparator"
+                data-test="DesignSystem-Tabs--Header"
+                role="tablist"
+              >
+                <div
+                  aria-label="New"
+                  aria-selected="true"
+                  class="Tab Tab--active Tab-selected align-items-center"
+                  data-test="DesignSystem-Tabs--Tab"
+                  id="tabs-3-tab-0"
+                  role="tab"
+                  tabindex="0"
+                >
+                  <span
+                    class="Tab--regular Tab--overflow"
+                    data-test="DesignSystem-Tabs--TextWrapper"
+                    style="max-width: var(--spacing-640);"
+                  >
+                    <span
+                      class="Pills Badge--primary Tab-pills"
+                      data-test="DesignSystem-Tabs--Pills"
+                    >
+                      32
+                    </span>
+                    <span
+                      class="Text Text--link Text--regular ellipsis--noWrap Tab-selected"
+                      data-test="DesignSystem-Tabs--Text"
+                    >
+                      New
+                    </span>
+                  </span>
+                </div>
+                <div
+                  aria-label="Invalid"
+                  aria-selected="false"
+                  class="Tab align-items-center"
+                  data-test="DesignSystem-Tabs--Tab"
+                  id="tabs-3-tab-1"
+                  role="tab"
+                  tabindex="0"
+                >
+                  <span
+                    class="Tab--regular Tab--overflow"
+                    data-test="DesignSystem-Tabs--TextWrapper"
+                    style="max-width: var(--spacing-640);"
+                  >
+                    <span
+                      class="Pills Badge--secondary Tab-pills"
+                      data-test="DesignSystem-Tabs--Pills"
+                    >
+                      4
+                    </span>
+                    <span
+                      class="Text Text--subtle Text--regular ellipsis--noWrap"
+                      data-test="DesignSystem-Tabs--Text"
+                    >
+                      Invalid
+                    </span>
+                  </span>
+                </div>
+                <div
+                  aria-label="Duplicate"
+                  aria-selected="false"
+                  class="Tab align-items-center"
+                  data-test="DesignSystem-Tabs--Tab"
+                  id="tabs-3-tab-2"
+                  role="tab"
+                  tabindex="0"
+                >
+                  <span
+                    class="Tab--regular Tab--overflow"
+                    data-test="DesignSystem-Tabs--TextWrapper"
+                    style="max-width: var(--spacing-640);"
+                  >
+                    <span
+                      class="Pills Badge--secondary Tab-pills"
+                      data-test="DesignSystem-Tabs--Pills"
+                    >
+                      2
+                    </span>
+                    <span
+                      class="Text Text--subtle Text--regular ellipsis--noWrap"
+                      data-test="DesignSystem-Tabs--Text"
+                    >
+                      Duplicate
+                    </span>
+                  </span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <hr
+        aria-orientation="horizontal"
+        class="Divider Divider--horizontal Divider--header"
+        data-test="DesignSystem-Divider"
+      />
+    </div>
+  </div>
+</body>
+`;
+
+exports[`Navigation component 
+  tabs: "[ReactNode]", meta: "[ReactNode]", badge: "[ReactNode]", title: "PageHeader title", button: "[ReactNode]", status: "[ReactNode]", stepper: "[ReactNode]", actions: "[ReactNode]", navigation: "[ReactNode]", breadcrumbs: "[ReactNode]", separator: true, navigationPosition: "center"
+ 1`] = `
+<body>
+  <div>
+    <div
+      data-test="DesignSystem-PageHeader"
+    >
+      <div
+        class="PageHeader-wrapper PageHeader-wrapper--withTabs"
+      >
+        <div
+          class="d-flex pl-6"
+        >
+          <div
+            class="PageHeader"
+          >
+            <div
+              class="Row w-100"
+              data-test="DesignSystem-Row"
+            >
+              <div
+                class="Col Col--12 Col--m-12 Col--xl-12"
+                data-test="DesignSystem-Column"
+              >
+                <div
+                  class="PageHeader-titleWrapper"
+                  data-test="DesignSystem-PageHeader--Title"
+                >
+                  <h4
+                    class="Heading Heading--m Heading--default PageHeader-title"
+                    data-test="DesignSystem-Heading"
+                  >
+                    PageHeader title
+                  </h4>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div
+          class="pl-3"
+        >
+          <div
+            data-test="DesignSystem-PageHeader--Tabs"
+          >
+            <div
+              class="TabsWrapper"
+              data-test="DesignSystem-Tabs"
+            >
+              <div
+                class="TabsWrapper-header TabsWrapper-header--withSeparator"
+                data-test="DesignSystem-Tabs--Header"
+                role="tablist"
+              >
+                <div
+                  aria-label="New"
+                  aria-selected="true"
+                  class="Tab Tab--active Tab-selected align-items-center"
+                  data-test="DesignSystem-Tabs--Tab"
+                  id="tabs-1-tab-0"
+                  role="tab"
+                  tabindex="0"
+                >
+                  <span
+                    class="Tab--regular Tab--overflow"
+                    data-test="DesignSystem-Tabs--TextWrapper"
+                    style="max-width: var(--spacing-640);"
+                  >
+                    <span
+                      class="Pills Badge--primary Tab-pills"
+                      data-test="DesignSystem-Tabs--Pills"
+                    >
+                      32
+                    </span>
+                    <span
+                      class="Text Text--link Text--regular ellipsis--noWrap Tab-selected"
+                      data-test="DesignSystem-Tabs--Text"
+                    >
+                      New
+                    </span>
+                  </span>
+                </div>
+                <div
+                  aria-label="Invalid"
+                  aria-selected="false"
+                  class="Tab align-items-center"
+                  data-test="DesignSystem-Tabs--Tab"
+                  id="tabs-1-tab-1"
+                  role="tab"
+                  tabindex="0"
+                >
+                  <span
+                    class="Tab--regular Tab--overflow"
+                    data-test="DesignSystem-Tabs--TextWrapper"
+                    style="max-width: var(--spacing-640);"
+                  >
+                    <span
+                      class="Pills Badge--secondary Tab-pills"
+                      data-test="DesignSystem-Tabs--Pills"
+                    >
+                      4
+                    </span>
+                    <span
+                      class="Text Text--subtle Text--regular ellipsis--noWrap"
+                      data-test="DesignSystem-Tabs--Text"
+                    >
+                      Invalid
+                    </span>
+                  </span>
+                </div>
+                <div
+                  aria-label="Duplicate"
+                  aria-selected="false"
+                  class="Tab align-items-center"
+                  data-test="DesignSystem-Tabs--Tab"
+                  id="tabs-1-tab-2"
+                  role="tab"
+                  tabindex="0"
+                >
+                  <span
+                    class="Tab--regular Tab--overflow"
+                    data-test="DesignSystem-Tabs--TextWrapper"
+                    style="max-width: var(--spacing-640);"
+                  >
+                    <span
+                      class="Pills Badge--secondary Tab-pills"
+                      data-test="DesignSystem-Tabs--Pills"
+                    >
+                      2
+                    </span>
+                    <span
+                      class="Text Text--subtle Text--regular ellipsis--noWrap"
+                      data-test="DesignSystem-Tabs--Text"
+                    >
+                      Duplicate
+                    </span>
+                  </span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <hr
+        aria-orientation="horizontal"
+        class="Divider Divider--horizontal Divider--header"
+        data-test="DesignSystem-Divider"
+      />
+    </div>
+  </div>
+  <div>
+    <div
+      data-test="DesignSystem-PageHeader"
+    >
+      <div
+        class="PageHeader-wrapper"
+      >
+        <div
+          class="d-flex pl-6"
+        >
+          <div
+            class="PageHeader"
+          >
+            <div
+              class="Row w-100"
+              data-test="DesignSystem-Row"
+            >
+              <div
+                class="Col Col--4 Col--m-4 Col--xl-4"
+                data-test="DesignSystem-Column"
+              >
+                <div
+                  class="PageHeader-titleWrapper"
+                  data-test="DesignSystem-PageHeader--Title"
+                >
+                  <h4
+                    class="Heading Heading--m Heading--default PageHeader-title"
+                    data-test="DesignSystem-Heading"
+                  >
+                    PageHeader title
+                  </h4>
+                </div>
+              </div>
+              <div
+                class="Col Col--4 Col--m-4 Col--xl-4"
+                data-test="DesignSystem-PageHeader--CenterNav"
+              >
+                <div
+                  class="PageHeader-navigationWrapper"
+                  data-test="DesignSystem-PageHeader--Nav"
+                >
+                  <div
+                    aria-label="Steps"
+                    class="Stepper"
+                    data-test="DesignSystem-Stepper"
+                    role="group"
+                  >
+                    <div
+                      aria-label="Step 1: Step 1, current"
+                      class="Step Stepper-animate Step--active"
+                      data-test="DesignSystem-Step"
+                      role="button"
+                      tabindex="0"
+                    >
+                      <i
+                        class="material-symbols material-symbols-outlined Icon mr-3 my-4 Stepper-animate"
+                        data-test="DesignSystem-Step--Icon"
+                        style="font-size: 16px; width: 16px;"
+                      >
+                        radio_button_unchecked
+                      </i>
+                      <span
+                        class="Text Text--medium Text--regular color-primary-dark Stepper-animate Stepper-text"
+                        data-test="DesignSystem-Text"
+                      >
+                        Step 1
+                      </span>
+                    </div>
+                    <div
+                      aria-disabled="true"
+                      aria-label="Step 2: Step 2"
+                      class="Step Stepper-animate Step--disabled"
+                      data-test="DesignSystem-Step"
+                      role="button"
+                      tabindex="-1"
+                    >
+                      <i
+                        class="material-symbols material-symbols-outlined Icon mr-3 my-4 Stepper-animate"
+                        data-test="DesignSystem-Step--Icon"
+                        style="font-size: 16px; width: 16px;"
+                      >
+                        radio_button_unchecked
+                      </i>
+                      <span
+                        class="Text Text--medium Text--regular color-inverse-lightest Stepper-animate Stepper-text"
+                        data-test="DesignSystem-Text"
+                      >
+                        Step 2
+                      </span>
+                    </div>
+                    <div
+                      aria-disabled="true"
+                      aria-label="Step 3: Step 3"
+                      class="Step Stepper-animate Step--disabled"
+                      data-test="DesignSystem-Step"
+                      role="button"
+                      tabindex="-1"
+                    >
+                      <i
+                        class="material-symbols material-symbols-outlined Icon mr-3 my-4 Stepper-animate"
+                        data-test="DesignSystem-Step--Icon"
+                        style="font-size: 16px; width: 16px;"
+                      >
+                        radio_button_unchecked
+                      </i>
+                      <span
+                        class="Text Text--medium Text--regular color-inverse-lightest Stepper-animate Stepper-text"
+                        data-test="DesignSystem-Text"
+                      >
+                        Step 3
+                      </span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div
+                class="Col Col--4 Col--m-4 Col--xl-4"
+                data-test="DesignSystem-PageHeader--Actions"
+              >
+                <div
+                  class="PageHeader-actionsWrapper"
+                />
+              </div>
+            </div>
+          </div>
+        </div>
+        <div
+          class="pl-3"
+        />
+      </div>
+      <hr
+        aria-orientation="horizontal"
+        class="Divider Divider--horizontal Divider--header"
+        data-test="DesignSystem-Divider"
+      />
+    </div>
+  </div>
+  <div>
+    <div
+      data-test="DesignSystem-PageHeader"
+    >
+      <div
+        class="PageHeader-wrapper"
+      >
+        <div
+          class="d-flex pl-6"
+        >
+          <div
+            class="PageHeader"
+          >
+            <div
+              class="Row w-100"
+              data-test="DesignSystem-Row"
+            >
+              <div
+                class="Col Col--8 Col--m-8 Col--xl-8"
+                data-test="DesignSystem-Column"
+              >
+                <div
+                  class="PageHeader-titleWrapper"
+                  data-test="DesignSystem-PageHeader--Title"
+                >
+                  <h4
+                    class="Heading Heading--m Heading--default PageHeader-title"
+                    data-test="DesignSystem-Heading"
+                  >
+                    PageHeader title
+                  </h4>
+                </div>
+              </div>
+              <div
+                class="Col Col--4 Col--m-4 Col--xl-4"
+                data-test="DesignSystem-PageHeader--Actions"
+              >
+                <div
+                  class="PageHeader-actionsWrapper"
+                >
+                  <button
+                    class="Button Button--regular Button--basic Button--iconAlign-left"
+                    data-test="DesignSystem-Button"
+                    tabindex="0"
+                  >
+                    <span
+                      class="Button-text"
+                    >
+                      Action Section
+                    </span>
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div
+          class="pl-3"
+        />
+      </div>
+      <hr
+        aria-orientation="horizontal"
+        class="Divider Divider--horizontal Divider--header"
+        data-test="DesignSystem-Divider"
+      />
+    </div>
+  </div>
+  <div>
+    <div
+      data-test="DesignSystem-PageHeader"
+    >
+      <div
+        class="PageHeader-wrapper"
+      >
+        <div
+          class="pl-6"
+          data-test="DesignSystem-PageHeader--Breadcrumbs"
+        >
+          <nav
+            aria-label="Breadcrumb"
+            class="Breadcrumbs"
+            data-test="DesignSystem-Breadcrumbs"
+          >
+            <div
+              class="Breadcrumbs-item"
+              data-test="DesignSystem-Breadcrumbs-item"
+            >
+              <a
+                aria-disabled="false"
+                class="Link Link--tiny Link--subtle Breadcrumbs-link ellipsis--noWrap"
+                data-test="DesignSystem-Breadcrumbs-link"
+                href="/Senders"
+                tabindex="0"
+              >
+                Senders
+              </a>
+              <span
+                class="Breadcrumbs-itemSeparator"
+              >
+                /
+              </span>
+            </div>
+          </nav>
+        </div>
+        <div
+          class="d-flex pl-6"
+        >
+          <div
+            class="PageHeader"
+          >
+            <div
+              class="Row w-100"
+              data-test="DesignSystem-Row"
+            >
+              <div
+                class="Col Col--12 Col--m-12 Col--xl-12"
+                data-test="DesignSystem-Column"
+              >
+                <div
+                  class="PageHeader-titleWrapper"
+                  data-test="DesignSystem-PageHeader--Title"
+                >
+                  <h4
+                    class="Heading Heading--m Heading--default PageHeader-title"
+                    data-test="DesignSystem-Heading"
+                  >
+                    PageHeader title
+                  </h4>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div
+          class="pl-3"
+        />
+      </div>
+      <hr
+        aria-orientation="horizontal"
+        class="Divider Divider--horizontal Divider--header"
+        data-test="DesignSystem-Divider"
+      />
+    </div>
+  </div>
+  <div>
+    <div
+      data-test="DesignSystem-PageHeader"
+    >
+      <div
+        class="PageHeader-wrapper"
+      >
+        <div
+          class="d-flex pl-6"
+        >
+          <div
+            class="PageHeader"
+          >
+            <div
+              class="Row w-100"
+              data-test="DesignSystem-Row"
+            >
+              <div
+                class="Col Col--12 Col--m-12 Col--xl-12"
+                data-test="DesignSystem-Column"
+              >
+                <div
+                  class="PageHeader-titleWrapper"
+                  data-test="DesignSystem-PageHeader--Title"
+                >
+                  <h4
+                    class="Heading Heading--m Heading--default PageHeader-title"
+                    data-test="DesignSystem-Heading"
+                  >
+                    PageHeader title
+                  </h4>
+                  <span
+                    class="Badge Badge--secondary"
+                    data-test="DesignSystem-Badge"
+                  >
+                    Sent
+                  </span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div
+          class="pl-3"
+        />
+      </div>
+      <hr
+        aria-orientation="horizontal"
+        class="Divider Divider--horizontal Divider--header"
+        data-test="DesignSystem-Divider"
+      />
+    </div>
+  </div>
+  <div>
+    <div
+      data-test="DesignSystem-PageHeader"
+    >
+      <div
+        class="PageHeader-wrapper"
+      >
+        <div
+          class="d-flex pl-6"
+        >
+          <div
+            class="PageHeader"
+          >
+            <div
+              class="Row w-100"
+              data-test="DesignSystem-Row"
+            >
+              <div
+                class="Col Col--12 Col--m-12 Col--xl-12"
+                data-test="DesignSystem-Column"
+              >
+                <div
+                  class="PageHeader-titleWrapper"
+                  data-test="DesignSystem-PageHeader--Title"
+                >
+                  <h4
+                    class="Heading Heading--m Heading--default PageHeader-title"
+                    data-test="DesignSystem-Heading"
+                  >
+                    PageHeader title
+                  </h4>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div
+          class="pl-3"
+        />
+      </div>
+      <hr
+        aria-orientation="horizontal"
+        class="Divider Divider--horizontal Divider--header"
+        data-test="DesignSystem-Divider"
+      />
+    </div>
+  </div>
+  <div>
+    <div
+      data-test="DesignSystem-PageHeader"
+    >
+      <div
+        class="PageHeader-wrapper"
+      >
+        <div
+          class="d-flex pl-6"
+        >
+          <div
+            class="mr-5 my-3"
+            data-test="DesignSystem-PageHeader--Button"
+          >
+            <button
+              class="Button Button--tiny Button--tinySquare Button--basic"
+              data-test="DesignSystem-Button"
+              tabindex="0"
+            >
+              <div
+                class="Button-icon"
+                data-test="DesignSystem-Button--Icon-Wrapper"
+              >
+                <i
+                  class="material-symbols material-symbols-rounded Icon"
+                  data-test="DesignSystem-Button--Icon"
+                  style="font-size: 14px; width: 14px;"
+                >
+                  arrow_back
+                </i>
+              </div>
+            </button>
+          </div>
+          <div
+            class="PageHeader"
+          >
+            <div
+              class="Row w-100"
+              data-test="DesignSystem-Row"
+            >
+              <div
+                class="Col Col--12 Col--m-12 Col--xl-12"
+                data-test="DesignSystem-Column"
+              >
+                <div
+                  class="PageHeader-titleWrapper"
+                  data-test="DesignSystem-PageHeader--Title"
+                >
+                  <h4
+                    class="Heading Heading--m Heading--default PageHeader-title"
+                    data-test="DesignSystem-Heading"
+                  >
+                    PageHeader title
+                  </h4>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div
+          class="pl-3"
+        />
+      </div>
+      <hr
+        aria-orientation="horizontal"
+        class="Divider Divider--horizontal Divider--header"
+        data-test="DesignSystem-Divider"
+      />
+    </div>
+  </div>
+  <div>
+    <div
+      data-test="DesignSystem-PageHeader"
+    >
+      <div
+        class="PageHeader-wrapper PageHeader-wrapper--withTabs"
+      >
+        <div
+          class="pl-6"
+          data-test="DesignSystem-PageHeader--Breadcrumbs"
+        >
+          <nav
+            aria-label="Breadcrumb"
+            class="Breadcrumbs"
+            data-test="DesignSystem-Breadcrumbs"
+          >
+            <div
+              class="Breadcrumbs-item"
+              data-test="DesignSystem-Breadcrumbs-item"
+            >
+              <a
+                aria-disabled="false"
+                class="Link Link--tiny Link--subtle Breadcrumbs-link ellipsis--noWrap"
+                data-test="DesignSystem-Breadcrumbs-link"
+                href="/Senders"
+                tabindex="0"
+              >
+                Senders
+              </a>
+              <span
+                class="Breadcrumbs-itemSeparator"
+              >
+                /
+              </span>
+            </div>
+          </nav>
+        </div>
+        <div
+          class="d-flex pl-6"
+        >
+          <div
+            class="mr-5 my-3"
+            data-test="DesignSystem-PageHeader--Button"
+          >
+            <button
+              class="Button Button--tiny Button--tinySquare Button--basic"
+              data-test="DesignSystem-Button"
+              tabindex="0"
+            >
+              <div
+                class="Button-icon"
+                data-test="DesignSystem-Button--Icon-Wrapper"
+              >
+                <i
+                  class="material-symbols material-symbols-rounded Icon"
+                  data-test="DesignSystem-Button--Icon"
+                  style="font-size: 14px; width: 14px;"
+                >
+                  arrow_back
+                </i>
+              </div>
+            </button>
+          </div>
+          <div
+            class="PageHeader"
+          >
+            <div
+              class="Row w-100"
+              data-test="DesignSystem-Row"
+            >
+              <div
+                class="Col Col--4 Col--m-4 Col--xl-4"
+                data-test="DesignSystem-Column"
+              >
+                <div
+                  class="PageHeader-titleWrapper"
+                  data-test="DesignSystem-PageHeader--Title"
+                >
+                  <h4
+                    class="Heading Heading--m Heading--default PageHeader-title"
+                    data-test="DesignSystem-Heading"
+                  >
+                    PageHeader title
+                  </h4>
+                  <span
+                    class="Badge Badge--secondary"
+                    data-test="DesignSystem-Badge"
+                  >
+                    Sent
+                  </span>
+                </div>
+              </div>
+              <div
+                class="Col Col--4 Col--m-4 Col--xl-4"
+                data-test="DesignSystem-PageHeader--CenterNav"
+              >
+                <div
+                  class="PageHeader-navigationWrapper"
+                  data-test="DesignSystem-PageHeader--Nav"
+                >
+                  <nav
+                    aria-label="Horizontal Navigation"
+                    class="HorizontalNav"
+                  >
+                    <button
+                      class="HorizontalNav-menu HorizontalNav-menu--default HorizontalNav-animate color-inverse"
+                      data-test="DesignSystem-HorizontalNav"
+                      type="button"
+                    >
+                      <span
+                        class="Text Text--medium Text--regular color-inverse HorizontalNav-menuText HorizontalNav-animate"
+                        data-test="DesignSystem-HorizontalNav--Text"
+                      >
+                        Virtual Visits
+                      </span>
+                    </button>
+                    <button
+                      class="HorizontalNav-menu HorizontalNav-menu--default HorizontalNav-animate color-inverse"
+                      data-test="DesignSystem-HorizontalNav"
+                      type="button"
+                    >
+                      <span
+                        class="Text Text--medium Text--regular color-inverse HorizontalNav-menuText HorizontalNav-animate"
+                        data-test="DesignSystem-HorizontalNav--Text"
+                      >
+                        Assesments
+                      </span>
+                    </button>
+                  </nav>
+                </div>
+              </div>
+              <div
+                class="Col Col--4 Col--m-4 Col--xl-4"
+                data-test="DesignSystem-PageHeader--Actions"
+              >
+                <div
+                  class="PageHeader-actionsWrapper"
+                >
+                  <button
+                    class="Button Button--regular Button--basic Button--iconAlign-left"
+                    data-test="DesignSystem-Button"
+                    tabindex="0"
+                  >
+                    <span
+                      class="Button-text"
+                    >
+                      Action Section
+                    </span>
+                  </button>
+                </div>
+              </div>
+            </div>
+            <div
+              class="PageHeader-statusWrapper mb-3"
+              data-test="DesignSystem-PageHeader--Status"
+            >
+              <div
+                class="StatusHint"
+                data-test="DesignSystem-StatusHint"
+              >
+                <span
+                  aria-label="default status"
+                  class="StatusHint-icon StatusHint--default mr-4"
+                  data-test="DesignSystem-StatusHint--Icon"
+                  role="img"
+                />
+                <span
+                  class="Text Text--default Text--medium Text--regular"
+                  data-test="DesignSystem-StatusHint--Text"
+                >
+                  Ongoing
+                </span>
+              </div>
+              <div
+                class="MetaList"
+                data-test="DesignSystem-MetaList"
+              >
+                <span
+                  class="MetaList-item"
+                >
+                  <span
+                    class="Meta"
+                    data-test="DesignSystem-MetaList--Meta"
+                  >
+                    <span
+                      class="Text Text--subtle Text--regular"
+                      data-test="DesignSystem-MetaList--MetaLabel"
+                    >
+                      Text
+                    </span>
+                  </span>
+                  <i
+                    aria-hidden="true"
+                    class="material-symbols material-symbols-rounded Icon Icon--disabled MetaList-seperator"
+                    data-test="DesignSystem-MetaList--rightSeperator"
+                    style="font-size: 8px; width: 8px;"
+                  >
+                    fiber_manual_record
+                  </i>
+                </span>
+                <span
+                  class="MetaList-item"
+                >
+                  <span
+                    class="Meta"
+                    data-test="DesignSystem-MetaList--Meta"
+                  >
+                    <span
+                      class="Text Text--subtle Text--regular"
+                      data-test="DesignSystem-MetaList--MetaLabel"
+                    >
+                      Email
+                    </span>
+                  </span>
+                </span>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div
+          class="pl-3"
+        >
+          <div
+            data-test="DesignSystem-PageHeader--Tabs"
+          >
+            <div
+              class="TabsWrapper"
+              data-test="DesignSystem-Tabs"
+            >
+              <div
+                class="TabsWrapper-header TabsWrapper-header--withSeparator"
+                data-test="DesignSystem-Tabs--Header"
+                role="tablist"
+              >
+                <div
+                  aria-label="New"
+                  aria-selected="true"
+                  class="Tab Tab--active Tab-selected align-items-center"
+                  data-test="DesignSystem-Tabs--Tab"
+                  id="tabs-2-tab-0"
+                  role="tab"
+                  tabindex="0"
+                >
+                  <span
+                    class="Tab--regular Tab--overflow"
+                    data-test="DesignSystem-Tabs--TextWrapper"
+                    style="max-width: var(--spacing-640);"
+                  >
+                    <span
+                      class="Pills Badge--primary Tab-pills"
+                      data-test="DesignSystem-Tabs--Pills"
+                    >
+                      32
+                    </span>
+                    <span
+                      class="Text Text--link Text--regular ellipsis--noWrap Tab-selected"
+                      data-test="DesignSystem-Tabs--Text"
+                    >
+                      New
+                    </span>
+                  </span>
+                </div>
+                <div
+                  aria-label="Invalid"
+                  aria-selected="false"
+                  class="Tab align-items-center"
+                  data-test="DesignSystem-Tabs--Tab"
+                  id="tabs-2-tab-1"
+                  role="tab"
+                  tabindex="0"
+                >
+                  <span
+                    class="Tab--regular Tab--overflow"
+                    data-test="DesignSystem-Tabs--TextWrapper"
+                    style="max-width: var(--spacing-640);"
+                  >
+                    <span
+                      class="Pills Badge--secondary Tab-pills"
+                      data-test="DesignSystem-Tabs--Pills"
+                    >
+                      4
+                    </span>
+                    <span
+                      class="Text Text--subtle Text--regular ellipsis--noWrap"
+                      data-test="DesignSystem-Tabs--Text"
+                    >
+                      Invalid
+                    </span>
+                  </span>
+                </div>
+                <div
+                  aria-label="Duplicate"
+                  aria-selected="false"
+                  class="Tab align-items-center"
+                  data-test="DesignSystem-Tabs--Tab"
+                  id="tabs-2-tab-2"
+                  role="tab"
+                  tabindex="0"
+                >
+                  <span
+                    class="Tab--regular Tab--overflow"
+                    data-test="DesignSystem-Tabs--TextWrapper"
+                    style="max-width: var(--spacing-640);"
+                  >
+                    <span
+                      class="Pills Badge--secondary Tab-pills"
+                      data-test="DesignSystem-Tabs--Pills"
+                    >
+                      2
+                    </span>
+                    <span
+                      class="Text Text--subtle Text--regular ellipsis--noWrap"
+                      data-test="DesignSystem-Tabs--Text"
+                    >
+                      Duplicate
+                    </span>
+                  </span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <hr
+        aria-orientation="horizontal"
+        class="Divider Divider--horizontal Divider--header"
+        data-test="DesignSystem-Divider"
+      />
+    </div>
+  </div>
+</body>
+`;

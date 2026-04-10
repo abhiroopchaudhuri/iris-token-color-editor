@@ -1,0 +1,208 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Placeholder component 
+  imageSize: "large"
+ 1`] = `
+<DocumentFragment>
+  <div
+    aria-hidden="true"
+    class="Placeholder"
+    data-test="DesignSystem-Placeholder"
+  >
+    <span
+      aria-hidden="true"
+      class="PlaceholderImage Placeholder--animation PlaceholderImage--large"
+      data-test="DesignSystem-Placeholder--Image"
+    />
+    <div
+      class="Placeholder-paragraph Placeholder-paragraph--withImage"
+      data-test="DesignSystem-Placeholder--Paragraph"
+    >
+      <div
+        aria-hidden="true"
+        class="PlaceholderParagraph-wrapper PlaceholderParagraph-wrapper--length-small"
+      >
+        <span
+          class="Placeholder--animation PlaceholderParagraph"
+        />
+      </div>
+    </div>
+  </div>
+</DocumentFragment>
+`;
+
+exports[`Placeholder component 
+  imageSize: "medium"
+ 1`] = `
+<DocumentFragment>
+  <div
+    aria-hidden="true"
+    class="Placeholder"
+    data-test="DesignSystem-Placeholder"
+  >
+    <span
+      aria-hidden="true"
+      class="PlaceholderImage Placeholder--animation PlaceholderImage--medium"
+      data-test="DesignSystem-Placeholder--Image"
+    />
+    <div
+      class="Placeholder-paragraph Placeholder-paragraph--withImage"
+      data-test="DesignSystem-Placeholder--Paragraph"
+    >
+      <div
+        aria-hidden="true"
+        class="PlaceholderParagraph-wrapper PlaceholderParagraph-wrapper--length-small"
+      >
+        <span
+          class="Placeholder--animation PlaceholderParagraph"
+        />
+      </div>
+    </div>
+  </div>
+</DocumentFragment>
+`;
+
+exports[`Placeholder component 
+  imageSize: "small"
+ 1`] = `
+<DocumentFragment>
+  <div
+    aria-hidden="true"
+    class="Placeholder"
+    data-test="DesignSystem-Placeholder"
+  >
+    <span
+      aria-hidden="true"
+      class="PlaceholderImage Placeholder--animation PlaceholderImage--small"
+      data-test="DesignSystem-Placeholder--Image"
+    />
+    <div
+      class="Placeholder-paragraph Placeholder-paragraph--withImage"
+      data-test="DesignSystem-Placeholder--Paragraph"
+    >
+      <div
+        aria-hidden="true"
+        class="PlaceholderParagraph-wrapper PlaceholderParagraph-wrapper--length-small"
+      >
+        <span
+          class="Placeholder--animation PlaceholderParagraph"
+        />
+      </div>
+    </div>
+  </div>
+</DocumentFragment>
+`;
+
+exports[`Placeholder component 
+  round: false, withImage: false
+ 1`] = `
+<DocumentFragment>
+  <div
+    aria-hidden="true"
+    class="Placeholder"
+    data-test="DesignSystem-Placeholder"
+  >
+    <div
+      class="Placeholder-paragraph"
+      data-test="DesignSystem-Placeholder--Paragraph"
+    >
+      <div
+        aria-hidden="true"
+        class="PlaceholderParagraph-wrapper PlaceholderParagraph-wrapper--length-small"
+      >
+        <span
+          class="Placeholder--animation PlaceholderParagraph"
+        />
+      </div>
+    </div>
+  </div>
+</DocumentFragment>
+`;
+
+exports[`Placeholder component 
+  round: false, withImage: true
+ 1`] = `
+<DocumentFragment>
+  <div
+    aria-hidden="true"
+    class="Placeholder"
+    data-test="DesignSystem-Placeholder"
+  >
+    <span
+      aria-hidden="true"
+      class="PlaceholderImage Placeholder--animation PlaceholderImage--small"
+      data-test="DesignSystem-Placeholder--Image"
+    />
+    <div
+      class="Placeholder-paragraph Placeholder-paragraph--withImage"
+      data-test="DesignSystem-Placeholder--Paragraph"
+    >
+      <div
+        aria-hidden="true"
+        class="PlaceholderParagraph-wrapper PlaceholderParagraph-wrapper--length-small"
+      >
+        <span
+          class="Placeholder--animation PlaceholderParagraph"
+        />
+      </div>
+    </div>
+  </div>
+</DocumentFragment>
+`;
+
+exports[`Placeholder component 
+  round: true, withImage: false
+ 1`] = `
+<DocumentFragment>
+  <div
+    aria-hidden="true"
+    class="Placeholder"
+    data-test="DesignSystem-Placeholder"
+  >
+    <div
+      class="Placeholder-paragraph"
+      data-test="DesignSystem-Placeholder--Paragraph"
+    >
+      <div
+        aria-hidden="true"
+        class="PlaceholderParagraph-wrapper PlaceholderParagraph-wrapper--length-small"
+      >
+        <span
+          class="Placeholder--animation PlaceholderParagraph"
+        />
+      </div>
+    </div>
+  </div>
+</DocumentFragment>
+`;
+
+exports[`Placeholder component 
+  round: true, withImage: true
+ 1`] = `
+<DocumentFragment>
+  <div
+    aria-hidden="true"
+    class="Placeholder"
+    data-test="DesignSystem-Placeholder"
+  >
+    <span
+      aria-hidden="true"
+      class="PlaceholderImage Placeholder--animation PlaceholderImage--round PlaceholderImage--small"
+      data-test="DesignSystem-Placeholder--Image"
+    />
+    <div
+      class="Placeholder-paragraph Placeholder-paragraph--withImage"
+      data-test="DesignSystem-Placeholder--Paragraph"
+    >
+      <div
+        aria-hidden="true"
+        class="PlaceholderParagraph-wrapper PlaceholderParagraph-wrapper--length-small"
+      >
+        <span
+          class="Placeholder--animation PlaceholderParagraph"
+        />
+      </div>
+    </div>
+  </div>
+</DocumentFragment>
+`;

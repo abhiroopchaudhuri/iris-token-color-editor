@@ -1,0 +1,64 @@
+/* Textarea */
+
+.Textarea {
+  min-height: var(--spacing-80);
+  width: 100%;
+  display: block;
+  font-family: var(--font-family);
+  font-weight: var(--font-weight-normal);
+  line-height: var(--font-height);
+  font-size: var(--font-size);
+  box-sizing: border-box;
+  border-radius: var(--border-radius-10);
+  border: var(--border);
+  color: var(--inverse);
+  padding: var(--spacing-20) var(--spacing-30);
+  resize: none;
+  cursor: auto; /* this ensures text cursor over text, and pointer cursor over scroll*/
+}
+
+.Textarea::placeholder {
+  color: var(--inverse-lighter);
+}
+
+.Textarea::-ms-clear {
+  display: none;
+}
+
+.Textarea:focus-within {
+  border-color: var(--secondary);
+  outline: var(--border-width-05) solid var(--primary-focus);
+  outline-offset: var(--spacing-2-5);
+}
+
+.Textarea:disabled {
+  color: var(--inverse-lightest);
+  background: var(--secondary-lightest);
+  border-color: var(--secondary-light);
+}
+
+.Textarea--readOnly {
+  pointer-events: none;
+  background: var(--secondary-lightest);
+  border-color: var(--secondary);
+}
+
+.Textarea--error {
+  border: var(--border-width-2-5) solid var(--alert);
+}
+
+.Textarea--error:focus-within {
+  border-color: var(--alert);
+  outline: var(--border-width-05) solid var(--primary-focus);
+  outline-offset: var(--spacing-2-5);
+}
+
+.Textarea--resize {
+  resize: both;
+}
+
+.Textarea--small {
+  font-size: var(--font-size-s);
+  font-weight: var(--font-weight-medium);
+  line-height: var(--font-height-s);
+}

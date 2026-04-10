@@ -1,0 +1,47 @@
+@keyframes backdrop-open {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: var(--opacity-16);
+  }
+}
+
+@keyframes backdrop-close {
+  from {
+    opacity: var(--opacity-16);
+  }
+  to {
+    opacity: 0;
+  }
+}
+
+.Backdrop {
+  background-color: color-mod(var(--inverse) a(var(--opacity-16)));
+  height: 100vh;
+  width: 100vw;
+  position: fixed;
+  left: 0;
+  top: 0;
+  display: none;
+  align-items: center;
+  z-index: 1000;
+  overflow: auto;
+  flex-direction: column;
+  justify-content: center;
+  touch-action: none;
+  visibility: hidden;
+}
+
+.Backdrop--open {
+  display: flex;
+  visibility: visible;
+}
+
+.Backdrop-animation--open {
+  animation: backdrop-open var(--duration--fast-02) var(--entrance-expressive-curve);
+}
+
+.Backdrop-animation--close {
+  animation: backdrop-close var(--duration--fast-02) var(--exit-expressive-curve);
+}

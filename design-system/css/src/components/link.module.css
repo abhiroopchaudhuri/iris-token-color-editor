@@ -1,0 +1,73 @@
+.Link {
+  text-decoration: none;
+  font-weight: var(--font-weight-medium);
+  transition: var(--duration--fast-01) var(--standard-productive-curve);
+  box-sizing: border-box;
+  border-bottom: var(--border-width-2-5) solid currentColor;
+}
+
+.Link:focus {
+  outline: var(--border-width-05) solid var(--primary-focus);
+  outline-offset: var(--spacing-05);
+  border-radius: var(--border-radius-10);
+}
+
+.Link--regular {
+  font-size: var(--font-size);
+  height: var(--font-height);
+}
+
+.Link--tiny {
+  font-size: var(--font-size-s);
+  height: var(--font-height-s);
+  line-height: var(--font-height-s);
+}
+
+.Link--default {
+  color: var(--text-link);
+}
+
+.Link--subtle {
+  color: var(--inverse-lighter);
+  border-bottom-color: transparent;
+}
+
+.Link--default:hover {
+  border-bottom: var(--border-width-2-5) solid var(--primary-dark);
+  color: var(--primary-dark);
+}
+
+.Link--subtle:hover {
+  border-bottom: var(--border-width-2-5) solid var(--inverse-light);
+  color: var(--inverse-light);
+}
+
+.Link--default:active {
+  color: var(--primary-darker);
+  border-bottom: var(--border-width-2-5) solid currentColor;
+}
+
+.Link--subtle:active {
+  color: var(--inverse);
+  border-bottom: var(--border-width-2-5) solid transparent;
+}
+
+.Link--button-reset {
+  background: none;
+  border-top: none;
+  border-left: none;
+  border-right: none;
+  padding: 0;
+  cursor: pointer;
+  font-family: inherit;
+}
+
+.Link--default-disabled {
+  color: var(--primary-lighter);
+  pointer-events: none;
+}
+
+.Link--subtle-disabled {
+  color: var(--inverse-lightest);
+  pointer-events: none;
+}

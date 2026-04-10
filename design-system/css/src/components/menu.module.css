@@ -1,0 +1,34 @@
+.Menu {
+  overflow-y: auto !important;
+  padding-top: var(--spacing-10);
+  padding-bottom: var(--spacing-10);
+}
+
+.Menu-Trigger--active {
+  background-color: var(--secondary-dark);
+}
+
+.Menu-Item {
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.Menu-Item--tight {
+  padding: var(--spacing-10) var(--spacing-20);
+  font-size: var(--font-size-s);
+  font-weight: var(--font-weight-medium);
+  line-height: var(--font-height-s);
+}
+
+.Menu-Group-Label {
+  display: flex;
+  align-items: center;
+  padding-bottom: var(--spacing-15);
+  padding-top: var(--spacing-30);
+  padding-left: var(--spacing-40);
+  padding-right: var(--spacing-30);
+}
+
+.Menu-Group:first-child .Menu-Group-Label {
+  padding-top: var(--spacing-20);
+}

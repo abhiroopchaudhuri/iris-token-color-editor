@@ -1,0 +1,20 @@
+.CardSubdued {
+  background: var(--card-subdued-bg);
+  padding: var(--spacing-40);
+}
+
+.CardSubdued--top {
+  border-top: var(--border-width-2-5) solid var(--secondary-light);
+}
+
+.CardSubdued--left {
+  border-left: var(--border-width-2-5) solid var(--secondary-light);
+}
+
+.CardSubdued--right {
+  border-right: var(--border-width-2-5) solid var(--secondary-light);
+}
+
+.CardSubdued--bottom {
+  border-bottom: var(--border-width-2-5) solid var(--secondary-light);
+}

@@ -1,0 +1,8 @@
+.SubList-wrapper {
+  margin-left: 40px;
+  background-color: var(--card-subdued-bg);
+}
+
+.Listbox-wrapper {
+  height: var(--spacing-640);
+}

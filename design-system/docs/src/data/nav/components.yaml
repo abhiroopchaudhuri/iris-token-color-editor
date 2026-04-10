@@ -1,0 +1,243 @@
+base: components
+menus:
+  - label: Overview
+    link: /components/overview/all-components/
+
+  - label: AI
+    link: /components/AIButton/usage/
+    hideInMobile: true
+    subMenu: [
+      {
+        label: 'AI Buttons',
+        link: /components/AIButton/usage/
+      },
+      {
+        label: 'AI Chip',
+        link: /components/AIChip/usage/
+      },
+      {
+        label: 'AI Response',
+        link: /components/AIResponse/usage/
+      },
+      {
+        label: 'Sara',
+        link: /components/sara/usage/
+      },
+    ]
+    
+  - label: Action sheet
+    link: /components/actionSheet/usage/
+    hideInWeb: true
+
+  - label: Avatar
+    link: /components/avatar/usage/
+    hideInMobile: true
+
+  - label: Avatar Group
+    link: /components/avatarGroup/usage/
+    hideInMobile: true
+
+  - label: Badge
+    link: /components/badges/usage/
+
+  - label: Bottom navigation
+    link: /components/bottomNavigation/usage/
+    hideInWeb: true
+
+  - label: Breadcrumb
+    link: /components/breadcrumbs/usage/
+    hideInMobile: true
+
+  - label: Bottom sheet
+    link: /components/bottomSheet/usage/
+    hideInWeb: true
+
+  - label: Button
+    link: /components/button/usage/
+
+  - label: Calendar
+    link: /components/calendar/usage/
+    hideInMobile: true
+
+  - label: Cards
+    link: /components/card/usage/
+
+  - label: Chat
+    link: /components/chatAncillaryComponent/usage/
+    hideInMobile: true
+    subMenu: [
+      {
+        label: 'Chat Ancillary Components',
+        link: /components/chatAncillaryComponent/usage/
+      },
+      {
+        label: Chat Bubble,
+        link: /components/chatBubble/usage/
+      },
+      {
+        label: Chat Input,
+        link: /components/chatInput/usage/
+      }
+    ]
+
+  - label: Checkbox
+    link: /components/checkbox/usage/
+
+  - label: Chips
+    link: /components/chips/usage/
+
+  - label: Combobox
+    link: /components/combobox/usage/
+    hideInMobile: true
+
+  - label: Date Pickers
+    link: /components/datePicker/usage/
+    hideInMobile: true
+
+  - label: Dialogs
+    link: /components/dialogs/usage/
+    hideInWeb: true
+
+  - label: Dividers
+    link: /components/dividers/usage/
+    hideInMobile: true
+
+  - label: Dropdowns
+    link: /components/dropdowns/usage/
+  
+  - label: Empty state
+    link: /components/emptyState/usage/
+    hideInMobile: true
+    
+  - label: Help Text
+    link: /components/helpText/usage/
+    hideInMobile: true
+
+  - label: Icon
+    link: /components/icons/usage/
+    hideInMobile: true
+
+  - label: Inline Editable Fields
+    link: /components/inlineEditableFields/usage/
+    hideInMobile: true
+
+  - label: Interactive Cards
+    link: /components/interactiveCard/usage/
+    hideInMobile: true
+
+  - label: Inputs
+    link: /components/inputs/usage/
+
+  - label: Key Value Pair
+    link: /components/keyValuePair/usage/
+    hideInMobile: true
+
+  - label: Link
+    link: /components/links/usage/
+    hideInMobile: true
+
+  - label: Link Button
+    link: /components/linkButton/usage/
+    hideInMobile: true
+
+  - label: Listbox
+    link: /components/listbox/usage/
+    hideInMobile: true
+
+  - label: List
+    link: /components/list/usage/
+    hideInWeb: true
+
+  - label: Menu
+    link: /components/menu/usage/
+    hideInMobile: true
+
+  - label: Messages
+    link: /components/message/usage/
+
+  - label: Meta List
+    link: /components/metaList/usage/
+
+  - label: Meter
+    link: /components/meter/usage/
+    hideInMobile: true
+
+  - label: Modals
+    link: /components/modals/usage/
+    hideInMobile: true
+
+  - label: Navigation - Horizontal
+    link: /components/navigationHorizontal/usage/
+    hideInMobile: true
+
+  - label: Navigation - Vertical
+    link: /components/navigationVertical/usage/
+    hideInMobile: true
+
+  - label: Page Headers
+    link: /components/pageHeaders/usage/
+
+  - label: Pagination
+    link: /components/pagination/usage/
+    hideInMobile: true
+
+  - label: Pill
+    link: /components/pills/usage/
+    hideInMobile: true
+
+  - label: Popover
+    link: /components/popover/usage/
+    hideInMobile: true
+
+  - label: Progress Indicators
+    link: /components/progressIndicators/usage/
+    hideInMobile: true
+
+  - label: Radio
+    link: /components/radio/usage/
+
+  - label: Rich Text Editor
+    link: /components/richTextEditor/usage/
+    hideInMobile: true
+
+  - label: Select
+    link: /components/select/usage/
+    hideInMobile: true
+
+  - label: Segmented Control
+    link: /components/segmentedControl/usage/
+    hideInMobile: true
+
+  - label: Sidesheet
+    link: /components/sidesheet/usage/
+    hideInMobile: true
+
+  - label: Sliders
+    link: /components/slider/usage/
+
+  - label: Status Hint
+    link: /components/statusHint/usage/
+
+  - label: Stepper
+    link: /components/steppers/usage/
+
+  - label: Switch
+    link: /components/switch/usage/
+
+  - label: Table
+    link: /components/table/usage/
+    hideInMobile: true
+
+  - label: Tabs
+    link: /components/tabs/usage/
+
+  - label: Time Picker
+    link: /components/timePicker/usage/
+    hideInMobile: true
+
+  - label: Toast
+    link: /components/toast/usage/
+
+  - label: Tooltip
+    link: /components/tooltip/usage/
+    hideInMobile: true

@@ -1,0 +1,21 @@
+.Divider {
+  border: none;
+  margin: 0;
+}
+
+.Divider--vertical {
+  width: 1px;
+  background: var(--secondary-light);
+}
+
+.Divider--horizontal {
+  height: 1px;
+}
+
+.Divider--basic {
+  background: var(--secondary-light);
+}
+
+.Divider--header {
+  background: var(--secondary-dark);
+}

@@ -1,0 +1,361 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`TimePicker component snapshots renders snapshot for all props 
+  startTime: "05:00 AM", endTime: "11:00 PM", showDuration: false, timeFormat: "12-Hour", error: false
+ 1`] = `
+<body>
+  <div>
+    <div
+      class="Dropdown"
+      role="presentation"
+    >
+      
+      <div
+        class="PopperWrapper-trigger w-100"
+      >
+        <button
+          aria-expanded="false"
+          aria-haspopup="listbox"
+          class="Button DropdownButton DropdownButton--regular DropdownButton--placeholder"
+          data-test="DesignSystem-DropdownTrigger"
+          tabindex="0"
+          type="button"
+          value=""
+        >
+          <div
+            class="DropdownButton-wrapper"
+          >
+            <span
+              class="Text Text--regular DropdownButton-text"
+            >
+              Select
+            </span>
+          </div>
+          <i
+            class="material-symbols material-symbols-rounded Icon Icon--default"
+            data-test="DesignSystem-Icon"
+            style="font-size: 16px; width: 16px;"
+          >
+            keyboard_arrow_down
+          </i>
+        </button>
+      </div>
+    </div>
+  </div>
+</body>
+`;
+
+exports[`TimePicker component snapshots renders snapshot for all props 
+  startTime: "05:00 AM", endTime: "11:00 PM", showDuration: false, timeFormat: "12-Hour", error: true
+ 1`] = `
+<body>
+  <div>
+    <div
+      class="Dropdown"
+      role="presentation"
+    >
+      
+      <div
+        class="PopperWrapper-trigger w-100"
+      >
+        <button
+          aria-expanded="false"
+          aria-haspopup="listbox"
+          class="Button DropdownButton DropdownButton--regular DropdownButton--placeholder DropdownButton--error"
+          data-test="DesignSystem-DropdownTrigger"
+          tabindex="0"
+          type="button"
+          value=""
+        >
+          <div
+            class="DropdownButton-wrapper"
+          >
+            <span
+              class="Text Text--regular DropdownButton-text"
+            >
+              Select
+            </span>
+          </div>
+          <i
+            class="material-symbols material-symbols-rounded Icon Icon--default"
+            data-test="DesignSystem-Icon"
+            style="font-size: 16px; width: 16px;"
+          >
+            keyboard_arrow_down
+          </i>
+        </button>
+      </div>
+    </div>
+  </div>
+</body>
+`;
+
+exports[`TimePicker component snapshots renders snapshot for all props 
+  startTime: "05:00 AM", endTime: "11:00 PM", showDuration: false, timeFormat: "24-Hour", error: false
+ 1`] = `
+<body>
+  <div>
+    <div
+      class="Dropdown"
+      role="presentation"
+    >
+      
+      <div
+        class="PopperWrapper-trigger w-100"
+      >
+        <button
+          aria-expanded="false"
+          aria-haspopup="listbox"
+          class="Button DropdownButton DropdownButton--regular DropdownButton--placeholder"
+          data-test="DesignSystem-DropdownTrigger"
+          tabindex="0"
+          type="button"
+          value=""
+        >
+          <div
+            class="DropdownButton-wrapper"
+          >
+            <span
+              class="Text Text--regular DropdownButton-text"
+            >
+              Select
+            </span>
+          </div>
+          <i
+            class="material-symbols material-symbols-rounded Icon Icon--default"
+            data-test="DesignSystem-Icon"
+            style="font-size: 16px; width: 16px;"
+          >
+            keyboard_arrow_down
+          </i>
+        </button>
+      </div>
+    </div>
+  </div>
+</body>
+`;
+
+exports[`TimePicker component snapshots renders snapshot for all props 
+  startTime: "05:00 AM", endTime: "11:00 PM", showDuration: false, timeFormat: "24-Hour", error: true
+ 1`] = `
+<body>
+  <div>
+    <div
+      class="Dropdown"
+      role="presentation"
+    >
+      
+      <div
+        class="PopperWrapper-trigger w-100"
+      >
+        <button
+          aria-expanded="false"
+          aria-haspopup="listbox"
+          class="Button DropdownButton DropdownButton--regular DropdownButton--placeholder DropdownButton--error"
+          data-test="DesignSystem-DropdownTrigger"
+          tabindex="0"
+          type="button"
+          value=""
+        >
+          <div
+            class="DropdownButton-wrapper"
+          >
+            <span
+              class="Text Text--regular DropdownButton-text"
+            >
+              Select
+            </span>
+          </div>
+          <i
+            class="material-symbols material-symbols-rounded Icon Icon--default"
+            data-test="DesignSystem-Icon"
+            style="font-size: 16px; width: 16px;"
+          >
+            keyboard_arrow_down
+          </i>
+        </button>
+      </div>
+    </div>
+  </div>
+</body>
+`;
+
+exports[`TimePicker component snapshots renders snapshot for all props 
+  startTime: "05:00 AM", endTime: "11:00 PM", showDuration: true, timeFormat: "12-Hour", error: false
+ 1`] = `
+<body>
+  <div>
+    <div
+      class="Dropdown"
+      role="presentation"
+    >
+      
+      <div
+        class="PopperWrapper-trigger w-100"
+      >
+        <button
+          aria-expanded="false"
+          aria-haspopup="listbox"
+          class="Button DropdownButton DropdownButton--regular DropdownButton--placeholder"
+          data-test="DesignSystem-DropdownTrigger"
+          tabindex="0"
+          type="button"
+          value=""
+        >
+          <div
+            class="DropdownButton-wrapper"
+          >
+            <span
+              class="Text Text--regular DropdownButton-text"
+            >
+              Select
+            </span>
+          </div>
+          <i
+            class="material-symbols material-symbols-rounded Icon Icon--default"
+            data-test="DesignSystem-Icon"
+            style="font-size: 16px; width: 16px;"
+          >
+            keyboard_arrow_down
+          </i>
+        </button>
+      </div>
+    </div>
+  </div>
+</body>
+`;
+
+exports[`TimePicker component snapshots renders snapshot for all props 
+  startTime: "05:00 AM", endTime: "11:00 PM", showDuration: true, timeFormat: "12-Hour", error: true
+ 1`] = `
+<body>
+  <div>
+    <div
+      class="Dropdown"
+      role="presentation"
+    >
+      
+      <div
+        class="PopperWrapper-trigger w-100"
+      >
+        <button
+          aria-expanded="false"
+          aria-haspopup="listbox"
+          class="Button DropdownButton DropdownButton--regular DropdownButton--placeholder DropdownButton--error"
+          data-test="DesignSystem-DropdownTrigger"
+          tabindex="0"
+          type="button"
+          value=""
+        >
+          <div
+            class="DropdownButton-wrapper"
+          >
+            <span
+              class="Text Text--regular DropdownButton-text"
+            >
+              Select
+            </span>
+          </div>
+          <i
+            class="material-symbols material-symbols-rounded Icon Icon--default"
+            data-test="DesignSystem-Icon"
+            style="font-size: 16px; width: 16px;"
+          >
+            keyboard_arrow_down
+          </i>
+        </button>
+      </div>
+    </div>
+  </div>
+</body>
+`;
+
+exports[`TimePicker component snapshots renders snapshot for all props 
+  startTime: "05:00 AM", endTime: "11:00 PM", showDuration: true, timeFormat: "24-Hour", error: false
+ 1`] = `
+<body>
+  <div>
+    <div
+      class="Dropdown"
+      role="presentation"
+    >
+      
+      <div
+        class="PopperWrapper-trigger w-100"
+      >
+        <button
+          aria-expanded="false"
+          aria-haspopup="listbox"
+          class="Button DropdownButton DropdownButton--regular DropdownButton--placeholder"
+          data-test="DesignSystem-DropdownTrigger"
+          tabindex="0"
+          type="button"
+          value=""
+        >
+          <div
+            class="DropdownButton-wrapper"
+          >
+            <span
+              class="Text Text--regular DropdownButton-text"
+            >
+              Select
+            </span>
+          </div>
+          <i
+            class="material-symbols material-symbols-rounded Icon Icon--default"
+            data-test="DesignSystem-Icon"
+            style="font-size: 16px; width: 16px;"
+          >
+            keyboard_arrow_down
+          </i>
+        </button>
+      </div>
+    </div>
+  </div>
+</body>
+`;
+
+exports[`TimePicker component snapshots renders snapshot for all props 
+  startTime: "05:00 AM", endTime: "11:00 PM", showDuration: true, timeFormat: "24-Hour", error: true
+ 1`] = `
+<body>
+  <div>
+    <div
+      class="Dropdown"
+      role="presentation"
+    >
+      
+      <div
+        class="PopperWrapper-trigger w-100"
+      >
+        <button
+          aria-expanded="false"
+          aria-haspopup="listbox"
+          class="Button DropdownButton DropdownButton--regular DropdownButton--placeholder DropdownButton--error"
+          data-test="DesignSystem-DropdownTrigger"
+          tabindex="0"
+          type="button"
+          value=""
+        >
+          <div
+            class="DropdownButton-wrapper"
+          >
+            <span
+              class="Text Text--regular DropdownButton-text"
+            >
+              Select
+            </span>
+          </div>
+          <i
+            class="material-symbols material-symbols-rounded Icon Icon--default"
+            data-test="DesignSystem-Icon"
+            style="font-size: 16px; width: 16px;"
+          >
+            keyboard_arrow_down
+          </i>
+        </button>
+      </div>
+    </div>
+  </div>
+</body>
+`;

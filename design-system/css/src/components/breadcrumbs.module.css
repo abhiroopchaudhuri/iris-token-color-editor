@@ -1,0 +1,42 @@
+/* breadcrumbs */
+
+.Breadcrumbs {
+  display: flex;
+  align-items: center;
+}
+
+.Breadcrumbs-item {
+  display: flex;
+  align-items: center;
+}
+
+.Breadcrumbs-link {
+  /* 160px */
+  max-width: calc(var(--spacing-40) * 10);
+  margin: var(--spacing-10) 0;
+}
+
+.Breadcrumbs-link:active {
+  color: var(--inverse);
+}
+
+.Breadcrumbs-item:first-child .Breadcrumbs-link {
+  margin-left: 0;
+}
+
+.Breadcrumbs-itemSeparator {
+  color: var(--secondary);
+  font-size: var(--font-size-s);
+  line-height: var(--font-height-s);
+  width: var(--spacing-10);
+  margin: 0 var(--spacing-10);
+}
+
+.Breadcrumbs-dropdown {
+  height: var(--font-height-m);
+}
+
+.Breadcrumbs-Button:focus {
+  outline: var(--border-width-05) solid var(--primary-focus);
+  outline-offset: var(--spacing-05);
+}

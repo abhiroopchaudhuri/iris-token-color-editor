@@ -1,0 +1,176 @@
+import * as React from 'react';
+import { SelectContext } from './SelectContext';
+import { Listbox, Checkbox } from '@/index';
+import { OptionType } from '@/common.type';
+import { BaseProps } from '@/utils/types';
+import { handleKeyDown, elementExist, removeOrAddToList } from './utils';
+import classNames from 'classnames';
+import styles from '@css/components/select.module.css';
+import uidGenerator from '@/utils/uidGenerator';
+
+type checkedType = 'checked' | 'unchecked' | 'indeterminate';
+
+export interface SelectOptionProps extends BaseProps {
+  /**
+   * The content of the option, typically rendered as a label.
+   */
+  children: React.ReactNode;
+  /**
+   * The data associated with the option.
+   * <pre style="font-family: monospace; font-size: 13px; background: #f8f8f8">
+   * OptionType: {
+   *   label: string;
+   *   value: any;
+   *   id?: string | number;
+   * }
+   * </pre>
+   */
+  option: OptionType;
+  /**
+   * Callback function triggered when the option is clicked.
+   */
+  onClick?: (option: OptionType) => void;
+  /**
+   * The state of the checkbox associated with the option.
+   */
+  checkedState?: checkedType;
+  /**
+   * Whether to hide the checkbox associated with the option in case of multiselect.
+   */
+  withCheckbox?: boolean;
+  /**
+   * Whether the option is disabled.
+   */
+  disabled?: boolean;
+  /**
+   * Aria label for the `SelectOption`
+   */
+  'aria-label'?: string;
+  /**
+   * Index in the list (injected by Select.List for roving tabindex).
+   */
+  index?: number;
+}
+
+export const SelectOption = (props: SelectOptionProps) => {
+  const { children, option, checkedState, onClick, withCheckbox = true, disabled, index, ...rest } = props;
+  const contextProp = React.useContext(SelectContext);
+  const {
+    onOptionClick,
+    selectValue,
+    setSelectValue,
+    multiSelect,
+    setIsOptionSelected,
+    focusedOption,
+    setFocusedOption,
+    setHighlightFirstItem,
+    setHighlightLastItem,
+    listRef,
+    withSearch,
+    setOpenPopover,
+    triggerRef,
+    size,
+    rovingIndex,
+    listboxId,
+  } = contextProp;
+
+  const isRovingTabstop = typeof index === 'number' && rovingIndex === index;
+
+  const onClickHandler = () => {
+    if (disabled) return;
+
+    if (onClick) {
+      onClick(option);
+      return;
+    }
+
+    const newList = multiSelect && Array.isArray(selectValue) ? removeOrAddToList(option, selectValue) : option;
+
+    setIsOptionSelected?.(Array.isArray(newList) ? newList.length !== 0 : true);
+    setSelectValue?.(newList);
+    onOptionClick?.(newList);
+  };
+
+  const checked = checkedState === 'checked' || elementExist(option, selectValue) !== -1;
+
+  const indeterminate = checkedState === 'indeterminate';
+
+  const optionItemClass = classNames({
+    [styles['Select-option']]: true,
+  });
+
+  const textClass = classNames({
+    [styles['Select-option--text']]: true,
+    [styles['Select-option--textTight']]: size === 'tight',
+    'pt-2': multiSelect,
+  });
+
+  const SelectOptionClass = classNames({
+    [styles['Select-option--tight']]: size === 'tight',
+  });
+
+  const onKeyDownHandler = (event: React.KeyboardEvent) => {
+    handleKeyDown(
+      event,
+      focusedOption,
+      setFocusedOption,
+      setHighlightFirstItem,
+      setHighlightLastItem,
+      listRef,
+      withSearch,
+      setOpenPopover,
+      triggerRef
+    );
+  };
+
+  const idSuffix = typeof index === 'number' ? String(index) : uidGenerator();
+  const idPrefix = listboxId ? `${listboxId}-` : '';
+  const optionLabelId = `${idPrefix}DesignSystem-SelectOption-label-${idSuffix}`;
+  const checkboxInputId = `${idPrefix}DesignSystem-SelectOption-checkbox-${idSuffix}`;
+
+  const childCount = React.Children.count(children);
+  const optionLabelString = typeof option.label === 'string' ? option.label.trim() : '';
+  const checkboxFallbackAriaLabel = props['aria-label'] ?? (optionLabelString || undefined);
+  const associateCheckboxWithOptionLabel = childCount > 0;
+
+  return (
+    <Listbox.Item
+      role="option"
+      onClick={onClickHandler}
+      aria-selected={checked}
+      aria-label={props['aria-label'] || 'option item'}
+      onKeyDown={(event) => onKeyDownHandler(event)}
+      onFocus={(e) => setFocusedOption?.(e.currentTarget)}
+      selected={checked}
+      tabIndex={isRovingTabstop ? 0 : -1}
+      disabled={disabled}
+      data-test="DesignSystem-Select-Option"
+      className={SelectOptionClass}
+      {...rest}
+    >
+      <div className={optionItemClass}>
+        {multiSelect && withCheckbox && (
+          <Checkbox
+            id={checkboxInputId}
+            tabIndex={-1}
+            aria-checked={indeterminate ? 'mixed' : checked}
+            checked={checked}
+            indeterminate={indeterminate}
+            {...(associateCheckboxWithOptionLabel
+              ? { 'aria-labelledby': optionLabelId }
+              : { 'aria-label': checkboxFallbackAriaLabel })}
+          />
+        )}
+        <div id={optionLabelId} className={textClass}>
+          {children}
+        </div>
+      </div>
+    </Listbox.Item>
+  );
+};
+
+SelectOption.defaultProps = {
+  withCheckbox: true,
+};
+
+export default SelectOption;

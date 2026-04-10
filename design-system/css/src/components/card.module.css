@@ -1,0 +1,54 @@
+/* badge */
+
+.Card {
+  border-radius: var(--border-radius-10);
+  border: var(--border-width-2-5) solid var(--secondary-light);
+  position: relative;
+  background-color: var(--white);
+}
+
+.Card--default,
+.Card--light,
+.Card--medium,
+.Card--dark {
+  border: none;
+  box-shadow: var(--shadow-s);
+}
+
+.Card--shadow10 {
+  border: none;
+  box-shadow: var(--shadow-s);
+}
+
+.Card--shadow20 {
+  border: none;
+  box-shadow: var(--shadow-m);
+}
+
+.Card--shadow30 {
+  border: none;
+  box-shadow: var(--shadow-l);
+}
+
+.Card-header {
+  padding: var(--spacing-40) var(--spacing-40) var(--spacing-30) var(--spacing-40);
+}
+
+.Card-body {
+  padding-left: var(--spacing-40);
+  padding-right: var(--spacing-40);
+}
+
+.Card-footer {
+  display: flex;
+  align-items: center;
+  box-sizing: border-box;
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  padding: var(--spacing-40);
+}
+
+.Card-footer--withSeperator {
+  border-top: var(--border-width-2-5) solid var(--secondary-light);
+}

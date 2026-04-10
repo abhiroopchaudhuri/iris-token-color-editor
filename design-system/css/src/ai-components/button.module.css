@@ -1,0 +1,59 @@
+.AIButton {
+  padding: var(--spacing-20) var(--spacing-30);
+  border-radius: var(--border-radius-10);
+  cursor: pointer;
+  border: 0;
+  font-family: var(--font-family);
+  font-weight: var(--font-weight-normal);
+  font-size: var(--font-size);
+  line-height: var(--font-height-s);
+  display: flex;
+  align-items: center;
+  color: var(--inverse);
+  background: linear-gradient(
+    277deg,
+    rgba(227, 28, 121, 0.15) 0%,
+    rgba(231, 56, 79, 0.24) 28%,
+    rgba(240, 125, 0, 0.15) 100%
+  );
+}
+
+.AIButton:hover {
+  background: linear-gradient(
+    277deg,
+    rgba(227, 28, 121, 0.2) 0%,
+    rgba(231, 56, 79, 0.32) 28%,
+    rgba(240, 125, 0, 0.2) 100%
+  );
+}
+
+.AIButton:active {
+  background: linear-gradient(
+    277deg,
+    rgba(227, 28, 121, 0.31) 0%,
+    rgba(231, 56, 79, 0.48) 28%,
+    rgba(240, 125, 0, 0.31) 100%
+  );
+}
+
+.AIButton:disabled {
+  cursor: not-allowed;
+  opacity: var(--opacity-10);
+  background: linear-gradient(
+    277deg,
+    rgba(227, 28, 121, 0.15) 0%,
+    rgba(231, 56, 79, 0.24) 28%,
+    rgba(240, 125, 0, 0.15) 100%
+  );
+}
+
+.AIButton:focus {
+  outline: var(--border-width-05) solid var(--primary-focus);
+  outline-offset: var(--spacing-05);
+}
+
+/* Button Icon */
+
+.AIButton-Icon {
+  margin-right: var(--spacing-20);
+}

@@ -1,0 +1,394 @@
+/* calendar */
+
+.Calendar-wrapper {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.Calendar {
+  display: flex;
+  flex-direction: column;
+  box-sizing: border-box;
+}
+
+.Calendar--small {
+  padding: var(--spacing-30);
+  padding-bottom: var(--spacing-20);
+  width: 212px;
+}
+
+.Calendar-date--small {
+  height: 248px;
+}
+
+.Calendar-month--small {
+  height: 200px;
+}
+
+.Calendar-year--small {
+  height: 200px;
+}
+
+.Calendar--large {
+  padding-top: var(--spacing-40);
+  padding-left: var(--spacing-40);
+  padding-right: var(--spacing-40);
+  padding-bottom: var(--spacing-30);
+  width: 316px;
+}
+
+.Calendar-date--large {
+  height: 324px;
+}
+
+.Calendar-month--large {
+  height: 276px;
+}
+
+.Calendar-year--large {
+  height: 272px;
+}
+
+.Calendar-header--large {
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding-bottom: var(--spacing-30);
+}
+
+.Calendar-header--small {
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding-bottom: var(--spacing-20);
+}
+
+.Calendar-headerIcon {
+  position: absolute;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  user-select: none;
+}
+
+.Calendar-headerIcon--prev {
+  left: 0;
+}
+
+.Calendar-headerIcon--next {
+  right: 0;
+}
+
+.Calendar-headerContent {
+  display: flex;
+  white-space: nowrap;
+  cursor: pointer;
+  padding-top: var(--spacing-10);
+  padding-bottom: var(--spacing-10);
+  user-select: none;
+}
+
+.Calendar-headerButton {
+  /* Reset button aesthetics */
+  background: transparent;
+  border: none;
+  padding: 0;
+  margin: 0;
+  font-family: inherit;
+  color: inherit;
+  cursor: pointer;
+
+  /* Maintain the existing Flexbox layout structure */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  /* Rounded corners for better focus outline appearance */
+  border-radius: var(--border-radius-10);
+}
+
+.Calendar-headerButton:focus-visible {
+  outline: var(--border-width-05) solid var(--primary-focus);
+  outline-offset: 1px;
+}
+
+.Calendar-headerButton:focus:not(:focus-visible) {
+  outline: none;
+}
+
+.Calendar-body {
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1;
+  justify-content: space-between;
+}
+
+.Calendar-valueRow {
+  display: flex;
+  justify-content: space-between;
+  padding-top: var(--spacing-05);
+  padding-bottom: var(--spacing-05);
+}
+
+.Calendar-valueWrapper {
+  display: inline-flex;
+  flex: 1 0 0;
+  justify-content: center;
+  position: relative;
+}
+
+.Calendar-monthValueWrapper,
+.Calendar-yearValueWrapper {
+  display: inline-flex;
+  justify-content: center;
+  position: relative;
+}
+
+.Calendar-valueWrapper--inRange {
+  background: var(--primary-ultra-light);
+}
+
+.Calendar-valueWrapper--inRange .Calendar-inRangeValue:hover {
+  background: var(--primary-lightest);
+  border-color: transparent;
+}
+
+.Calendar-valueWrapper--inRange .Calendar-inRangeValue:active {
+  background: var(--primary-lighter);
+  border-color: transparent;
+}
+
+.Calendar-valueWrapper--inRangeError {
+  background: var(--alert-lightest);
+}
+
+.Calendar-valueWrapper--start {
+  background: linear-gradient(90deg, white 50%, var(--primary-ultra-light) 50%);
+  border-radius: var(--border-radius-10) 0 0 var(--border-radius-10);
+}
+
+.Calendar-valueWrapper--startError {
+  background: linear-gradient(90deg, white 50%, var(--alert-lightest) 50%);
+}
+
+.Calendar-valueWrapper--end {
+  background: linear-gradient(90deg, var(--primary-ultra-light) 50%, white 50%);
+  border-radius: 0 var(--border-radius-10) var(--border-radius-10) 0;
+}
+
+.Calendar-valueWrapper--hoverDate {
+  background: linear-gradient(90deg, var(--primary-ultra-light) 10%, white 50%);
+  border-radius: 0 var(--border-radius-10) var(--border-radius-10) 0;
+}
+
+.Calendar-valueWrapper--hoverEndDate {
+  background: linear-gradient(90deg, white 50%, var(--primary-ultra-light) 10%);
+}
+
+.Calendar-valueWrapper--endError {
+  background: linear-gradient(90deg, var(--alert-lightest) 50%, white 50%);
+}
+
+.Calendar-valueWrapper--startEnd {
+  background: transparent;
+}
+
+.Calendar-value {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  cursor: pointer;
+  user-select: none;
+  box-sizing: border-box;
+  border-radius: var(--spacing-10);
+  border: var(--border-width-2-5) solid transparent;
+  transition: var(--duration--fast-01) var(--standard-productive-curve);
+
+  /* Button reset (used on <button> for a11y) */
+  background: transparent;
+  padding: 0;
+  margin: 0;
+  font-family: inherit;
+  color: inherit;
+}
+
+.Calendar-value:focus-visible {
+  outline: var(--border-width-05) solid var(--primary-focus);
+  outline-offset: 1px;
+}
+
+.Calendar-value:focus:not(:focus-visible) {
+  outline: none;
+}
+
+.Calendar-value:hover {
+  background: var(--secondary-light);
+  border-color: var(--secondary-dark);
+}
+
+.Calendar-value:active {
+  background: var(--secondary);
+  border-color: var(--secondary-dark);
+}
+
+.Calendar-value--start:hover,
+.Calendar-value--end:hover {
+  background: var(--primary-ultra-light);
+  border-color: transparent;
+}
+
+.Calendar-value--startError:hover,
+.Calendar-value--endError:hover {
+  background: var(--alert-lightest);
+  border-color: transparent;
+}
+
+.Calendar-value--start,
+.Calendar-value--end {
+  background: var(--primary-ultra-light);
+}
+
+.Calendar-value--startError,
+.Calendar-value--endError {
+  background: var(--alert-lightest);
+}
+
+.Calendar-value--currDateMonthYear {
+  background: var(--primary-ultra-light);
+  border-color: var(--primary);
+}
+
+.Calendar-value--currDateMonthYear:hover {
+  background: var(--primary-lightest);
+  border-color: var(--primary);
+}
+
+.Calendar-value--currDateMonthYear:active {
+  background: var(--primary-lighter);
+  border-color: var(--primary-darker);
+}
+
+.Calendar-value--active {
+  background: var(--primary);
+  font-weight: var(--font-weight-bold);
+  border-color: transparent;
+}
+
+.Calendar-value--active:hover {
+  background: var(--primary-dark);
+  border-color: transparent;
+}
+
+.Calendar-value--active:active {
+  background: var(--primary-darker);
+  border-color: transparent;
+}
+
+.Calendar-yearValue--small,
+.Calendar-monthValue--small {
+  height: var(--spacing-60);
+  width: var(--spacing-120);
+}
+
+.Calendar-yearValue--large,
+.Calendar-monthValue--large {
+  height: var(--spacing-80);
+  width: var(--spacing-160);
+}
+
+.Calendar-dateValue--small {
+  height: var(--spacing-60);
+  width: var(--spacing-60);
+}
+
+.Calendar-dateValue--large {
+  height: var(--spacing-80);
+  width: var(--spacing-80);
+}
+
+.Calendar-valueWrapper--active-dummy .Calendar-value--startError,
+.Calendar-valueWrapper--active-dummy .Calendar-value--endError {
+  background: var(--alert-lightest);
+}
+
+.Calendar-valueWrapper--active-dummy .Calendar-value--startError:hover,
+.Calendar-valueWrapper--active-dummy .Calendar-value--endError:hover {
+  background: var(--alert-lightest);
+  border-color: transparent;
+}
+
+.Calendar-valueWrapper--disabled {
+  opacity: var(--opacity-10);
+}
+
+.Calendar-value--disabled {
+  pointer-events: none;
+}
+
+.Calendar-dayValues {
+  display: flex;
+  justify-content: center;
+  padding-top: var(--spacing-20);
+  padding-bottom: var(--spacing-20);
+}
+
+.Calendar-dateValues {
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1;
+  justify-content: space-around;
+}
+
+.Calendar-dayValues .Calendar-value {
+  padding: 0;
+  cursor: default;
+  border-color: transparent;
+}
+
+.Calendar-dayValues .Calendar-value:hover,
+.Calendar-dayValues .Calendar-value:active {
+  background: transparent;
+  border-color: transparent;
+}
+
+.Calendar-eventsIndicator {
+  position: absolute;
+  bottom: var(--spacing-05);
+  width: var(--spacing-10);
+  height: var(--spacing-10);
+  background-color: var(--alert);
+  border-radius: var(--border-radius-full);
+}
+.Calendar-eventsIndicator--small {
+  width: 3px;
+  height: 3px;
+}
+.Calendar-eventsIndicator--active {
+  background-color: var(--white);
+}
+
+.Calendar-valueWrapper--inStartRange {
+  background: linear-gradient(90deg, white 50%, var(--primary-ultra-light) 50%);
+}
+
+.Calendar-valueWrapper--inEndRange {
+  background: linear-gradient(90deg, var(--primary-ultra-light) 50%, white 50%);
+}
+
+.Calendar-valueWrapper--inEdgeRange .Calendar-inRangeValue {
+  background: var(--primary-ultra-light);
+}
+
+.Calendar-valueWrapper--inEdgeRange .Calendar-inRangeValue:hover {
+  background: var(--primary-lightest);
+  border-color: transparent;
+}
+
+.Calendar-valueWrapper--inEdgeRange .Calendar-inRangeValue:active {
+  background: var(--primary-lighter);
+  border-color: transparent;
+}

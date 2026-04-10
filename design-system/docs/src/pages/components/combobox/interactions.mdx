@@ -1,0 +1,181 @@
+import comboboxOpening from "./images/combobox-opening.gif"
+import comboboxClosing from "./images/combobox-closing.gif"
+
+### Combobox - Opening
+
+<img width="100%" height="auto" src={comboboxOpening} alt="Opening of Combobox" />
+
+<Caption>Opening of Combobox</Caption>
+
+#### Popover
+
+Default [popover](https://design.innovaccer.com/components/popover/interactions/#opening-popover) animation is used.
+
+### Combobox - Closing
+
+<img width="100%" height="auto" src={comboboxClosing} alt="Closing a Combobox" />
+
+<Caption>Closing a Combobox</Caption>
+
+#### Popover
+
+Default [popover](https://design.innovaccer.com/components/popover/interactions/#closing-popover) animation is used.
+
+### Keyboard Interactions
+
+<br />
+
+<table style={{width: "100%"}}>
+  <tbody>
+    <tr>
+      <th style={{width:"33%", textAlign: "left"}}>Initial state</th>
+      <th style={{width:"33%", textAlign: "left"}}>Keyboard Interaction</th>
+      <th style={{width:"33%", textAlign: "left"}}>Final state</th>
+    </tr>
+    <tr style={{verticalAlign: "top"}}>
+      <td>Combobox in default state </td>
+      <td>&#60;Tab&#62;</td>
+      <td>Focus shifts to the combobox. The popover stays closed.</td>
+    </tr>
+    <tr style={{verticalAlign: "top"}}>
+      <td></td>
+      <td>Click</td>
+      <td>Focus shifts to the combobox and the popover opens.</td>
+    </tr>
+    <tr style={{verticalAlign: "top"}}>
+      <td>Combobox in focus (typing state)</td>
+      <td>&#60;Tab&#62;</td>
+      <td>
+        Focus shifts to the next item in the page tab sequence
+      </td>
+    </tr>
+    <tr style={{verticalAlign: "top"}}>
+      <td></td>
+      <td>Type characters</td>
+      <td>
+        <ul>
+          <li>The list shows only options that match what was typed (whether or not the popover was already open).</li>
+          <li>If nothing matches, the popover closes.</li>
+        </ul>
+      </td>
+    </tr>
+    <tr style={{verticalAlign: "top"}}>
+      <td></td>
+      <td>&#60;Arrow Down&#62;</td>
+      <td>
+        <ul>
+          <li>
+            If the popover is closed: the popover opens and focus shifts from the combobox to the first focusable item in the list.
+          </li>
+          <li>If the popover is open: focus shifts from the combobox to the first focusable item in the list.</li>
+        </ul>
+      </td>
+    </tr>
+    <tr style={{verticalAlign: "top"}}>
+      <td></td>
+      <td>&#60;Arrow Up&#62;</td>
+      <td>
+        <ul>
+          <li>
+            If the popover is closed: the popover opens and focus shifts from the combobox to the last focusable item in the list.
+          </li>
+          <li>If the popover is open: focus shifts from the combobox to the last focusable item in the list.</li>
+        </ul>
+      </td>
+    </tr>
+    <tr style={{verticalAlign: "top"}}>
+      <td></td>
+      <td>&#60;Escape&#62;</td>
+      <td>
+        <ul>
+          <li>
+            If the popover is open: the popover closes, focus shifts back to the combobox input, and the typed value
+            stays the same.
+          </li>
+          <li>If the popover is already closed: no change.</li>
+        </ul>
+      </td>
+    </tr>
+    <tr style={{verticalAlign: "top"}}>
+      <td></td>
+      <td>&#60;Backspace/Delete&#62;</td>
+      <td>
+        <ul>
+          <li>
+            If there is already a value:
+            <ul>
+              <li className="ml-5">
+                <b>Single-select:</b>
+                <ul>
+                  <li className="ml-5">Characters are removed from or adjusted in the combobox value.</li>
+                </ul>
+              </li>
+              <li className="ml-5">
+                <b>Multi-select:</b>
+                <ul>
+                  <li className="ml-5">A chip (a selected value) is removed from the field.</li>
+                </ul>
+              </li>
+            </ul>
+          </li>
+          <li>If there is no value to change: no change.</li>
+        </ul>
+      </td>
+    </tr>
+    <tr style={{verticalAlign: "top"}}>
+      <td>Popover is open; focus is on a list item (not the combobox input).</td>
+      <td>&#60;Tab&#62; / &#60;Shift Tab&#62;</td>
+      <td>The popover closes and focus shifts to the combobox input. Further Tab or Shift Tab follows the normal page tab sequence.</td>
+    </tr>
+    <tr style={{verticalAlign: "top"}}>
+      <td></td>
+      <td>&#60;Arrow Down&#62;</td>
+      <td>
+        <ul>
+          <li>Focus shifts to the next focusable item in the list.</li>
+          <li>If focus is on the last focusable item, focus shifts to the first focusable item in the list.</li>
+        </ul>
+      </td>
+    </tr>
+    <tr style={{verticalAlign: "top"}}>
+      <td></td>
+      <td>&#60;Arrow Up&#62;</td>
+      <td>
+        <ul>
+          <li>Focus shifts to the previous focusable item in the list.</li>
+          <li>If focus is on the first focusable item, focus shifts to the last focusable item in the list.</li>
+        </ul>
+      </td>
+    </tr>
+    <tr style={{verticalAlign: "top"}}>
+      <td></td>
+      <td>&#60;Escape&#62;</td>
+      <td>The popover closes, focus shifts to the combobox input, and any typed value stays the same.</td>
+    </tr>
+    <tr style={{verticalAlign: "top"}}>
+      <td></td>
+      <td>&#60;Enter&#62;</td>
+      <td>
+        <ul>
+          <li>
+            <b>Single select:</b>
+            <ul>
+              <li className="ml-5">The focused option becomes the combobox value; focus shifts back to the combobox input.</li>
+              <li className="ml-5">That option appears selected in the list.</li>
+              <li className="ml-5">The popover closes (default).</li>
+            </ul>
+          </li>
+          <li>
+            <b>Multi select:</b>
+            <ul>
+              <li className="ml-5">The focused option is added as a chip in the combobox.</li>
+              <li className="ml-5">That option no longer appears in the list.</li>
+              <li className="ml-5">The popover stays open (default).</li>
+              <li className="ml-5">Focus shifts to the first focusable item in the list.</li>
+            </ul>
+          </li>
+        </ul>
+      </td>
+    </tr>
+  </tbody>
+</table>

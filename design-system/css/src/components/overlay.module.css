@@ -1,0 +1,38 @@
+.OverlayHeader {
+  box-sizing: border-box;
+  margin-left: var(--spacing-60);
+}
+
+.OverlayHeader--withBackButton {
+  margin-left: var(--spacing-40);
+}
+
+.OverlayHeader-headerWrapper {
+  display: flex;
+  align-items: center;
+}
+
+.OverlayHeader-subheading {
+  margin-top: var(--spacing-05);
+}
+
+.OverlayHeader-subheading--withBackButton {
+  margin-left: var(--spacing-20);
+}
+
+.OverlayBody {
+  overflow-y: auto;
+}
+
+.Overlay-body--stickFooter {
+  margin-bottom: 80px;
+}
+
+.OverlayFooter {
+  display: flex;
+  align-items: center;
+  width: 100%;
+  box-sizing: border-box;
+  padding-left: var(--spacing-60);
+  padding-right: var(--spacing-60);
+}
