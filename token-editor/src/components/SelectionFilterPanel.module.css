@@ -182,11 +182,18 @@
 .addRule input {
   font-size: 0.72rem;
   font-family: 'JetBrains Mono', monospace;
-  padding: 0.25rem 0.4rem;
   border-radius: 6px;
   border: 1px solid var(--border-color);
   background: rgba(0, 0, 0, 0.4);
   color: var(--text-primary);
+}
+
+.addRule input {
+  padding: 0.25rem 0.4rem;
+}
+
+.addRule select {
+  padding: 0.25rem 1.65rem 0.25rem 0.4rem;
 }
 
 .addRule input[type='number'] {
@@ -261,11 +268,15 @@
   font-size: 0.68rem;
   line-height: 1.4;
   color: var(--text-tertiary);
-  max-width: 22rem;
+  /* Match .hint so footer copy isn’t a different column width (Filter + OKLCH popovers). */
+  max-width: 42rem;
+  box-sizing: border-box;
 }
 
 .scopeMeta {
   font-size: 0.68rem;
   color: var(--text-tertiary);
   font-family: 'JetBrains Mono', monospace;
+  max-width: 42rem;
+  box-sizing: border-box;
 }

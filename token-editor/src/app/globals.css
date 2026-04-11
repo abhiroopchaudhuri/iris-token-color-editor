@@ -94,6 +94,11 @@ main {
   background: rgba(255, 255, 255, 0.2);
 }
 
+/* Native <select>: system chevron sits in the padding box; extra end inset keeps it off the border */
+select {
+  padding-inline-end: 1.65rem;
+}
+
 /* Focus visible */
 :focus-visible {
   outline: 2px solid var(--accent);

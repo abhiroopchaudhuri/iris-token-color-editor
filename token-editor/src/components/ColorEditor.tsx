@@ -6,6 +6,7 @@ import GlobalControls from './GlobalControls';
 import SwatchGrid from './SwatchGrid';
 import HSLSliders from './HSLSliders';
 import SelectionFilterPanel from './SelectionFilterPanel';
+import OklchHarmonizePanel from './OklchHarmonizePanel';
 import { globalHslSelectionHasConstraints } from '@/utils/selectionFilter';
 import styles from './ColorEditor.module.css';
 import { useColorStore } from '@/hooks/useColorStore';
@@ -29,20 +30,38 @@ export default function ColorEditor() {
     maxHeight: number;
   } | null>(null);
 
+  const [showHarmonizePopover, setShowHarmonizePopover] = useState(false);
+  const harmonizeToggleRef = useRef<HTMLButtonElement>(null);
+  const [harmonizePopoverLayout, setHarmonizePopoverLayout] = useState<{
+    top: number;
+    right: number;
+    maxHeight: number;
+  } | null>(null);
+
+  const layoutForButton = useCallback(
+    (el: HTMLElement | null, open: boolean) => {
+      if (!el || !open) return null;
+      const rect = el.getBoundingClientRect();
+      const gap = 8;
+      const bottomReserve = 20;
+      const vh = window.visualViewport?.height ?? window.innerHeight;
+      const maxHeight = Math.max(180, Math.floor(vh - rect.bottom - gap - bottomReserve));
+      return {
+        top: rect.bottom + gap,
+        right: Math.max(12, window.innerWidth - rect.right),
+        maxHeight,
+      };
+    },
+    [],
+  );
+
   const updateFilterPopoverLayout = useCallback(() => {
-    const el = filterToggleRef.current;
-    if (!el || !showFilterPopover) return;
-    const rect = el.getBoundingClientRect();
-    const gap = 8;
-    const bottomReserve = 20;
-    const vh = window.visualViewport?.height ?? window.innerHeight;
-    const maxHeight = Math.max(180, Math.floor(vh - rect.bottom - gap - bottomReserve));
-    setFilterPopoverLayout({
-      top: rect.bottom + gap,
-      right: Math.max(12, window.innerWidth - rect.right),
-      maxHeight,
-    });
-  }, [showFilterPopover]);
+    setFilterPopoverLayout(layoutForButton(filterToggleRef.current, showFilterPopover));
+  }, [showFilterPopover, layoutForButton]);
+
+  const updateHarmonizePopoverLayout = useCallback(() => {
+    setHarmonizePopoverLayout(layoutForButton(harmonizeToggleRef.current, showHarmonizePopover));
+  }, [showHarmonizePopover, layoutForButton]);
 
   useEffect(() => {
     if (!showFilterPopover) return;
@@ -62,6 +81,25 @@ export default function ColorEditor() {
       vv?.removeEventListener('scroll', onChange);
     };
   }, [showFilterPopover, updateFilterPopoverLayout]);
+
+  useEffect(() => {
+    if (!showHarmonizePopover) return;
+    const onChange = () => updateHarmonizePopoverLayout();
+    onChange();
+    const raf = requestAnimationFrame(() => onChange());
+    window.addEventListener('resize', onChange);
+    window.addEventListener('scroll', onChange, true);
+    const vv = window.visualViewport;
+    vv?.addEventListener('resize', onChange);
+    vv?.addEventListener('scroll', onChange);
+    return () => {
+      cancelAnimationFrame(raf);
+      window.removeEventListener('resize', onChange);
+      window.removeEventListener('scroll', onChange, true);
+      vv?.removeEventListener('resize', onChange);
+      vv?.removeEventListener('scroll', onChange);
+    };
+  }, [showHarmonizePopover, updateHarmonizePopoverLayout]);
 
   const hexCount = Object.keys(currentColors).length;
   const totalLines = originalLines.length;
@@ -132,7 +170,13 @@ export default function ColorEditor() {
           <span className={styles.fileName}>{fileName}</span>
           <span className={styles.stats}>{hexCount} colors · {totalLines} lines</span>
           <button className={styles.newFileBtn} onClick={() => {
-            useColorStore.setState({ isLoaded: false, originalLines: [], currentColors: {}, currentRgbaColors: {} });
+            useColorStore.setState({
+              isLoaded: false,
+              originalLines: [],
+              currentColors: {},
+              currentRgbaColors: {},
+              oklchHarmonizeExportTokenKeys: [],
+            });
             localStorage.removeItem('token-editor-state');
           }}>
             <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
@@ -153,19 +197,9 @@ export default function ColorEditor() {
                 setFilterPopoverLayout(null);
                 return;
               }
-              const el = filterToggleRef.current;
-              if (el) {
-                const rect = el.getBoundingClientRect();
-                const gap = 8;
-                const bottomReserve = 20;
-                const vh = window.visualViewport?.height ?? window.innerHeight;
-                const maxHeight = Math.max(180, Math.floor(vh - rect.bottom - gap - bottomReserve));
-                setFilterPopoverLayout({
-                  top: rect.bottom + gap,
-                  right: Math.max(12, window.innerWidth - rect.right),
-                  maxHeight,
-                });
-              }
+              setShowHarmonizePopover(false);
+              setHarmonizePopoverLayout(null);
+              setFilterPopoverLayout(layoutForButton(filterToggleRef.current, true));
               setShowFilterPopover(true);
             }}
             title="Advanced Selection Filters"
@@ -174,6 +208,30 @@ export default function ColorEditor() {
               <path d="M3 4a1 1 0 011-1h16a1 1 0 011 1v2.586a1 1 0 01-.293.707l-6.414 6.414a1 1 0 00-.293.707V19l-4 2v-6.586a1 1 0 00-.293-.707L3.293 7.293A1 1 0 013 6.586V4z" />
             </svg>
             Filter Rules
+          </button>
+
+          <button
+            ref={harmonizeToggleRef}
+            type="button"
+            className={`${styles.harmonizeToggle} ${showHarmonizePopover ? styles.harmonizeActive : ''}`}
+            onClick={() => {
+              if (showHarmonizePopover) {
+                setShowHarmonizePopover(false);
+                setHarmonizePopoverLayout(null);
+                return;
+              }
+              setShowFilterPopover(false);
+              setFilterPopoverLayout(null);
+              setHarmonizePopoverLayout(layoutForButton(harmonizeToggleRef.current, true));
+              setShowHarmonizePopover(true);
+            }}
+            title="Match lightness and chroma to a reference group in OKLCH"
+          >
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+              <circle cx="12" cy="12" r="3" />
+              <path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M4.93 19.07l1.41-1.41M17.66 6.34l1.41-1.41" />
+            </svg>
+            OKLCH harmonize
           </button>
           
           {showFilterPopover &&
@@ -193,6 +251,31 @@ export default function ColorEditor() {
                     onClose={() => {
                       setShowFilterPopover(false);
                       setFilterPopoverLayout(null);
+                    }}
+                  />
+                </div>
+              </div>,
+              document.body,
+            )}
+
+          {showHarmonizePopover &&
+            harmonizePopoverLayout &&
+            typeof document !== 'undefined' &&
+            createPortal(
+              <div
+                className={styles.popoverAnchor}
+                style={{
+                  top: harmonizePopoverLayout.top,
+                  right: harmonizePopoverLayout.right,
+                  maxHeight: `${harmonizePopoverLayout.maxHeight}px`,
+                }}
+              >
+                <div className={styles.popoverScroll}>
+                  <OklchHarmonizePanel
+                    key={fileName}
+                    onClose={() => {
+                      setShowHarmonizePopover(false);
+                      setHarmonizePopoverLayout(null);
                     }}
                   />
                 </div>

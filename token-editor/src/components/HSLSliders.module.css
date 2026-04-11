@@ -211,6 +211,64 @@
   border-color: var(--accent);
 }
 
+.oklchBlock {
+  display: flex;
+  flex-direction: column;
+  gap: 0.45rem;
+  padding-top: 0.35rem;
+}
+
+.oklchLabelRow {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 0.5rem;
+}
+
+.oklchHint {
+  font-size: 0.65rem;
+  color: var(--text-tertiary);
+  font-weight: 400;
+  text-transform: none;
+}
+
+.oklchCode {
+  display: block;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.72rem;
+  color: var(--text-secondary);
+  padding: 0.45rem 0.5rem;
+  border-radius: 6px;
+  background: var(--surface-2);
+  border: 1px solid var(--border-subtle);
+  word-break: break-all;
+}
+
+.oklchActions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.4rem;
+}
+
+.oklchBtn {
+  flex: 1;
+  min-width: 6.5rem;
+  padding: 0.35rem 0.5rem;
+  border-radius: 6px;
+  border: 1px solid var(--border-color);
+  background: var(--surface-3);
+  color: var(--text-primary);
+  font-size: 0.72rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background 0.12s ease, border-color 0.12s ease;
+}
+
+.oklchBtn:hover {
+  background: var(--surface-4);
+  border-color: rgba(168, 85, 247, 0.45);
+}
+
 .sectionDivider {
   height: 1px;
   background: var(--border-subtle);

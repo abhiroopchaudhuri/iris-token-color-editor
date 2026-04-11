@@ -5,6 +5,7 @@ import { ParsedLine, parseCssTokens, getEditableTokens, getRgbaTokens } from '@/
 import { HSL, hexToHsl, clampHSL, parseRgba, rgbToHsl, hslToHex, hslToRgb } from '@/utils/colorUtils';
 import {
   GlobalHslSelectionFilter,
+  collectFamiliesAndShadesFromLines,
   computeGlobalHslFrozenKeys,
   defaultGlobalHslSelectionFilter,
   globalHslSelectionHasConstraints,
@@ -13,6 +14,11 @@ import {
   newSelectionRuleId,
   type SelectionRule,
 } from '@/utils/selectionFilter';
+import {
+  computeOklchHarmonizePatches,
+  type OklchHarmonizeOptions,
+  type OklchHarmonizeResult,
+} from '@/utils/oklchHarmonize';
 
 export type ViewMode = 'grouped' | 'list';
 export type SortMode = 'hex-first' | 'interleaved';
@@ -40,6 +46,8 @@ interface ColorStore {
   sortMode: SortMode;
   isLoaded: boolean;
   fileName: string;
+  /** Hex tokens that should serialize as OKLCH in harmonize-panel export (union across applies). */
+  oklchHarmonizeExportTokenKeys: string[];
 
   loadCss: (css: string, fileName?: string) => void;
   updateColor: (tokenName: string, hsl: HSL) => void;
@@ -67,6 +75,9 @@ interface ColorStore {
   removeGlobalHslSelectionRule: (id: string) => void;
   clearGlobalHslSelectionFilter: () => void;
   applyIncrementalGlobalHslDelta: (dh: number, ds: number, dl: number) => void;
+
+  /** OKLCH harmonize: updates hex-backed tokens; navbar export stays hex. */
+  applyOklchHarmonize: (opts: OklchHarmonizeOptions) => OklchHarmonizeResult;
 }
 
 const STORAGE_KEY = 'token-editor-state';
@@ -172,6 +183,7 @@ export const useColorStore = create<ColorStore>((set, get) => ({
   sortMode: 'interleaved',
   isLoaded: false,
   fileName: '',
+  oklchHarmonizeExportTokenKeys: [],
   globalHslSelectionFilter: defaultGlobalHslSelectionFilter(),
 
   loadCss: (css: string, fileName: string = 'index.css') => {
@@ -198,8 +210,8 @@ export const useColorStore = create<ColorStore>((set, get) => ({
     }
 
     const saved = loadFromStorage();
-    let currentColors = { ...originalColors };
-    let currentRgbaColors = { ...originalRgbaColors };
+    const currentColors = { ...originalColors };
+    const currentRgbaColors = { ...originalRgbaColors };
     let lockedTokens = new Set<string>();
 
     if (saved && saved.fileName === fileName) {
@@ -216,6 +228,7 @@ export const useColorStore = create<ColorStore>((set, get) => ({
       originalLines: lines, originalColors, originalRgbaColors,
       currentColors, currentRgbaColors, lockedTokens,
       undoStack: [], redoStack: [], isLoaded: true, fileName,
+      oklchHarmonizeExportTokenKeys: [],
       globalHslSelectionFilter: defaultGlobalHslSelectionFilter(),
     });
     saveToStorage({ currentColors, currentRgbaColors, lockedTokens, fileName });
@@ -364,6 +377,20 @@ export const useColorStore = create<ColorStore>((set, get) => ({
     set({ globalHslSelectionFilter: defaultGlobalHslSelectionFilter() });
   },
 
+  applyOklchHarmonize: (opts: OklchHarmonizeOptions): OklchHarmonizeResult => {
+    const { currentColors, lockedTokens, originalLines, fileName } = get();
+    const { shades } = collectFamiliesAndShadesFromLines(originalLines);
+    const result = computeOklchHarmonizePatches(currentColors, lockedTokens, shades, opts);
+    if (!result.ok) return result;
+    get().pushSnapshot();
+    const newColors = { ...currentColors, ...result.updates };
+    const touched = Object.keys(result.updates);
+    const mergedKeys = [...new Set([...get().oklchHarmonizeExportTokenKeys, ...touched])];
+    set({ currentColors: newColors, oklchHarmonizeExportTokenKeys: mergedKeys });
+    saveToStorage({ currentColors: newColors, currentRgbaColors: get().currentRgbaColors, lockedTokens, fileName });
+    return { ok: true, updates: result.updates };
+  },
+
   applyGroupDelta: (family: string, dh: number, ds: number, dl: number) => {
     get().pushSnapshot();
     const { currentColors, currentRgbaColors, lockedTokens } = get();
@@ -433,6 +460,7 @@ export const useColorStore = create<ColorStore>((set, get) => ({
         lockedTokens: saved.lockedTokens as Set<string>,
         fileName: saved.fileName,
         isLoaded: true,
+        oklchHarmonizeExportTokenKeys: [],
       });
       return true;
     }
@@ -466,7 +494,12 @@ export const useColorStore = create<ColorStore>((set, get) => ({
   resetAll: () => {
     get().pushSnapshot();
     const { originalColors, originalRgbaColors } = get();
-    set({ currentColors: { ...originalColors }, currentRgbaColors: { ...originalRgbaColors }, lockedTokens: new Set() });
+    set({
+      currentColors: { ...originalColors },
+      currentRgbaColors: { ...originalRgbaColors },
+      lockedTokens: new Set(),
+      oklchHarmonizeExportTokenKeys: [],
+    });
     saveToStorage({ currentColors: originalColors, currentRgbaColors: originalRgbaColors, lockedTokens: new Set(), fileName: get().fileName });
   },
 

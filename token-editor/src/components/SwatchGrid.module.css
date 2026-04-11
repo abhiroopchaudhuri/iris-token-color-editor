@@ -146,10 +146,12 @@
   background: var(--surface-3);
 }
 
+/* Fixed column width so every swatch + label cell is identical (no flex “content width” gaps). */
 .familySwatches {
-  display: flex;
-  flex-wrap: wrap;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, 72px);
   gap: 0.5rem;
+  justify-content: start;
 }
 
 /* List */

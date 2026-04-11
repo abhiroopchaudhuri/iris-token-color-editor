@@ -72,7 +72,7 @@ export default function ColorSwatch({ tokenName, isRgba = false }: ColorSwatchPr
       </div>
       <span className={styles.name} title={tokenName}>
         {inGlobalSelection && <span className={styles.activeDot} />}
-        {shortName}
+        <span className={styles.nameText}>{shortName}</span>
       </span>
     </div>
   );

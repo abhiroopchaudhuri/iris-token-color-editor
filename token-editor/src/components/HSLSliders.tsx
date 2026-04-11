@@ -2,6 +2,7 @@
 
 import React, { useState, useEffect, useCallback } from 'react';
 import { HSL, hslToHex, hslToRgb, getContrastColor, hexToHsl, getContrastRatioHex } from '@/utils/colorUtils';
+import { formatOklchCssFromHex } from '@/utils/oklchFormat';
 import { useColorStore } from '@/hooks/useColorStore';
 import styles from './HSLSliders.module.css';
 
@@ -24,6 +25,7 @@ export default function HSLSliders({ hsl, tokenName, isRgba = false, alpha = 1, 
   const [contrastMode, setContrastMode] = useState<'target' | 'passed'>('target');
   const [targetToken, setTargetToken] = useState<string>('--color-white');
   const [dropdownOpen, setDropdownOpen] = useState(false);
+  const [oklchCopied, setOklchCopied] = useState(false);
 
   useEffect(() => {
     setLocalHSL(hsl);
@@ -64,6 +66,7 @@ export default function HSLSliders({ hsl, tokenName, isRgba = false, alpha = 1, 
   }, [handleSliderChange]);
 
   const currentHex = hslToHex(localHSL.h, localHSL.s, localHSL.l);
+  const oklchCss = formatOklchCssFromHex(currentHex);
   const { r, g, b } = hslToRgb(localHSL.h, localHSL.s, localHSL.l);
   const previewBg = isRgba ? `rgba(${r}, ${g}, ${b}, ${localAlpha})` : currentHex;
   const contrastColor = localAlpha > 0.4 ? getContrastColor(currentHex) : '#ffffff';
@@ -146,6 +149,60 @@ export default function HSLSliders({ hsl, tokenName, isRgba = false, alpha = 1, 
         <input type="text" value={hexInput} onChange={(e) => handleHexChange(e.target.value)}
           className={styles.hexInput} maxLength={7} spellCheck={false} />
       </div>
+
+      {oklchCss && (
+        <div className={styles.oklchBlock}>
+          <div className={styles.oklchLabelRow}>
+            <span className={styles.label}>OKLCH</span>
+            <span className={styles.oklchHint}>{isRgba ? 'RGB only (alpha unchanged)' : 'CSS oklch()'}</span>
+          </div>
+          <code className={styles.oklchCode}>{oklchCss}</code>
+          <div className={styles.oklchActions}>
+            <button
+              type="button"
+              className={styles.oklchBtn}
+              onClick={async () => {
+                const line = `${tokenName}: ${oklchCss};`;
+                try {
+                  await navigator.clipboard.writeText(line);
+                  setOklchCopied(true);
+                  setTimeout(() => setOklchCopied(false), 2000);
+                } catch {
+                  const ta = document.createElement('textarea');
+                  ta.value = line;
+                  document.body.appendChild(ta);
+                  ta.select();
+                  document.execCommand('copy');
+                  document.body.removeChild(ta);
+                  setOklchCopied(true);
+                  setTimeout(() => setOklchCopied(false), 2000);
+                }
+              }}
+            >
+              {oklchCopied ? 'Copied' : 'Copy CSS'}
+            </button>
+            <button
+              type="button"
+              className={styles.oklchBtn}
+              onClick={() => {
+                const safe = tokenName.replace(/[^\w-]/g, '_');
+                const line = `${tokenName}: ${oklchCss};\n`;
+                const blob = new Blob([line], { type: 'text/css' });
+                const url = URL.createObjectURL(blob);
+                const a = document.createElement('a');
+                a.href = url;
+                a.download = `${safe}-oklch-snippet.css`;
+                document.body.appendChild(a);
+                a.click();
+                document.body.removeChild(a);
+                URL.revokeObjectURL(url);
+              }}
+            >
+              Download snippet
+            </button>
+          </div>
+        </div>
+      )}
 
       <div className={styles.sectionDivider} />
       
