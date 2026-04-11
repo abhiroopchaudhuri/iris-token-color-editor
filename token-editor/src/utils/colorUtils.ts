@@ -130,3 +130,23 @@ export function getContrastColor(hex: string): string {
   const luminance = (0.299 * r + 0.587 * g + 0.114 * b) / 255;
   return luminance > 0.5 ? '#000000' : '#ffffff';
 }
+
+export function getLuminance(r: number, g: number, b: number): number {
+  const rs = r / 255;
+  const gs = g / 255;
+  const bs = b / 255;
+  const R = rs <= 0.03928 ? rs / 12.92 : Math.pow((rs + 0.055) / 1.055, 2.4);
+  const G = gs <= 0.03928 ? gs / 12.92 : Math.pow((gs + 0.055) / 1.055, 2.4);
+  const B = bs <= 0.03928 ? bs / 12.92 : Math.pow((bs + 0.055) / 1.055, 2.4);
+  return 0.2126 * R + 0.7152 * G + 0.0722 * B;
+}
+
+export function getContrastRatioHex(hex1: string, hex2: string): number {
+  const c1 = hexToRgb(hex1);
+  const c2 = hexToRgb(hex2);
+  const l1 = getLuminance(c1.r, c1.g, c1.b);
+  const l2 = getLuminance(c2.r, c2.g, c2.b);
+  const lightest = Math.max(l1, l2);
+  const darkest = Math.min(l1, l2);
+  return (lightest + 0.05) / (darkest + 0.05);
+}

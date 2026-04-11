@@ -2,8 +2,9 @@
 
 import React, { useState, useCallback, useRef } from 'react';
 import { useColorStore, ViewMode, SortMode } from '@/hooks/useColorStore';
-import { clampHSL } from '@/utils/colorUtils';
 import { serializeCss, downloadCssFile } from '@/utils/cssSerializer';
+import { globalHslSelectionRestrictsGlobal } from '@/utils/selectionFilter';
+import { getContrastColor } from '@/utils/colorUtils';
 import styles from './GlobalControls.module.css';
 
 export default function GlobalControls() {
@@ -21,6 +22,8 @@ export default function GlobalControls() {
   const currentColors = useColorStore(s => s.currentColors);
   const currentRgbaColors = useColorStore(s => s.currentRgbaColors);
   const fileName = useColorStore(s => s.fileName);
+  const globalHslSelectionFilter = useColorStore(s => s.globalHslSelectionFilter);
+  const applyIncrementalGlobalHslDelta = useColorStore(s => s.applyIncrementalGlobalHslDelta);
 
   const [showGlobal, setShowGlobal] = useState(false);
   const [copied, setCopied] = useState(false);
@@ -52,37 +55,14 @@ export default function GlobalControls() {
     const dl = newL - prevDelta.current.l;
 
     if (dh !== 0 || ds !== 0 || dl !== 0) {
-      // Apply delta without pushing another snapshot
-      const { currentColors, currentRgbaColors, lockedTokens } = useColorStore.getState();
-
-
-      const newColors: Record<string, { h: number; s: number; l: number }> = {};
-      for (const [name, hsl] of Object.entries(currentColors)) {
-        if (lockedTokens.has(name)) {
-          newColors[name] = hsl;
-        } else {
-          newColors[name] = clampHSL({ h: hsl.h + dh, s: hsl.s + ds, l: hsl.l + dl });
-        }
-      }
-
-      const newRgba: Record<string, { h: number; s: number; l: number; a: number }> = {};
-      for (const [name, hsl] of Object.entries(currentRgbaColors)) {
-        if (lockedTokens.has(name)) {
-          newRgba[name] = hsl;
-        } else {
-          const clamped = clampHSL({ h: hsl.h + dh, s: hsl.s + ds, l: hsl.l + dl });
-          newRgba[name] = { ...clamped, a: hsl.a };
-        }
-      }
-
-      useColorStore.setState({ currentColors: newColors, currentRgbaColors: newRgba });
+      applyIncrementalGlobalHslDelta(dh, ds, dl);
     }
 
     prevDelta.current = { h: newH, s: newS, l: newL };
     if (channel === 'h') setLiveH(newH);
     if (channel === 's') setLiveS(newS);
     if (channel === 'l') setLiveL(newL);
-  }, [liveH, liveS, liveL]);
+  }, [liveH, liveS, liveL, applyIncrementalGlobalHslDelta]);
 
   const handleSliderMouseUp = useCallback(() => {
     // Save to localStorage after user lifts mouse
@@ -126,6 +106,13 @@ export default function GlobalControls() {
     }
   }, [originalLines, currentColors, currentRgbaColors]);
 
+  const handleResetAll = useCallback(() => {
+    resetAll();
+    resetGlobalSliders();
+  }, [resetAll, resetGlobalSliders]);
+
+  const selectionRestrictsGlobal = globalHslSelectionRestrictsGlobal(globalHslSelectionFilter);
+
   const viewModes: { key: ViewMode; label: string; icon: string }[] = [
     { key: 'grouped', label: 'Grouped', icon: '▦' },
     { key: 'list', label: 'List', icon: '☷' },
@@ -135,14 +122,7 @@ export default function GlobalControls() {
     <div className={styles.controls}>
       <div className={styles.topRow}>
         <div className={styles.logoWrap}>
-          <div className={styles.logoIcon} style={{ display: 'flex', alignItems: 'center', marginRight: '0.2rem' }}>
-            <svg width="24" height="24" viewBox="0 0 48 48" fill="none">
-              <rect x="4" y="4" width="16" height="16" rx="4" fill="#6f21e4" />
-              <rect x="28" y="4" width="16" height="16" rx="4" fill="#0060d6" />
-              <rect x="4" y="28" width="16" height="16" rx="4" fill="#f5ba0a" />
-              <rect x="28" y="28" width="16" height="16" rx="4" fill="#d62400" />
-            </svg>
-          </div>
+          <img src={`${process.env.NEXT_PUBLIC_BASE_PATH || ''}/iris-logo.png`} alt="IRIS Logo" width={36} height={36} style={{ marginRight: '0.6rem', objectFit: 'contain' }} />
           <span className={styles.logo}>IRIS</span>
         </div>
 
@@ -190,8 +170,14 @@ export default function GlobalControls() {
                 type="color"
                 value={bgColor || '#0a0a0f'}
                 onChange={(e) => {
-                  setBgColor(e.target.value);
-                  document.body.style.background = e.target.value;
+                  const val = e.target.value;
+                  setBgColor(val);
+                  document.body.style.background = val;
+                  if (getContrastColor(val) === '#000000') {
+                    document.body.classList.add('light-theme');
+                  } else {
+                    document.body.classList.remove('light-theme');
+                  }
                 }}
                 className={styles.colorPicker}
               />
@@ -202,6 +188,7 @@ export default function GlobalControls() {
                 onClick={() => {
                   setBgColor(null);
                   document.body.style.background = '';
+                  document.body.classList.remove('light-theme');
                 }}
                 title="Reset background"
               >
@@ -211,7 +198,7 @@ export default function GlobalControls() {
           </div>
 
           <button
-            className={styles.globalToggle}
+            className={`${styles.globalToggle} ${(liveH !== 0 || liveS !== 0 || liveL !== 0) ? styles.globalActive : ''}`}
             onClick={() => setShowGlobal(!showGlobal)}
           >
             <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
@@ -222,7 +209,7 @@ export default function GlobalControls() {
           </button>
 
           <button
-            className={styles.actionBtn}
+            className={styles.iconBtn}
             onClick={undo}
             disabled={undoStack.length === 0}
             title="Undo"
@@ -231,11 +218,10 @@ export default function GlobalControls() {
               <polyline points="1 4 1 10 7 10" />
               <path d="M3.51 15a9 9 0 102.13-9.36L1 10" />
             </svg>
-            Undo
           </button>
 
           <button
-            className={styles.actionBtn}
+            className={styles.iconBtn}
             onClick={redo}
             disabled={redoStack.length === 0}
             title="Redo"
@@ -244,12 +230,11 @@ export default function GlobalControls() {
               <polyline points="1 4 1 10 7 10" />
               <path d="M3.51 15a9 9 0 102.13-9.36L1 10" />
             </svg>
-            Redo
           </button>
 
           <button
             className={styles.resetBtn}
-            onClick={resetAll}
+            onClick={handleResetAll}
             title="Reset All"
           >
             <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
@@ -297,7 +282,11 @@ export default function GlobalControls() {
         <div className={styles.globalPanel}>
           <div className={styles.globalTitle}>
             Global HSL Adjustment
-            <span className={styles.globalHint}>Live — drag sliders to shift all unlocked colors</span>
+            <span className={styles.globalHint}>
+              {selectionRestrictsGlobal
+                ? 'Live — only ringed swatches (unlocked) receive the shift'
+                : 'Live — drag sliders to shift all unlocked colors'}
+            </span>
           </div>
 
           <div className={styles.globalSliders}>

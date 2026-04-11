@@ -48,6 +48,12 @@
   z-index: 2;
 }
 
+.swatch.selectionMatch {
+  outline: 2px solid rgba(255, 255, 255, 0.92);
+  outline-offset: 3px;
+  z-index: 3;
+}
+
 .swatch.locked {
   border-color: rgba(255, 255, 255, 0.5);
 }
@@ -110,10 +116,24 @@
 .name {
   font-size: 0.65rem;
   color: var(--text-tertiary);
-  text-align: center;
+  font-family: 'JetBrains Mono', monospace;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.25rem;
   max-width: 80px;
+}
+
+.name span:last-child {
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
-  font-family: 'JetBrains Mono', monospace;
+}
+
+.activeDot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: #22c55e;
+  flex-shrink: 0;
 }

@@ -5,6 +5,7 @@ import { useColorStore, SortMode } from '@/hooks/useColorStore';
 import { getEditableTokens, getRgbaTokens, ParsedLine } from '@/utils/cssParser';
 import { hslToHex, clampHSL } from '@/utils/colorUtils';
 import ColorSwatch from './ColorSwatch';
+import { globalHslSelectionHasConstraints, tokenMatchesGlobalHslSelection } from '@/utils/selectionFilter';
 import styles from './SwatchGrid.module.css';
 
 /** Group hex+rgba tokens by color family */
@@ -198,6 +199,26 @@ function FamilyGroup({ family, tokens }: { family: string; tokens: ParsedLine[] 
   );
 }
 
+function ListColorCell({
+  tokenName,
+  isRgba,
+  bgColor,
+}: {
+  tokenName: string;
+  isRgba: boolean;
+  bgColor: string;
+}) {
+  const inSelection = useColorStore((s) => {
+    const f = s.globalHslSelectionFilter;
+    const c = isRgba ? s.currentRgbaColors[tokenName] : s.currentColors[tokenName];
+    if (!c || !f.active || !globalHslSelectionHasConstraints(f)) return false;
+    return tokenMatchesGlobalHslSelection(tokenName, isRgba, c, f);
+  });
+  return (
+    <div className={`${styles.listColor} ${inSelection ? styles.listColorSelection : ''}`} style={{ background: bgColor }} />
+  );
+}
+
 function ListView({
   hexTokens, rgbaTokens, currentColors, currentRgbaColors, sortMode,
 }: {
@@ -238,7 +259,7 @@ function ListView({
           <div key={t.id} className={styles.listRow}>
             <div className={styles.listColorWrap}>
               <div className={styles.listCheckerboard} />
-              <div className={styles.listColor} style={{ background: bgColor }} />
+              <ListColorCell tokenName={name} isRgba={isRgba} bgColor={bgColor} />
             </div>
             <span className={styles.listName}>{name}</span>
             <span className={styles.listHex}>{isRgba ? `${hex} @ ${Math.round(alpha * 100)}%` : hex}</span>

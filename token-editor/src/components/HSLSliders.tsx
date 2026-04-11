@@ -1,7 +1,8 @@
 'use client';
 
 import React, { useState, useEffect, useCallback } from 'react';
-import { HSL, hslToHex, hslToRgb, getContrastColor, hexToHsl } from '@/utils/colorUtils';
+import { HSL, hslToHex, hslToRgb, getContrastColor, hexToHsl, getContrastRatioHex } from '@/utils/colorUtils';
+import { useColorStore } from '@/hooks/useColorStore';
 import styles from './HSLSliders.module.css';
 
 interface HSLSlidersProps {
@@ -15,9 +16,14 @@ interface HSLSlidersProps {
 }
 
 export default function HSLSliders({ hsl, tokenName, isRgba = false, alpha = 1, onChange, onAlphaChange, onClose }: HSLSlidersProps) {
+  const currentColors = useColorStore(s => s.currentColors);
   const [localHSL, setLocalHSL] = useState<HSL>(hsl);
   const [localAlpha, setLocalAlpha] = useState(alpha);
   const [hexInput, setHexInput] = useState(hslToHex(hsl.h, hsl.s, hsl.l));
+
+  const [contrastMode, setContrastMode] = useState<'target' | 'passed'>('target');
+  const [targetToken, setTargetToken] = useState<string>('--color-white');
+  const [dropdownOpen, setDropdownOpen] = useState(false);
 
   useEffect(() => {
     setLocalHSL(hsl);
@@ -140,6 +146,141 @@ export default function HSLSliders({ hsl, tokenName, isRgba = false, alpha = 1, 
         <input type="text" value={hexInput} onChange={(e) => handleHexChange(e.target.value)}
           className={styles.hexInput} maxLength={7} spellCheck={false} />
       </div>
+
+      <div className={styles.sectionDivider} />
+      
+      <div className={styles.contrastHeader}>
+        <div className={styles.contrastTabs}>
+          <button 
+            className={`${styles.tabBtn} ${contrastMode === 'target' ? styles.tabActive : ''}`}
+            onClick={() => setContrastMode('target')}
+          >
+            Target Matcher
+          </button>
+          <button 
+            className={`${styles.tabBtn} ${contrastMode === 'passed' ? styles.tabActive : ''}`}
+            onClick={() => setContrastMode('passed')}
+          >
+            Passed Tokens
+          </button>
+        </div>
+      </div>
+
+      {contrastMode === 'target' ? (
+        <div className={styles.contrastTargetBox}>
+          <div className={styles.targetRow}>
+            <span className={styles.label}>VS</span>
+            
+            <div className={styles.customSelectWrap}>
+              {(() => {
+                const activeC = currentColors[targetToken] || { h: 0, s: 0, l: 100 };
+                const bgStr = `hsl(${activeC.h}, ${activeC.s}%, ${activeC.l}%)`;
+                return (
+                  <div 
+                    className={styles.customSelectTrigger} 
+                    onClick={() => setDropdownOpen(!dropdownOpen)}
+                  >
+                    <div className={styles.optionColor} style={{ background: bgStr }} />
+                    <span className={styles.optionText}>{targetToken.replace('--color-', '')}</span>
+                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                      <path d="M6 9l6 6 6-6" />
+                    </svg>
+                  </div>
+                );
+              })()}
+              
+              {dropdownOpen && (
+                <div className={styles.customSelectMenu}>
+                  {Object.keys(currentColors).map(t => {
+                    const c = currentColors[t];
+                    return (
+                      <div 
+                        key={t} 
+                        className={styles.customOption}
+                        onClick={() => {
+                          setTargetToken(t);
+                          setDropdownOpen(false);
+                        }}
+                      >
+                        <div className={styles.optionColor} style={{ background: `hsl(${c.h}, ${c.s}%, ${c.l}%)` }} />
+                        <span className={styles.optionText}>{t.replace('--color-', '')}</span>
+                      </div>
+                    );
+                  })}
+                </div>
+              )}
+            </div>
+
+            {(() => {
+              const tColor = currentColors[targetToken] || { h: 0, s: 0, l: 100 };
+              const tHex = hslToHex(tColor.h, tColor.s, tColor.l);
+              const ratio = getContrastRatioHex(currentHex, tHex);
+              const formatted = ratio.toFixed(2);
+              return (
+                <div className={styles.ratioBadge} data-level={ratio >= 4.5 ? 'pass' : ratio >= 3 ? 'warn' : 'fail'}>
+                  {formatted}:1
+                </div>
+              );
+            })()}
+          </div>
+          {(() => {
+            const tColor = currentColors[targetToken] || { h: 0, s: 0, l: 100 };
+            const tHex = hslToHex(tColor.h, tColor.s, tColor.l);
+            const ratio = getContrastRatioHex(currentHex, tHex);
+            return (
+              <div className={styles.wcagResults}>
+                <div className={`${styles.wcagItem} ${ratio >= 3 ? styles.wcagPass : styles.wcagFail}`}>
+                  {ratio >= 3 ? '✓' : '×'} AA Large (3:1)
+                </div>
+                <div className={`${styles.wcagItem} ${ratio >= 4.5 ? styles.wcagPass : styles.wcagFail}`}>
+                  {ratio >= 4.5 ? '✓' : '×'} AA Normal (4.5:1)
+                </div>
+                <div className={`${styles.wcagItem} ${ratio >= 7 ? styles.wcagPass : styles.wcagFail}`}>
+                  {ratio >= 7 ? '✓' : '×'} AAA (7:1)
+                </div>
+              </div>
+            );
+          })()}
+        </div>
+      ) : (
+        <div className={styles.contrastPassedBox}>
+          {(() => {
+            const tokens = Object.keys(currentColors);
+            const passed3: string[] = [];
+            const passed45: string[] = [];
+            
+            tokens.forEach(t => {
+              const tHex = hslToHex(currentColors[t].h, currentColors[t].s, currentColors[t].l);
+              const ratio = getContrastRatioHex(currentHex, tHex);
+              if (ratio >= 4.5) passed45.push(t);
+              else if (ratio >= 3) passed3.push(t);
+            });
+
+            return (
+              <div className={styles.passedListsWrapper}>
+                <div className={styles.passedListGroup}>
+                  <div className={styles.passedTitle}>AA Normal (≥4.5:1)</div>
+                  <div className={styles.passedGrid}>
+                    {passed45.map(t => (
+                       <div key={t} className={styles.passedChip} title={t.replace('--color-', '')} style={{ background: `hsl(${currentColors[t].h}, ${currentColors[t].s}%, ${currentColors[t].l}%)` }} />
+                    ))}
+                  </div>
+                  {passed45.length === 0 && <div className={styles.emptyList}>No tokens</div>}
+                </div>
+                <div className={styles.passedListGroup}>
+                  <div className={styles.passedTitle}>AA Large Only (≥3:1)</div>
+                  <div className={styles.passedGrid}>
+                    {passed3.map(t => (
+                       <div key={t} className={styles.passedChip} title={t.replace('--color-', '')} style={{ background: `hsl(${currentColors[t].h}, ${currentColors[t].s}%, ${currentColors[t].l}%)` }} />
+                    ))}
+                  </div>
+                  {passed3.length === 0 && <div className={styles.emptyList}>No additional tokens</div>}
+                </div>
+              </div>
+            );
+          })()}
+        </div>
+      )}
     </div>
   );
 }

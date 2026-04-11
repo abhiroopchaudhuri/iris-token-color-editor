@@ -192,7 +192,7 @@
   width: 28px;
   height: 28px;
   border-radius: 6px;
-  overflow: hidden;
+  overflow: visible;
 }
 
 .listCheckerboard {
@@ -214,6 +214,11 @@
   height: 28px;
   border-radius: 6px;
   z-index: 1;
+}
+
+.listColorSelection {
+  box-shadow: 0 0 0 2px rgba(255, 255, 255, 0.92), 0 0 0 4px rgba(10, 10, 15, 0.9);
+  z-index: 2;
 }
 
 .listName {

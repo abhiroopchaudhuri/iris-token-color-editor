@@ -3,6 +3,14 @@
 import { create } from 'zustand';
 import { ParsedLine, parseCssTokens, getEditableTokens, getRgbaTokens } from '@/utils/cssParser';
 import { HSL, hexToHsl, clampHSL, parseRgba, rgbToHsl, hslToHex, hslToRgb } from '@/utils/colorUtils';
+import {
+  GlobalHslSelectionFilter,
+  defaultGlobalHslSelectionFilter,
+  globalHslSelectionRestrictsGlobal,
+  newSelectionRuleId,
+  tokenMatchesGlobalHslSelection,
+  type SelectionRule,
+} from '@/utils/selectionFilter';
 
 export type ViewMode = 'grouped' | 'list';
 export type SortMode = 'hex-first' | 'interleaved';
@@ -46,6 +54,16 @@ interface ColorStore {
   setSortMode: (mode: SortMode) => void;
   setActiveToken: (token: { name: string; isRgba: boolean } | null) => void;
   pushSnapshot: () => void;
+
+  globalHslSelectionFilter: GlobalHslSelectionFilter;
+  setGlobalHslSelectionActive: (active: boolean) => void;
+  toggleGlobalHslSelectionFamily: (family: string) => void;
+  setGlobalHslSelectionFamiliesAny: () => void;
+  toggleGlobalHslSelectionShade: (shade: number) => void;
+  addGlobalHslSelectionRule: (rule: Omit<SelectionRule, 'id'> & { id?: string }) => void;
+  removeGlobalHslSelectionRule: (id: string) => void;
+  clearGlobalHslSelectionFilter: () => void;
+  applyIncrementalGlobalHslDelta: (dh: number, ds: number, dl: number) => void;
 }
 
 const STORAGE_KEY = 'token-editor-state';
@@ -151,6 +169,7 @@ export const useColorStore = create<ColorStore>((set, get) => ({
   sortMode: 'interleaved',
   isLoaded: false,
   fileName: '',
+  globalHslSelectionFilter: defaultGlobalHslSelectionFilter(),
 
   loadCss: (css: string, fileName: string = 'index.css') => {
     const lines = parseCssTokens(css);
@@ -194,6 +213,7 @@ export const useColorStore = create<ColorStore>((set, get) => ({
       originalLines: lines, originalColors, originalRgbaColors,
       currentColors, currentRgbaColors, lockedTokens,
       undoStack: [], redoStack: [], isLoaded: true, fileName,
+      globalHslSelectionFilter: defaultGlobalHslSelectionFilter(),
     });
     saveToStorage({ currentColors, currentRgbaColors, lockedTokens, fileName });
   },
@@ -223,16 +243,34 @@ export const useColorStore = create<ColorStore>((set, get) => ({
 
   applyGlobalDelta: (dh: number, ds: number, dl: number) => {
     get().pushSnapshot();
-    const { currentColors, currentRgbaColors, lockedTokens } = get();
+    get().applyIncrementalGlobalHslDelta(dh, ds, dl);
+    const { currentColors, currentRgbaColors, lockedTokens, fileName } = get();
+    saveToStorage({ currentColors, currentRgbaColors, lockedTokens, fileName });
+  },
+
+  /** Live global HSL during drag — does not persist (GlobalControls saves on pointer up). */
+  applyIncrementalGlobalHslDelta: (dh: number, ds: number, dl: number) => {
+    const { currentColors, currentRgbaColors, lockedTokens, globalHslSelectionFilter } = get();
+    const restrict = globalHslSelectionRestrictsGlobal(globalHslSelectionFilter);
+
+    const shouldShift = (name: string, isRgba: boolean): boolean => {
+      if (lockedTokens.has(name)) return false;
+      if (!restrict) return true;
+      const hsl = isRgba ? currentRgbaColors[name] : currentColors[name];
+      if (!hsl) return false;
+      return tokenMatchesGlobalHslSelection(name, isRgba, hsl, globalHslSelectionFilter);
+    };
 
     const newColors: Record<string, HSL> = {};
     for (const [name, hsl] of Object.entries(currentColors)) {
-      newColors[name] = lockedTokens.has(name) ? hsl : clampHSL({ h: hsl.h + dh, s: hsl.s + ds, l: hsl.l + dl });
+      newColors[name] = shouldShift(name, false)
+        ? clampHSL({ h: hsl.h + dh, s: hsl.s + ds, l: hsl.l + dl })
+        : hsl;
     }
 
     const newRgbaColors: Record<string, RgbaHSL> = {};
     for (const [name, hsl] of Object.entries(currentRgbaColors)) {
-      if (lockedTokens.has(name)) {
+      if (!shouldShift(name, true)) {
         newRgbaColors[name] = hsl;
       } else {
         const c = clampHSL({ h: hsl.h + dh, s: hsl.s + ds, l: hsl.l + dl });
@@ -241,7 +279,64 @@ export const useColorStore = create<ColorStore>((set, get) => ({
     }
 
     set({ currentColors: newColors, currentRgbaColors: newRgbaColors });
-    saveToStorage({ currentColors: newColors, currentRgbaColors: newRgbaColors, lockedTokens, fileName: get().fileName });
+  },
+
+  setGlobalHslSelectionActive: (active: boolean) => {
+    set(s => ({ globalHslSelectionFilter: { ...s.globalHslSelectionFilter, active } }));
+  },
+
+  toggleGlobalHslSelectionFamily: (family: string) => {
+    set(s => {
+      const f = s.globalHslSelectionFilter;
+      let families: string[] | null;
+      if (f.families === null) {
+        families = [family];
+      } else if (f.families.includes(family)) {
+        const next = f.families.filter(x => x !== family);
+        families = next.length === 0 ? null : next;
+      } else {
+        families = [...f.families, family].sort((a, b) => a.localeCompare(b));
+      }
+      return { globalHslSelectionFilter: { ...f, families } };
+    });
+  },
+
+  setGlobalHslSelectionFamiliesAny: () => {
+    set(s => ({ globalHslSelectionFilter: { ...s.globalHslSelectionFilter, families: null } }));
+  },
+
+  toggleGlobalHslSelectionShade: (shade: number) => {
+    set(s => {
+      const f = s.globalHslSelectionFilter;
+      const has = f.shadeIn.includes(shade);
+      const shadeIn = has
+        ? f.shadeIn.filter(x => x !== shade)
+        : [...f.shadeIn, shade].sort((a, b) => a - b);
+      return { globalHslSelectionFilter: { ...f, shadeIn } };
+    });
+  },
+
+  addGlobalHslSelectionRule: (partial: Omit<SelectionRule, 'id'> & { id?: string }) => {
+    const rule: SelectionRule = { ...partial, id: partial.id ?? newSelectionRuleId() };
+    set(s => ({
+      globalHslSelectionFilter: {
+        ...s.globalHslSelectionFilter,
+        rules: [...s.globalHslSelectionFilter.rules, rule],
+      },
+    }));
+  },
+
+  removeGlobalHslSelectionRule: (id: string) => {
+    set(s => ({
+      globalHslSelectionFilter: {
+        ...s.globalHslSelectionFilter,
+        rules: s.globalHslSelectionFilter.rules.filter(r => r.id !== id),
+      },
+    }));
+  },
+
+  clearGlobalHslSelectionFilter: () => {
+    set({ globalHslSelectionFilter: defaultGlobalHslSelectionFilter() });
   },
 
   applyGroupDelta: (family: string, dh: number, ds: number, dl: number) => {

@@ -52,15 +52,14 @@ export default function UploadZone() {
   return (
     <div className={styles.wrapper} onPaste={handlePaste}>
       <div className={styles.hero}>
-        <div className={styles.logoIcon}>
-          <svg width="48" height="48" viewBox="0 0 48 48" fill="none">
-            <rect x="4" y="4" width="16" height="16" rx="4" fill="#6f21e4" />
-            <rect x="28" y="4" width="16" height="16" rx="4" fill="#0060d6" />
-            <rect x="4" y="28" width="16" height="16" rx="4" fill="#f5ba0a" />
-            <rect x="28" y="28" width="16" height="16" rx="4" fill="#d62400" />
-          </svg>
-        </div>
-        <h1 className={styles.title}>IRIS -Token Color Editor</h1>
+        <img 
+          src={`${process.env.NEXT_PUBLIC_BASE_PATH || ''}/iris-logo.png`} 
+          alt="IRIS Logo" 
+          width={110} 
+          height={110} 
+          style={{ marginBottom: '0.25rem', objectFit: 'contain' }} 
+        />
+        <h1 className={styles.title}>IRIS - Color token editor</h1>
         <p className={styles.subtitle}>
           Upload your CSS design tokens, visually tune colors with HSL sliders,
           and export the updated file — all in the browser.

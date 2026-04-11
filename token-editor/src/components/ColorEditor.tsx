@@ -4,6 +4,7 @@ import React, { useState, useCallback } from 'react';
 import GlobalControls from './GlobalControls';
 import SwatchGrid from './SwatchGrid';
 import HSLSliders from './HSLSliders';
+import SelectionFilterPanel from './SelectionFilterPanel';
 import styles from './ColorEditor.module.css';
 import { useColorStore } from '@/hooks/useColorStore';
 
@@ -16,6 +17,9 @@ export default function ColorEditor() {
   const setActiveToken = useColorStore(s => s.setActiveToken);
   const updateColor = useColorStore(s => s.updateColor);
   const updateRgbaColor = useColorStore(s => s.updateRgbaColor);
+  const globalHslSelectionFilter = useColorStore(s => s.globalHslSelectionFilter);
+
+  const [showFilterPopover, setShowFilterPopover] = useState(false);
 
   const hexCount = Object.keys(currentColors).length;
   const totalLines = originalLines.length;
@@ -85,16 +89,6 @@ export default function ColorEditor() {
           </svg>
           <span className={styles.fileName}>{fileName}</span>
           <span className={styles.stats}>{hexCount} colors · {totalLines} lines</span>
-        </div>
-        <div className={styles.infoActions}>
-          <a href={`${process.env.NEXT_PUBLIC_BASE_PATH || ''}/mds-storybook/`} target="_blank" rel="noopener noreferrer" className={styles.storybookBtn} title="Open Storybook Preview with live sync (new tab)">
-            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-              <path d="M2 3h6a4 4 0 014 4v14a3 3 0 00-3-3H2z" />
-              <path d="M22 3h-6a4 4 0 00-4 4v14a3 3 0 013-3h7z" />
-            </svg>
-            Storybook Preview
-            <span className={styles.liveDot} />
-          </a>
           <button className={styles.newFileBtn} onClick={() => {
             useColorStore.setState({ isLoaded: false, originalLines: [], currentColors: {}, currentRgbaColors: {} });
             localStorage.removeItem('token-editor-state');
@@ -105,6 +99,30 @@ export default function ColorEditor() {
             </svg>
             New File
           </button>
+        </div>
+        <div className={styles.infoActions}>
+          <button
+            className={`${styles.filterToggle} ${globalHslSelectionFilter.active ? styles.filterActive : ''}`}
+            onClick={() => setShowFilterPopover(!showFilterPopover)}
+            title="Advanced Selection Filters"
+          >
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+              <path d="M3 4a1 1 0 011-1h16a1 1 0 011 1v2.586a1 1 0 01-.293.707l-6.414 6.414a1 1 0 00-.293.707V19l-4 2v-6.586a1 1 0 00-.293-.707L3.293 7.293A1 1 0 013 6.586V4z" />
+            </svg>
+            Filter Rules
+          </button>
+          
+          {showFilterPopover && (
+            <div className={styles.popoverAnchor}>
+              <SelectionFilterPanel onClose={() => setShowFilterPopover(false)} />
+            </div>
+          )}
+
+          <a href={`${process.env.NEXT_PUBLIC_BASE_PATH || ''}/mds-storybook/`} target="_blank" rel="noopener noreferrer" className={styles.storybookBtn} title="Open Storybook Preview with live sync (new tab)">
+            <img src="https://cdn.brandfetch.io/idW0vT7wby/theme/dark/symbol.svg?c=1bxid64Mup7aczewSAYMX&t=1668515568131" width="16" height="16" alt="Storybook" />
+            Storybook Preview
+            <span className={styles.liveDot} />
+          </a>
         </div>
       </div>
 

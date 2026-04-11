@@ -3,6 +3,7 @@
 import React, { useState, useCallback } from 'react';
 import { useColorStore } from '@/hooks/useColorStore';
 import { hslToHex, getContrastColor, hslToRgb } from '@/utils/colorUtils';
+import { globalHslSelectionHasConstraints, tokenMatchesGlobalHslSelection } from '@/utils/selectionFilter';
 import styles from './ColorSwatch.module.css';
 
 interface ColorSwatchProps {
@@ -13,6 +14,12 @@ interface ColorSwatchProps {
 export default function ColorSwatch({ tokenName, isRgba = false }: ColorSwatchProps) {
   const hsl = useColorStore(s => isRgba ? s.currentRgbaColors[tokenName] : s.currentColors[tokenName]);
   const isLocked = useColorStore(s => s.lockedTokens.has(tokenName));
+  const inGlobalSelection = useColorStore((s) => {
+    const f = s.globalHslSelectionFilter;
+    const c = isRgba ? s.currentRgbaColors[tokenName] : s.currentColors[tokenName];
+    if (!c || !f.active || !globalHslSelectionHasConstraints(f)) return false;
+    return tokenMatchesGlobalHslSelection(tokenName, isRgba, c, f);
+  });
   const updateRgbaColor = useColorStore(s => s.updateRgbaColor);
   const toggleLock = useColorStore(s => s.toggleLock);
   const setActiveToken = useColorStore(s => s.setActiveToken);
@@ -35,7 +42,7 @@ export default function ColorSwatch({ tokenName, isRgba = false }: ColorSwatchPr
       <div className={styles.swatchOuter}>
         <div className={styles.checkerboard} />
         <div
-          className={`${styles.swatch} ${isLocked ? styles.locked : ''}`}
+          className={`${styles.swatch} ${isLocked ? styles.locked : ''} ${inGlobalSelection ? styles.selectionMatch : ''}`}
           style={{ backgroundColor: bgColor }}
           onClick={handleToggleSliders}
         >
@@ -63,7 +70,10 @@ export default function ColorSwatch({ tokenName, isRgba = false }: ColorSwatchPr
           </button>
         </div>
       </div>
-      <span className={styles.name} title={tokenName}>{shortName}</span>
+      <span className={styles.name} title={tokenName}>
+        {inGlobalSelection && <span className={styles.activeDot} />}
+        {shortName}
+      </span>
     </div>
   );
 }

@@ -210,3 +210,208 @@
 .hexInput:focus {
   border-color: var(--accent);
 }
+
+.sectionDivider {
+  height: 1px;
+  background: var(--border-subtle);
+  margin: 0.5rem 0;
+}
+
+.contrastHeader {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 0.25rem;
+}
+
+.contrastTabs {
+  display: flex;
+  background: var(--surface-2);
+  border-radius: 8px;
+  padding: 4px;
+  width: 100%;
+}
+
+.tabBtn {
+  flex: 1;
+  border: none;
+  background: transparent;
+  color: var(--text-tertiary);
+  font-size: 0.65rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  padding: 0.35rem 0;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: all 0.15s ease;
+}
+
+.tabActive {
+  background: var(--surface-4);
+  color: var(--text-primary);
+  box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+}
+
+.contrastTargetBox {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.targetRow {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.5rem;
+}
+
+.customSelectWrap {
+  flex: 1;
+  position: relative;
+}
+
+.customSelectTrigger {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 6px 10px;
+  border: 1px solid var(--border-color);
+  border-radius: 6px;
+  background: var(--bg);
+  cursor: pointer;
+  transition: border-color 0.15s ease;
+}
+
+.customSelectTrigger:hover {
+  border-color: var(--accent);
+}
+
+.customSelectTrigger svg {
+  margin-left: auto;
+  color: var(--text-tertiary);
+}
+
+.optionColor {
+  width: 14px;
+  height: 14px;
+  border-radius: 4px;
+  border: 1px solid rgba(255,255,255,0.2);
+  flex-shrink: 0;
+}
+
+.optionText {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.75rem;
+  color: var(--text-primary);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.customSelectMenu {
+  position: absolute;
+  top: calc(100% + 4px);
+  left: 0;
+  width: 100%;
+  max-height: 220px;
+  overflow-y: auto;
+  background: #111;
+  border: 1px solid var(--border-color);
+  border-radius: 6px;
+  z-index: 100;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.5);
+  display: flex;
+  flex-direction: column;
+}
+
+.customOption {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 6px 10px;
+  cursor: pointer;
+}
+
+.customOption:hover {
+  background: var(--surface-4);
+}
+
+.ratioBadge {
+  padding: 3px 6px;
+  border-radius: 4px;
+  font-size: 0.75rem;
+  font-weight: 700;
+  font-family: 'JetBrains Mono', monospace;
+  color: #fff;
+  flex-shrink: 0;
+}
+
+.ratioBadge[data-level="pass"] { background: var(--color-green-800); }
+.ratioBadge[data-level="warn"] { background: var(--color-yellow-900); }
+.ratioBadge[data-level="fail"] { background: var(--color-red-1000); }
+
+.wcagResults {
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+  margin-top: 4px;
+}
+
+.wcagItem {
+  font-size: 0.7rem;
+  display: flex;
+  align-items: center;
+  gap: 0.35rem;
+  font-family: 'JetBrains Mono', monospace;
+}
+
+.wcagPass { color: var(--color-green-500); }
+.wcagFail { color: var(--text-tertiary); }
+
+.contrastPassedBox {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  overflow-y: auto;
+  padding-right: 4px;
+}
+
+.passedListsWrapper {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.passedListGroup {
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+}
+
+.passedTitle {
+  font-size: 0.7rem;
+  font-weight: 600;
+  color: var(--text-secondary);
+  text-transform: uppercase;
+}
+
+.passedGrid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px;
+}
+
+.passedChip {
+  width: 20px;
+  height: 20px;
+  border-radius: 4px;
+  border: 1px solid rgba(255,255,255,0.1);
+  cursor: pointer;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.5);
+}
+
+.emptyList {
+  font-size: 0.7rem;
+  color: var(--text-tertiary);
+  font-style: italic;
+}

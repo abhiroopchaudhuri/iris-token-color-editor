@@ -23,6 +23,24 @@
   --radius: 0px;
 }
 
+body.light-theme {
+  --bg: #ffffff;
+  --surface-1: transparent;
+  --surface-2: transparent;
+  --surface-3: rgba(0, 0, 10, 0.05);
+  --surface-4: rgba(0, 0, 10, 0.1); 
+
+  --text-primary: #111111;
+  --text-secondary: rgba(0, 0, 10, 0.7);
+  --text-tertiary: rgba(0, 0, 10, 0.5);
+
+  --border-color: rgba(0, 0, 10, 0.35);
+  --border-subtle: rgba(0, 0, 10, 0.15);
+
+  --accent: rgba(0, 0, 10, 0.1);
+  --accent-hover: rgba(0, 0, 10, 0.2);
+}
+
 *,
 *::before,
 *::after {
