@@ -2,13 +2,13 @@
 
 ✨ **Welcome to Iris**, the official Design Token Color Editor for the open-source **Masala Design System (MDS)**! ✨
 
-Iris is a powerful, React-based visual editor specifically built to seamlessly configure and test design tokens for MDS. It provides a stunning, interactive interface to tweak your color palettes, ghost buttons, and segmented toggles in real-time. Whether you are aiming for a classic aesthetic, a sleek dark mode, or a futuristic "SpaceX" look, Iris makes modifying MDS tokens an absolute breeze! 🚀
+Iris is a powerful, React-based visual editor specifically built to seamlessly configure and test design tokens for MDS. It provides a stunning, interactive interface to tweak your color palettes, ghost buttons, and segmented toggles in real-time. Whether you are aiming for a classic aesthetic, a sleek dark mode, or a futuristic look, Iris makes modifying MDS tokens an absolute breeze! 🚀
 
 ---
 
 ## 🎨 What is Masala Design System (MDS)?
 
-**Masala Design System (MDS)** is our comprehensive, open-source design system. It brings consistent, accessible, and highly-customizable UI components to your fingertips. Iris pairs directly with the MDS Storybook to make token customization incredibly intuitive. 🌶️
+**Masala Design System (MDS)** is Innovaccer's comprehensive, open-source design system. It brings consistent, accessible, and highly-customizable UI components to your fingertips. Iris pairs directly with the MDS Storybook to make token customization incredibly intuitive. 🌶️
 
 ---
 
@@ -31,9 +31,6 @@ Deploying Iris and MDS Storybook is fully automated to give you a smooth continu
 1. **GitHub Actions 🤖**: We use GitHub Actions to automate the entire build and deployment process.
 2. **Concurrent Build**: Upon pushing to the main branch, our CI pipeline builds *both* the Token Editor and the massive Storybook bundle. Memory optimizations ensure the Storybook webpack build runs flawlessly in the cloud! ☁️
 3. **Integrated Output**: The Token Editor acts as the entry point, and the Storybook interface is served alongside it, allowing users to edit tokens and view component updates seamlessly.
-
-### 🌐 Hosted on GitHub Pages
-The application is deployed directly to **GitHub Pages**, providing a stable, production-ready environment that perfectly mirrors our local live-sync setup.
 
 Whenever you save your favorite configurations in the Token Editor, they are persistently formatted so your tokens look perfect every single time.
 
@@ -65,6 +62,6 @@ Boom! 💥 You now have both the Token Editor and the MDS Storybook running conc
 ---
 
 ### ❤️ Contributing
-We love contributions to the Masala Design System and the Iris Token Editor! Feel free to open issues, submit Pull Requests, or suggest new features to make our design system even better.
+We love contributions Iris Token Editor! Feel free to open issues, submit Pull Requests, or suggest new features to make this even better.
 
-Made with ❤️ for MDS!
+Made with ❤️!
