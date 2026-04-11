@@ -49,6 +49,10 @@ interface ColorStore {
   /** Hex tokens that should serialize as OKLCH in harmonize-panel export (union across applies). */
   oklchHarmonizeExportTokenKeys: string[];
 
+  /** Show per-token usage counts under swatches (design-system scan → token-usage.json). */
+  usageOverlayEnabled: boolean;
+  setUsageOverlayEnabled: (v: boolean) => void;
+
   loadCss: (css: string, fileName?: string) => void;
   updateColor: (tokenName: string, hsl: HSL) => void;
   updateRgbaColor: (tokenName: string, hsl: RgbaHSL) => void;
@@ -185,6 +189,9 @@ export const useColorStore = create<ColorStore>((set, get) => ({
   fileName: '',
   oklchHarmonizeExportTokenKeys: [],
   globalHslSelectionFilter: defaultGlobalHslSelectionFilter(),
+  usageOverlayEnabled: false,
+
+  setUsageOverlayEnabled: (v: boolean) => set({ usageOverlayEnabled: v }),
 
   loadCss: (css: string, fileName: string = 'index.css') => {
     const lines = parseCssTokens(css);

@@ -164,7 +164,7 @@
 
 .listHeader {
   display: grid;
-  grid-template-columns: 36px 1fr 120px 140px 48px;
+  grid-template-columns: 36px 1fr 0px 120px 140px 48px;
   gap: 0.75rem;
   padding: 0.5rem 0.75rem;
   color: var(--text-tertiary);
@@ -173,16 +173,24 @@
   letter-spacing: 0.06em;
   font-size: 0.7rem;
   border-bottom: 1px solid var(--border-color);
+  transition: grid-template-columns 0.38s cubic-bezier(0.32, 0.72, 0, 1);
 }
 
 .listRow {
   display: grid;
-  grid-template-columns: 36px 1fr 120px 140px 48px;
+  grid-template-columns: 36px 1fr 0px 120px 140px 48px;
   gap: 0.75rem;
   padding: 0.4rem 0.75rem;
   align-items: center;
   border-bottom: 1px solid var(--border-subtle);
-  transition: background 0.1s ease;
+  transition:
+    background 0.1s ease,
+    grid-template-columns 0.38s cubic-bezier(0.32, 0.72, 0, 1);
+}
+
+.listUsageOn .listHeader,
+.listUsageOn .listRow {
+  grid-template-columns: 36px 1fr 44px 120px 140px 48px;
 }
 
 .listRow:hover {
@@ -230,6 +238,44 @@
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
+}
+
+.listUsageHead,
+.listUsage {
+  min-width: 0;
+  overflow: hidden;
+  opacity: 0;
+  transform: translateX(-6px);
+  transition: opacity 0.32s ease, transform 0.32s cubic-bezier(0.22, 1, 0.36, 1);
+  pointer-events: none;
+  white-space: nowrap;
+}
+
+.listUsageOn .listUsageHead,
+.listUsageOn .listUsage {
+  opacity: 1;
+  transform: translateX(0);
+  pointer-events: auto;
+}
+
+.listUsage {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.72rem;
+  font-weight: 700;
+  font-variant-numeric: tabular-nums;
+  text-align: right;
+}
+
+.listUsage_high {
+  color: #86efac;
+}
+
+.listUsage_mid {
+  color: #fde047;
+}
+
+.listUsage_low {
+  color: #f87171;
 }
 
 .listHex {

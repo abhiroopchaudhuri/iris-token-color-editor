@@ -2,6 +2,7 @@
 
 import React, { useState, useCallback } from 'react';
 import { useColorStore } from '@/hooks/useColorStore';
+import { useTokenUsageData, usageHeatForTotal } from '@/hooks/useTokenUsageData';
 import { hslToHex, getContrastColor, hslToRgb } from '@/utils/colorUtils';
 import { tokenShowsGlobalSelectionHighlight } from '@/utils/selectionFilter';
 import styles from './ColorSwatch.module.css';
@@ -12,6 +13,8 @@ interface ColorSwatchProps {
 }
 
 export default function ColorSwatch({ tokenName, isRgba = false }: ColorSwatchProps) {
+  const usageOverlayEnabled = useColorStore(s => s.usageOverlayEnabled);
+  const { data: usageData } = useTokenUsageData();
   const hsl = useColorStore(s => isRgba ? s.currentRgbaColors[tokenName] : s.currentColors[tokenName]);
   const isLocked = useColorStore(s => s.lockedTokens.has(tokenName));
   const inGlobalSelection = useColorStore((s) => {
@@ -32,6 +35,10 @@ export default function ColorSwatch({ tokenName, isRgba = false }: ColorSwatchPr
   const bgColor = isRgba ? `rgba(${r}, ${g}, ${b}, ${alpha})` : hex;
   const contrastColor = getContrastColor(hex);
   const shortName = tokenName.replace('--color-', '--').replace('--', '');
+  const usageTotal = usageData?.primitives[tokenName]?.total ?? 0;
+  const usageHeat =
+    usageOverlayEnabled && usageTotal > 0 ? usageHeatForTotal(usageData, usageTotal) : null;
+  const usageRowExpanded = usageOverlayEnabled && (!usageData || usageTotal > 0);
 
   const handleToggleSliders = useCallback(() => {
     setActiveToken({ name: tokenName, isRgba });
@@ -71,8 +78,37 @@ export default function ColorSwatch({ tokenName, isRgba = false }: ColorSwatchPr
         </div>
       </div>
       <span className={styles.name} title={tokenName}>
-        {inGlobalSelection && <span className={styles.activeDot} />}
-        <span className={styles.nameText}>{shortName}</span>
+        <span className={styles.nameRow}>
+          {inGlobalSelection && <span className={styles.activeDot} />}
+          <span className={styles.nameText}>{shortName}</span>
+        </span>
+        <div
+          className={`${styles.usageReveal} ${usageRowExpanded ? styles.usageRevealOpen : ''}`}
+          aria-hidden={!usageOverlayEnabled}
+        >
+          <div className={styles.usageRevealInner}>
+            {(usageOverlayEnabled || usageData) && (
+              <span
+                className={`${styles.usageCount} ${usageOverlayEnabled && usageHeat ? styles[`usage_${usageHeat}`] : ''}`}
+                title={
+                  usageData
+                    ? usageData.primitives[tokenName]?.fromStorybook != null
+                      ? `${usageTotal} refs (impl ${usageData.primitives[tokenName].fromImplementation ?? '—'} + Storybook ${usageData.primitives[tokenName].fromStorybook ?? '—'}) · transitive tokens → this primitive`
+                      : `${usageTotal} references (design-system + Storybook)`
+                    : undefined
+                }
+              >
+                {usageData
+                  ? usageTotal > 0
+                    ? usageTotal
+                    : ''
+                  : usageOverlayEnabled
+                    ? '…'
+                    : '\u00a0'}
+              </span>
+            )}
+          </div>
+        </div>
       </span>
     </div>
   );

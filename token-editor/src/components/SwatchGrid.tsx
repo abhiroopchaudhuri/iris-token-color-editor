@@ -6,6 +6,7 @@ import { getEditableTokens, getRgbaTokens, ParsedLine } from '@/utils/cssParser'
 import { hslToHex, clampHSL } from '@/utils/colorUtils';
 import ColorSwatch from './ColorSwatch';
 import { tokenShowsGlobalSelectionHighlight } from '@/utils/selectionFilter';
+import { useTokenUsageData, usageHeatForTotal } from '@/hooks/useTokenUsageData';
 import styles from './SwatchGrid.module.css';
 
 /** Group hex+rgba tokens by color family */
@@ -230,13 +231,16 @@ function ListView({
 }) {
   const toggleLock = useColorStore(s => s.toggleLock);
   const lockedTokens = useColorStore(s => s.lockedTokens);
+  const usageOverlayEnabled = useColorStore(s => s.usageOverlayEnabled);
+  const { data: usageData } = useTokenUsageData();
   const allTokens = sortTokens([...hexTokens, ...rgbaTokens], sortMode);
 
   return (
-    <div className={styles.list}>
+    <div className={`${styles.list} ${usageOverlayEnabled ? styles.listUsageOn : ''}`}>
       <div className={styles.listHeader}>
         <span>Color</span>
         <span>Token Name</span>
+        <span className={styles.listUsageHead}>Use</span>
         <span>HEX / RGBA</span>
         <span>HSL</span>
         <span>Lock</span>
@@ -254,6 +258,11 @@ function ListView({
         const b = parseInt(c.substring(4, 6), 16);
         const bgColor = isRgba ? `rgba(${r}, ${g}, ${b}, ${alpha})` : hex;
         const isLocked = lockedTokens.has(name);
+        const usageTotal = usageData?.primitives[name]?.total ?? 0;
+        const heat =
+          usageOverlayEnabled && usageData && usageTotal > 0
+            ? usageHeatForTotal(usageData, usageTotal)
+            : null;
 
         return (
           <div key={t.id} className={styles.listRow}>
@@ -262,6 +271,24 @@ function ListView({
               <ListColorCell tokenName={name} isRgba={isRgba} bgColor={bgColor} />
             </div>
             <span className={styles.listName}>{name}</span>
+            <span
+              className={`${styles.listUsage} ${heat ? styles[`listUsage_${heat}`] : ''}`}
+              title={
+                !usageOverlayEnabled
+                  ? undefined
+                  : usageData?.primitives[name]?.fromStorybook != null
+                    ? `${usageTotal} refs (impl + Storybook); counts var(--primary) etc. that resolve to this primitive`
+                    : 'Token usage count'
+              }
+            >
+              {usageOverlayEnabled
+                ? usageData
+                  ? usageTotal > 0
+                    ? usageTotal
+                    : ''
+                  : '…'
+                : '\u00a0'}
+            </span>
             <span className={styles.listHex}>{isRgba ? `${hex} @ ${Math.round(alpha * 100)}%` : hex}</span>
             <span className={styles.listHsl}>{`${hsl.h}° ${hsl.s}% ${hsl.l}%`}</span>
             <button

@@ -4,6 +4,7 @@ import React, { useState, useEffect, useCallback } from 'react';
 import { HSL, hslToHex, hslToRgb, getContrastColor, hexToHsl, getContrastRatioHex } from '@/utils/colorUtils';
 import { formatOklchCssFromHex } from '@/utils/oklchFormat';
 import { useColorStore } from '@/hooks/useColorStore';
+import { useTokenUsageData } from '@/hooks/useTokenUsageData';
 import styles from './HSLSliders.module.css';
 
 interface HSLSlidersProps {
@@ -16,7 +17,12 @@ interface HSLSlidersProps {
   onClose: () => void;
 }
 
+function formatAliasLabel(cssName: string) {
+  return cssName.replace(/^--/, '');
+}
+
 export default function HSLSliders({ hsl, tokenName, isRgba = false, alpha = 1, onChange, onAlphaChange, onClose }: HSLSlidersProps) {
+  const { data: usageData, loading: usageLoading } = useTokenUsageData();
   const currentColors = useColorStore(s => s.currentColors);
   const [localHSL, setLocalHSL] = useState<HSL>(hsl);
   const [localAlpha, setLocalAlpha] = useState(alpha);
@@ -338,6 +344,41 @@ export default function HSLSliders({ hsl, tokenName, isRgba = false, alpha = 1, 
           })()}
         </div>
       )}
+
+      <div className={styles.sectionDivider} />
+
+      <div className={styles.aliasSection}>
+        <div className={styles.aliasHeader}>
+          <span className={styles.aliasTitle}>Maps from</span>
+          {usageData?.primitives[tokenName]?.aliases && (
+            <span className={styles.aliasCount}>{usageData.primitives[tokenName].aliases!.length}</span>
+          )}
+        </div>
+        {usageLoading && <p className={styles.aliasMuted}>Loading variable names…</p>}
+        {!usageLoading && usageData && (
+          <>
+            {(usageData.primitives[tokenName]?.aliases?.length ?? 0) > 0 ? (
+              <p className={styles.aliasHint}>
+                Other CSS variables that resolve to this color (tokens + variables + component CSS).
+              </p>
+            ) : (
+              <p className={styles.aliasMuted}>No other variables map here—only this token name.</p>
+            )}
+            {(usageData.primitives[tokenName]?.aliases?.length ?? 0) > 0 && (
+              <ul className={styles.aliasList} aria-label="CSS variables mapping to this primitive">
+                {usageData.primitives[tokenName]!.aliases!.map((name) => (
+                  <li key={name} className={styles.aliasChip} title={name}>
+                    {formatAliasLabel(name)}
+                  </li>
+                ))}
+              </ul>
+            )}
+          </>
+        )}
+        {!usageLoading && !usageData && (
+          <p className={styles.aliasMuted}>Run the token usage script to list mapped names.</p>
+        )}
+      </div>
     </div>
   );
 }

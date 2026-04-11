@@ -269,6 +269,70 @@
   border-color: rgba(168, 85, 247, 0.45);
 }
 
+.aliasSection {
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+}
+
+.aliasHeader {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.5rem;
+}
+
+.aliasTitle {
+  font-size: 0.7rem;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: rgba(255, 255, 255, 0.45);
+}
+
+.aliasCount {
+  font-family: 'JetBrains Mono', ui-monospace, monospace;
+  font-size: 0.65rem;
+  font-weight: 600;
+  color: rgba(255, 255, 255, 0.5);
+}
+
+.aliasHint {
+  margin: 0;
+  font-size: 0.65rem;
+  line-height: 1.35;
+  color: rgba(255, 255, 255, 0.32);
+}
+
+.aliasMuted {
+  margin: 0;
+  font-size: 0.7rem;
+  line-height: 1.35;
+  color: rgba(255, 255, 255, 0.38);
+}
+
+.aliasList {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.35rem;
+  max-height: 200px;
+  overflow-y: auto;
+}
+
+.aliasChip {
+  font-family: 'JetBrains Mono', ui-monospace, monospace;
+  font-size: 0.62rem;
+  font-weight: 500;
+  padding: 0.2rem 0.45rem;
+  border-radius: 6px;
+  background: rgba(255, 255, 255, 0.06);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  color: rgba(255, 255, 255, 0.78);
+}
+
 .sectionDivider {
   height: 1px;
   background: var(--border-subtle);

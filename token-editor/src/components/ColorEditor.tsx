@@ -111,6 +111,18 @@ export default function ColorEditor() {
 
   const [isDragging, setIsDragging] = useState(false);
   const loadCss = useColorStore(s => s.loadCss);
+  const usageOverlayEnabled = useColorStore(s => s.usageOverlayEnabled);
+  const setUsageOverlayEnabled = useColorStore(s => s.setUsageOverlayEnabled);
+
+  useEffect(() => {
+    try {
+      if (localStorage.getItem('token-editor-usage-overlay') === '1') {
+        setUsageOverlayEnabled(true);
+      }
+    } catch {
+      /* ignore */
+    }
+  }, [setUsageOverlayEnabled]);
 
   const handleDragOver = useCallback((e: React.DragEvent) => {
     e.preventDefault();
@@ -187,6 +199,28 @@ export default function ColorEditor() {
           </button>
         </div>
         <div className={styles.infoActions}>
+          <label
+            className={`${styles.filterToggle} ${usageOverlayEnabled ? styles.filterActive : ''}`}
+            title="Show token usage counts on swatches"
+          >
+            <input
+              type="checkbox"
+              className={styles.usageSwitchInput}
+              checked={usageOverlayEnabled}
+              onChange={(e) => {
+                const v = e.target.checked;
+                setUsageOverlayEnabled(v);
+                try {
+                  localStorage.setItem('token-editor-usage-overlay', v ? '1' : '0');
+                } catch {
+                  /* ignore */
+                }
+              }}
+            />
+            <span className={styles.usageSwitchUi} aria-hidden />
+            Usage
+          </label>
+
           <button
             ref={filterToggleRef}
             type="button"
