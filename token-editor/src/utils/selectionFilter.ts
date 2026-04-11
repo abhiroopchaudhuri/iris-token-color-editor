@@ -13,7 +13,11 @@ export interface SelectionRule {
 }
 
 export interface GlobalHslSelectionFilter {
-  active: boolean;
+  /**
+   * When non-null, global HSL only affects these token keys (see globalSelectionTokenKey).
+   * null = not committed — rings show a live preview from rules; global HSL affects all colors.
+   */
+  globalHslFrozenTokenKeys: string[] | null;
   /** null = any color group */
   families: string[] | null;
   /** OR-list on the numeric step from the token name; empty = no constraint */
@@ -22,11 +26,15 @@ export interface GlobalHslSelectionFilter {
 }
 
 export const defaultGlobalHslSelectionFilter = (): GlobalHslSelectionFilter => ({
-  active: false,
+  globalHslFrozenTokenKeys: null,
   families: null,
   shadeIn: [],
   rules: [],
 });
+
+export function globalSelectionTokenKey(tokenName: string, isRgba: boolean): string {
+  return `${isRgba ? 'rgba:' : 'hex:'}${tokenName}`;
+}
 
 export function parseTokenFamilyShade(tokenName: string): { family: string; shade: number | null } {
   const m = tokenName.match(/^--color-([\w]+)-(\d+)(?:-[\d]+a)?$/);
@@ -89,14 +97,13 @@ export function evalSelectionRule(
   return compareScalar(x, rule.op, rule.value, rule.min, rule.max);
 }
 
-export function tokenMatchesGlobalHslSelection(
+/** Whether the token matches the current rule constraints (ignores frozen scope). */
+export function tokenMatchesFilterConstraints(
   tokenName: string,
   isRgba: boolean,
   hsl: { h: number; s: number; l: number; a?: number },
   filter: GlobalHslSelectionFilter,
 ): boolean {
-  if (!filter.active) return false;
-
   const { family, shade } = parseTokenFamilyShade(tokenName);
 
   if (filter.families !== null && filter.families.length > 0 && !filter.families.includes(family)) {
@@ -114,6 +121,42 @@ export function tokenMatchesGlobalHslSelection(
   return true;
 }
 
+/**
+ * Ring / list highlight: frozen set if committed; otherwise live preview from rules.
+ */
+export function tokenShowsGlobalSelectionHighlight(
+  tokenName: string,
+  isRgba: boolean,
+  hsl: { h: number; s: number; l: number; a?: number },
+  filter: GlobalHslSelectionFilter,
+): boolean {
+  const key = globalSelectionTokenKey(tokenName, isRgba);
+  if (filter.globalHslFrozenTokenKeys !== null) {
+    return filter.globalHslFrozenTokenKeys.includes(key);
+  }
+  if (!globalHslSelectionHasConstraints(filter)) return false;
+  return tokenMatchesFilterConstraints(tokenName, isRgba, hsl, filter);
+}
+
+export function computeGlobalHslFrozenKeys(
+  currentColors: Record<string, { h: number; s: number; l: number }>,
+  currentRgbaColors: Record<string, { h: number; s: number; l: number; a?: number }>,
+  filter: GlobalHslSelectionFilter,
+): string[] {
+  const keys: string[] = [];
+  for (const [name, hsl] of Object.entries(currentColors)) {
+    if (tokenMatchesFilterConstraints(name, false, hsl, filter)) {
+      keys.push(globalSelectionTokenKey(name, false));
+    }
+  }
+  for (const [name, hsl] of Object.entries(currentRgbaColors)) {
+    if (tokenMatchesFilterConstraints(name, true, hsl, filter)) {
+      keys.push(globalSelectionTokenKey(name, true));
+    }
+  }
+  return keys;
+}
+
 export function globalHslSelectionHasConstraints(filter: GlobalHslSelectionFilter): boolean {
   return (
     (filter.families !== null && filter.families.length > 0) ||
@@ -122,9 +165,9 @@ export function globalHslSelectionHasConstraints(filter: GlobalHslSelectionFilte
   );
 }
 
-/** When active but nothing is constrained, global HSL still affects everyone (same as inactive). */
+/** Global HSL is limited to the frozen token set (after commit). */
 export function globalHslSelectionRestrictsGlobal(filter: GlobalHslSelectionFilter): boolean {
-  return filter.active && globalHslSelectionHasConstraints(filter);
+  return filter.globalHslFrozenTokenKeys !== null && filter.globalHslFrozenTokenKeys.length > 0;
 }
 
 export function collectFamiliesAndShadesFromLines(lines: ParsedLine[]): { families: string[]; shades: number[] } {

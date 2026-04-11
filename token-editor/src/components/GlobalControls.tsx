@@ -284,8 +284,8 @@ export default function GlobalControls() {
             Global HSL Adjustment
             <span className={styles.globalHint}>
               {selectionRestrictsGlobal
-                ? 'Live — only ringed swatches (unlocked) receive the shift'
-                : 'Live — drag sliders to shift all unlocked colors'}
+                ? 'Live — only the fixed ringed set (unlocked) moves; Re-apply in Filter Rules to refresh rings'
+                : 'Live — drag sliders to shift all unlocked colors (use Filters to preview, then commit to scope)'}
             </span>
           </div>
 

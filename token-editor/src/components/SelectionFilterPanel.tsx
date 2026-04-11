@@ -4,6 +4,7 @@ import React, { useMemo, useState } from 'react';
 import { useColorStore } from '@/hooks/useColorStore';
 import {
   collectFamiliesAndShadesFromLines,
+  computeGlobalHslFrozenKeys,
   globalHslSelectionHasConstraints,
   globalHslSelectionRestrictsGlobal,
   type ScalarDimension,
@@ -43,7 +44,8 @@ interface SelectionFilterPanelProps {
 export default function SelectionFilterPanel({ onClose }: SelectionFilterPanelProps) {
   const originalLines = useColorStore(s => s.originalLines);
   const filter = useColorStore(s => s.globalHslSelectionFilter);
-  const setActive = useColorStore(s => s.setGlobalHslSelectionActive);
+  const currentRgbaColors = useColorStore(s => s.currentRgbaColors);
+  const commitGlobalHslSelectionScope = useColorStore(s => s.commitGlobalHslSelectionScope);
   const toggleFamily = useColorStore(s => s.toggleGlobalHslSelectionFamily);
   const setFamiliesAny = useColorStore(s => s.setGlobalHslSelectionFamiliesAny);
   const toggleShade = useColorStore(s => s.toggleGlobalHslSelectionShade);
@@ -64,6 +66,13 @@ export default function SelectionFilterPanel({ onClose }: SelectionFilterPanelPr
 
   const restricts = globalHslSelectionRestrictsGlobal(filter);
   const hasConstraints = globalHslSelectionHasConstraints(filter);
+  const isScoped = filter.globalHslFrozenTokenKeys !== null;
+  const scopedCount = filter.globalHslFrozenTokenKeys?.length ?? 0;
+
+  const liveMatchCount = useMemo(() => {
+    if (!hasConstraints) return 0;
+    return computeGlobalHslFrozenKeys(currentColors, currentRgbaColors, filter).length;
+  }, [hasConstraints, currentColors, currentRgbaColors, filter]);
 
   const handleAddRule = () => {
     if (op === 'between') {
@@ -100,7 +109,8 @@ export default function SelectionFilterPanel({ onClose }: SelectionFilterPanelPr
       <div className={styles.head}>
         <div className={styles.headLeft}>
           <span className={styles.title}>Advanced selection rules</span>
-          {restricts && <span className={styles.badge}>Active</span>}
+          {restricts && <span className={styles.badge}>Global scoped</span>}
+          {hasConstraints && !restricts && <span className={styles.badgePreview}>Preview</span>}
         </div>
         {onClose && (
           <button className={styles.closeBtn} onClick={onClose} aria-label="Close" title="Close">
@@ -111,17 +121,9 @@ export default function SelectionFilterPanel({ onClose }: SelectionFilterPanelPr
         )}
       </div>
       <p className={styles.hint}>
-        Choose color groups and/or shade steps and/or numeric rules. All active constraints combine with AND. Swatches that match show a white offset ring; global HSL sliders then only shift matching, unlocked tokens. Use Clear to return to all colors.
+        Groups, shades, and numeric rules combine with AND. Ringed swatches show who matches right now (preview).
+        Global HSL affects every unlocked color until you apply a scope at the bottom — then only that set moves until you Apply again or Reset.
       </p>
-
-      <label className={styles.toggle}>
-        <input
-          type="checkbox"
-          checked={filter.active}
-          onChange={(e) => setActive(e.target.checked)}
-        />
-        Limit global HSL to this selection
-      </label>
 
       <div>
         <div className={styles.rowLabel}>Groups (OR)</div>
@@ -212,13 +214,38 @@ export default function SelectionFilterPanel({ onClose }: SelectionFilterPanelPr
         </div>
       </div>
 
+      <div className={styles.applySection}>
+        <button
+          type="button"
+          className={styles.applyBtn}
+          disabled={!hasConstraints}
+          onClick={() => commitGlobalHslSelectionScope()}
+          title={
+            hasConstraints
+              ? isScoped
+                ? 'Re-run rules against current colors and update the scoped set'
+                : 'Global HSL will only affect the ringed tokens until you Apply again or Reset'
+              : 'Add at least one constraint first'
+          }
+        >
+          {isScoped ? 'Apply Again' : 'Apply'}
+        </button>
+        <p className={styles.applyCaption}>
+          Apply filter setting so global HSL changes affect only these tokens
+        </p>
+        {hasConstraints && (
+          <span className={styles.scopeMeta}>
+            {restricts
+              ? `${scopedCount} token${scopedCount === 1 ? '' : 's'} in scope`
+              : `${liveMatchCount} token${liveMatchCount === 1 ? '' : 's'} match now (preview)`}
+          </span>
+        )}
+      </div>
+
       <div className={styles.bottomRow}>
         <button type="button" className={`${styles.resetBtn}`} onClick={clearAll}>
           Reset Selection & Clear Rules
         </button>
-        {filter.active && !hasConstraints && (
-          <span className={styles.hint} style={{ margin: 0 }}>Add constraints to scope the selection.</span>
-        )}
       </div>
     </div>
   );

@@ -1,10 +1,12 @@
 'use client';
 
-import React, { useState, useCallback } from 'react';
+import React, { useState, useCallback, useRef, useEffect } from 'react';
+import { createPortal } from 'react-dom';
 import GlobalControls from './GlobalControls';
 import SwatchGrid from './SwatchGrid';
 import HSLSliders from './HSLSliders';
 import SelectionFilterPanel from './SelectionFilterPanel';
+import { globalHslSelectionHasConstraints } from '@/utils/selectionFilter';
 import styles from './ColorEditor.module.css';
 import { useColorStore } from '@/hooks/useColorStore';
 
@@ -20,6 +22,46 @@ export default function ColorEditor() {
   const globalHslSelectionFilter = useColorStore(s => s.globalHslSelectionFilter);
 
   const [showFilterPopover, setShowFilterPopover] = useState(false);
+  const filterToggleRef = useRef<HTMLButtonElement>(null);
+  const [filterPopoverLayout, setFilterPopoverLayout] = useState<{
+    top: number;
+    right: number;
+    maxHeight: number;
+  } | null>(null);
+
+  const updateFilterPopoverLayout = useCallback(() => {
+    const el = filterToggleRef.current;
+    if (!el || !showFilterPopover) return;
+    const rect = el.getBoundingClientRect();
+    const gap = 8;
+    const bottomReserve = 20;
+    const vh = window.visualViewport?.height ?? window.innerHeight;
+    const maxHeight = Math.max(180, Math.floor(vh - rect.bottom - gap - bottomReserve));
+    setFilterPopoverLayout({
+      top: rect.bottom + gap,
+      right: Math.max(12, window.innerWidth - rect.right),
+      maxHeight,
+    });
+  }, [showFilterPopover]);
+
+  useEffect(() => {
+    if (!showFilterPopover) return;
+    const onChange = () => updateFilterPopoverLayout();
+    onChange();
+    const raf = requestAnimationFrame(() => onChange());
+    window.addEventListener('resize', onChange);
+    window.addEventListener('scroll', onChange, true);
+    const vv = window.visualViewport;
+    vv?.addEventListener('resize', onChange);
+    vv?.addEventListener('scroll', onChange);
+    return () => {
+      cancelAnimationFrame(raf);
+      window.removeEventListener('resize', onChange);
+      window.removeEventListener('scroll', onChange, true);
+      vv?.removeEventListener('resize', onChange);
+      vv?.removeEventListener('scroll', onChange);
+    };
+  }, [showFilterPopover, updateFilterPopoverLayout]);
 
   const hexCount = Object.keys(currentColors).length;
   const totalLines = originalLines.length;
@@ -102,8 +144,30 @@ export default function ColorEditor() {
         </div>
         <div className={styles.infoActions}>
           <button
-            className={`${styles.filterToggle} ${globalHslSelectionFilter.active ? styles.filterActive : ''}`}
-            onClick={() => setShowFilterPopover(!showFilterPopover)}
+            ref={filterToggleRef}
+            type="button"
+            className={`${styles.filterToggle} ${globalHslSelectionHasConstraints(globalHslSelectionFilter) || globalHslSelectionFilter.globalHslFrozenTokenKeys !== null ? styles.filterActive : ''}`}
+            onClick={() => {
+              if (showFilterPopover) {
+                setShowFilterPopover(false);
+                setFilterPopoverLayout(null);
+                return;
+              }
+              const el = filterToggleRef.current;
+              if (el) {
+                const rect = el.getBoundingClientRect();
+                const gap = 8;
+                const bottomReserve = 20;
+                const vh = window.visualViewport?.height ?? window.innerHeight;
+                const maxHeight = Math.max(180, Math.floor(vh - rect.bottom - gap - bottomReserve));
+                setFilterPopoverLayout({
+                  top: rect.bottom + gap,
+                  right: Math.max(12, window.innerWidth - rect.right),
+                  maxHeight,
+                });
+              }
+              setShowFilterPopover(true);
+            }}
             title="Advanced Selection Filters"
           >
             <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
@@ -112,11 +176,29 @@ export default function ColorEditor() {
             Filter Rules
           </button>
           
-          {showFilterPopover && (
-            <div className={styles.popoverAnchor}>
-              <SelectionFilterPanel onClose={() => setShowFilterPopover(false)} />
-            </div>
-          )}
+          {showFilterPopover &&
+            filterPopoverLayout &&
+            typeof document !== 'undefined' &&
+            createPortal(
+              <div
+                className={styles.popoverAnchor}
+                style={{
+                  top: filterPopoverLayout.top,
+                  right: filterPopoverLayout.right,
+                  maxHeight: `${filterPopoverLayout.maxHeight}px`,
+                }}
+              >
+                <div className={styles.popoverScroll}>
+                  <SelectionFilterPanel
+                    onClose={() => {
+                      setShowFilterPopover(false);
+                      setFilterPopoverLayout(null);
+                    }}
+                  />
+                </div>
+              </div>,
+              document.body,
+            )}
 
           <a href="mds-storybook/" target="_blank" rel="noopener noreferrer" className={styles.storybookBtn} title="Open Storybook Preview with live sync (new tab)">
             <img src="https://cdn.brandfetch.io/idW0vT7wby/theme/dark/symbol.svg?c=1bxid64Mup7aczewSAYMX&t=1668515568131" width="16" height="16" alt="Storybook" />

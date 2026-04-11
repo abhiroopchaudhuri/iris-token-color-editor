@@ -5,7 +5,7 @@ import { useColorStore, SortMode } from '@/hooks/useColorStore';
 import { getEditableTokens, getRgbaTokens, ParsedLine } from '@/utils/cssParser';
 import { hslToHex, clampHSL } from '@/utils/colorUtils';
 import ColorSwatch from './ColorSwatch';
-import { globalHslSelectionHasConstraints, tokenMatchesGlobalHslSelection } from '@/utils/selectionFilter';
+import { tokenShowsGlobalSelectionHighlight } from '@/utils/selectionFilter';
 import styles from './SwatchGrid.module.css';
 
 /** Group hex+rgba tokens by color family */
@@ -211,8 +211,8 @@ function ListColorCell({
   const inSelection = useColorStore((s) => {
     const f = s.globalHslSelectionFilter;
     const c = isRgba ? s.currentRgbaColors[tokenName] : s.currentColors[tokenName];
-    if (!c || !f.active || !globalHslSelectionHasConstraints(f)) return false;
-    return tokenMatchesGlobalHslSelection(tokenName, isRgba, c, f);
+    if (!c) return false;
+    return tokenShowsGlobalSelectionHighlight(tokenName, isRgba, c, f);
   });
   return (
     <div className={`${styles.listColor} ${inSelection ? styles.listColorSelection : ''}`} style={{ background: bgColor }} />

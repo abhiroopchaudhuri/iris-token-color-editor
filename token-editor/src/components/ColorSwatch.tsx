@@ -3,7 +3,7 @@
 import React, { useState, useCallback } from 'react';
 import { useColorStore } from '@/hooks/useColorStore';
 import { hslToHex, getContrastColor, hslToRgb } from '@/utils/colorUtils';
-import { globalHslSelectionHasConstraints, tokenMatchesGlobalHslSelection } from '@/utils/selectionFilter';
+import { tokenShowsGlobalSelectionHighlight } from '@/utils/selectionFilter';
 import styles from './ColorSwatch.module.css';
 
 interface ColorSwatchProps {
@@ -17,8 +17,8 @@ export default function ColorSwatch({ tokenName, isRgba = false }: ColorSwatchPr
   const inGlobalSelection = useColorStore((s) => {
     const f = s.globalHslSelectionFilter;
     const c = isRgba ? s.currentRgbaColors[tokenName] : s.currentColors[tokenName];
-    if (!c || !f.active || !globalHslSelectionHasConstraints(f)) return false;
-    return tokenMatchesGlobalHslSelection(tokenName, isRgba, c, f);
+    if (!c) return false;
+    return tokenShowsGlobalSelectionHighlight(tokenName, isRgba, c, f);
   });
   const updateRgbaColor = useColorStore(s => s.updateRgbaColor);
   const toggleLock = useColorStore(s => s.toggleLock);

@@ -5,10 +5,12 @@ import { ParsedLine, parseCssTokens, getEditableTokens, getRgbaTokens } from '@/
 import { HSL, hexToHsl, clampHSL, parseRgba, rgbToHsl, hslToHex, hslToRgb } from '@/utils/colorUtils';
 import {
   GlobalHslSelectionFilter,
+  computeGlobalHslFrozenKeys,
   defaultGlobalHslSelectionFilter,
+  globalHslSelectionHasConstraints,
   globalHslSelectionRestrictsGlobal,
+  globalSelectionTokenKey,
   newSelectionRuleId,
-  tokenMatchesGlobalHslSelection,
   type SelectionRule,
 } from '@/utils/selectionFilter';
 
@@ -56,7 +58,8 @@ interface ColorStore {
   pushSnapshot: () => void;
 
   globalHslSelectionFilter: GlobalHslSelectionFilter;
-  setGlobalHslSelectionActive: (active: boolean) => void;
+  /** Snapshot tokens matching current rules; global HSL then only affects this set until Re-apply or Reset. */
+  commitGlobalHslSelectionScope: () => void;
   toggleGlobalHslSelectionFamily: (family: string) => void;
   setGlobalHslSelectionFamiliesAny: () => void;
   toggleGlobalHslSelectionShade: (shade: number) => void;
@@ -251,14 +254,13 @@ export const useColorStore = create<ColorStore>((set, get) => ({
   /** Live global HSL during drag — does not persist (GlobalControls saves on pointer up). */
   applyIncrementalGlobalHslDelta: (dh: number, ds: number, dl: number) => {
     const { currentColors, currentRgbaColors, lockedTokens, globalHslSelectionFilter } = get();
+    const frozen = globalHslSelectionFilter.globalHslFrozenTokenKeys;
     const restrict = globalHslSelectionRestrictsGlobal(globalHslSelectionFilter);
 
     const shouldShift = (name: string, isRgba: boolean): boolean => {
       if (lockedTokens.has(name)) return false;
-      if (!restrict) return true;
-      const hsl = isRgba ? currentRgbaColors[name] : currentColors[name];
-      if (!hsl) return false;
-      return tokenMatchesGlobalHslSelection(name, isRgba, hsl, globalHslSelectionFilter);
+      if (!restrict || !frozen) return true;
+      return frozen.includes(globalSelectionTokenKey(name, isRgba));
     };
 
     const newColors: Record<string, HSL> = {};
@@ -281,8 +283,19 @@ export const useColorStore = create<ColorStore>((set, get) => ({
     set({ currentColors: newColors, currentRgbaColors: newRgbaColors });
   },
 
-  setGlobalHslSelectionActive: (active: boolean) => {
-    set(s => ({ globalHslSelectionFilter: { ...s.globalHslSelectionFilter, active } }));
+  commitGlobalHslSelectionScope: () => {
+    const { currentColors, currentRgbaColors, globalHslSelectionFilter } = get();
+    const f = globalHslSelectionFilter;
+    if (!globalHslSelectionHasConstraints(f)) {
+      set(s => ({
+        globalHslSelectionFilter: { ...s.globalHslSelectionFilter, globalHslFrozenTokenKeys: null },
+      }));
+      return;
+    }
+    const keys = computeGlobalHslFrozenKeys(currentColors, currentRgbaColors, f);
+    set(s => ({
+      globalHslSelectionFilter: { ...s.globalHslSelectionFilter, globalHslFrozenTokenKeys: keys },
+    }));
   },
 
   toggleGlobalHslSelectionFamily: (family: string) => {
@@ -297,12 +310,18 @@ export const useColorStore = create<ColorStore>((set, get) => ({
       } else {
         families = [...f.families, family].sort((a, b) => a.localeCompare(b));
       }
-      return { globalHslSelectionFilter: { ...f, families } };
+      const nextFilter = { ...f, families };
+      if (!globalHslSelectionHasConstraints(nextFilter)) nextFilter.globalHslFrozenTokenKeys = null;
+      return { globalHslSelectionFilter: nextFilter };
     });
   },
 
   setGlobalHslSelectionFamiliesAny: () => {
-    set(s => ({ globalHslSelectionFilter: { ...s.globalHslSelectionFilter, families: null } }));
+    set(s => {
+      const f = { ...s.globalHslSelectionFilter, families: null };
+      if (!globalHslSelectionHasConstraints(f)) f.globalHslFrozenTokenKeys = null;
+      return { globalHslSelectionFilter: f };
+    });
   },
 
   toggleGlobalHslSelectionShade: (shade: number) => {
@@ -312,27 +331,33 @@ export const useColorStore = create<ColorStore>((set, get) => ({
       const shadeIn = has
         ? f.shadeIn.filter(x => x !== shade)
         : [...f.shadeIn, shade].sort((a, b) => a - b);
-      return { globalHslSelectionFilter: { ...f, shadeIn } };
+      const nextFilter = { ...f, shadeIn };
+      if (!globalHslSelectionHasConstraints(nextFilter)) nextFilter.globalHslFrozenTokenKeys = null;
+      return { globalHslSelectionFilter: nextFilter };
     });
   },
 
   addGlobalHslSelectionRule: (partial: Omit<SelectionRule, 'id'> & { id?: string }) => {
     const rule: SelectionRule = { ...partial, id: partial.id ?? newSelectionRuleId() };
-    set(s => ({
-      globalHslSelectionFilter: {
+    set(s => {
+      const nextFilter = {
         ...s.globalHslSelectionFilter,
         rules: [...s.globalHslSelectionFilter.rules, rule],
-      },
-    }));
+      };
+      if (!globalHslSelectionHasConstraints(nextFilter)) nextFilter.globalHslFrozenTokenKeys = null;
+      return { globalHslSelectionFilter: nextFilter };
+    });
   },
 
   removeGlobalHslSelectionRule: (id: string) => {
-    set(s => ({
-      globalHslSelectionFilter: {
+    set(s => {
+      const nextFilter = {
         ...s.globalHslSelectionFilter,
         rules: s.globalHslSelectionFilter.rules.filter(r => r.id !== id),
-      },
-    }));
+      };
+      if (!globalHslSelectionHasConstraints(nextFilter)) nextFilter.globalHslFrozenTokenKeys = null;
+      return { globalHslSelectionFilter: nextFilter };
+    });
   },
 
   clearGlobalHslSelectionFilter: () => {

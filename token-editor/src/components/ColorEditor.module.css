@@ -95,13 +95,27 @@
   box-shadow: 0 0 12px rgba(34, 197, 94, 0.2);
 }
 
+/* Portal: cap height on anchor; flex + min-height:0 on scroll child so overflow-y reliably creates a scrollport */
 .popoverAnchor {
-  position: absolute;
-  top: calc(100% + 0.5rem);
-  right: 0;
-  z-index: 100;
+  position: fixed;
+  z-index: 200;
   min-width: 440px;
-  max-width: calc(100vw - 3rem);
+  max-width: calc(100vw - 1.5rem);
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  border-radius: 16px;
+  box-shadow: 0 24px 48px rgba(0, 0, 0, 0.5), 0 0 0 1px rgba(255, 255, 255, 0.05);
+}
+
+.popoverScroll {
+  box-sizing: border-box;
+  flex: 1 1 auto;
+  min-height: 0;
+  overflow-x: hidden;
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  -webkit-overflow-scrolling: touch;
 }
 
 .storybookBtn {
