@@ -20,7 +20,7 @@ export default function ColorSwatch({ tokenName, isRgba = false }: ColorSwatchPr
   if (!hsl) return null;
 
   const hex = hslToHex(hsl.h, hsl.s, hsl.l);
-  const alpha = isRgba ? (hsl as { a: number }).a : 1;
+  const alpha = isRgba ? (hsl as unknown as { a: number }).a : 1;
   const { r, g, b } = hslToRgb(hsl.h, hsl.s, hsl.l);
   const bgColor = isRgba ? `rgba(${r}, ${g}, ${b}, ${alpha})` : hex;
   const contrastColor = getContrastColor(hex);
