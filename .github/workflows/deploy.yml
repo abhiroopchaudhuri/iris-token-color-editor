@@ -39,6 +39,7 @@ jobs:
       - name: Build project
         env:
           NEXT_PUBLIC_BASE_PATH: /iris-token-color-editor
+          NODE_OPTIONS: "--max_old_space_size=6144 --openssl-legacy-provider"
         run: npm run build
 
       - name: Upload artifact
