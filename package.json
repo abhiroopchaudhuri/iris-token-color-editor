@@ -9,7 +9,7 @@
     "build": "npm run build:storybook && npm run copy:storybook && npm run build:editor",
     "build:storybook": "npm --prefix design-system run build-storybook",
     "copy:storybook": "node -e \"const fs=require('fs');const p=require('path');function cp(s,d){fs.mkdirSync(d,{recursive:true});for(const f of fs.readdirSync(s)){const sp=p.join(s,f),dp=p.join(d,f);fs.statSync(sp).isDirectory()?cp(sp,dp):fs.copyFileSync(sp,dp)}}cp('design-system/.dist','token-editor/public/mds-storybook')\"",
-    "build:editor": "npm --prefix token-editor run build"
+    "build:editor": "node scripts/build-token-editor.cjs"
   },
   "devDependencies": {
     "concurrently": "^9.1.2"

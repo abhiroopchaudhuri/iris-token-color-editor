@@ -122,7 +122,7 @@ export default function GlobalControls() {
     <div className={styles.controls}>
       <div className={styles.topRow}>
         <div className={styles.logoWrap}>
-          <img src={`${process.env.NEXT_PUBLIC_BASE_PATH || ''}/iris-logo.png`} alt="IRIS Logo" width={36} height={36} style={{ marginRight: '0.6rem', objectFit: 'contain' }} />
+          <img src="iris-logo.png" alt="IRIS Logo" width={36} height={36} style={{ marginRight: '0.6rem', objectFit: 'contain' }} />
           <span className={styles.logo}>IRIS</span>
         </div>
 

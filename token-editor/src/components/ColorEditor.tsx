@@ -118,7 +118,7 @@ export default function ColorEditor() {
             </div>
           )}
 
-          <a href={`${process.env.NEXT_PUBLIC_BASE_PATH || ''}/mds-storybook/`} target="_blank" rel="noopener noreferrer" className={styles.storybookBtn} title="Open Storybook Preview with live sync (new tab)">
+          <a href="mds-storybook/" target="_blank" rel="noopener noreferrer" className={styles.storybookBtn} title="Open Storybook Preview with live sync (new tab)">
             <img src="https://cdn.brandfetch.io/idW0vT7wby/theme/dark/symbol.svg?c=1bxid64Mup7aczewSAYMX&t=1668515568131" width="16" height="16" alt="Storybook" />
             Storybook Preview
             <span className={styles.liveDot} />

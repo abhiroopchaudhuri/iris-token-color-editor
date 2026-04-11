@@ -33,7 +33,8 @@ jobs:
       - name: Build token-editor
         working-directory: ./token-editor
         env:
-          NEXT_PUBLIC_BASE_PATH: /iris-token-color-editor
+          # Must match scripts/build-token-editor.cjs (canonical URL, no trailing slash).
+          NEXT_PUBLIC_DEPLOY_ORIGIN: https://iris.abhiroopverse.com
         run: npm run build
 
       - name: Upload artifact

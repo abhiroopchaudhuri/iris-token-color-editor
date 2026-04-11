@@ -3,11 +3,16 @@
 import React from 'react';
 import styles from './StorybookPage.module.css';
 
+const storybookFrameSrc =
+  process.env.NODE_ENV === 'development'
+    ? 'http://localhost:5000/'
+    : '../mds-storybook/';
+
 export default function StorybookPage() {
   return (
     <div className={styles.container}>
       <div className={styles.toolbar}>
-        <a href="/" className={styles.backBtn}>
+        <a href="../" className={styles.backBtn}>
           <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
             <polyline points="15 18 9 12 15 6" />
           </svg>
@@ -17,7 +22,7 @@ export default function StorybookPage() {
         <span className={styles.badge}>Live Sync</span>
       </div>
       <iframe
-        src="http://localhost:5000"
+        src={storybookFrameSrc}
         className={styles.iframe}
         title="MDS Storybook"
         allow="clipboard-read; clipboard-write"

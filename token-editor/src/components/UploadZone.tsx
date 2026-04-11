@@ -53,7 +53,7 @@ export default function UploadZone() {
     <div className={styles.wrapper} onPaste={handlePaste}>
       <div className={styles.hero}>
         <img 
-          src={`${process.env.NEXT_PUBLIC_BASE_PATH || ''}/iris-logo.png`} 
+          src="iris-logo.png" 
           alt="IRIS Logo" 
           width={110} 
           height={110} 
