@@ -1,8 +1,9 @@
 'use client';
 
-import React, { useState, useEffect, useCallback } from 'react';
-import { HSL, hslToHex, hslToRgb, getContrastColor, hexToHsl, getContrastRatioHex } from '@/utils/colorUtils';
+import React, { useState, useEffect, useCallback, useRef } from 'react';
+import { HSL, hslToHex, hslToRgb, getContrastColor, hexToHsl, getContrastRatioHex, clampHSL, solveHslLightnessForContrastRatio } from '@/utils/colorUtils';
 import { formatOklchCssFromHex } from '@/utils/oklchFormat';
+import { hexToOklchTriplet, oklchTripletToHexDirect } from '@/utils/oklchGamut';
 import { useColorStore } from '@/hooks/useColorStore';
 import { useTokenUsageData } from '@/hooks/useTokenUsageData';
 import styles from './HSLSliders.module.css';
@@ -21,10 +22,21 @@ function formatAliasLabel(cssName: string) {
   return cssName.replace(/^--/, '');
 }
 
+function tripletFromHsl(h: HSL): { lPct: number; c: number; h: number } {
+  const t = hexToOklchTriplet(hslToHex(h.h, h.s, h.l));
+  if (!t) return { lPct: 0, c: 0, h: 0 };
+  return {
+    lPct: Math.round(t.l * 1000) / 10,
+    c: Math.round(t.c * 10000) / 10000,
+    h: typeof t.h === 'number' && !Number.isNaN(t.h) ? t.h : 0,
+  };
+}
+
 export default function HSLSliders({ hsl, tokenName, isRgba = false, alpha = 1, onChange, onAlphaChange, onClose }: HSLSlidersProps) {
   const { data: usageData, loading: usageLoading } = useTokenUsageData();
   const currentColors = useColorStore(s => s.currentColors);
   const [localHSL, setLocalHSL] = useState<HSL>(hsl);
+  const [localOklch, setLocalOklch] = useState(() => tripletFromHsl(hsl));
   const [localAlpha, setLocalAlpha] = useState(alpha);
   const [hexInput, setHexInput] = useState(hslToHex(hsl.h, hsl.s, hsl.l));
 
@@ -33,21 +45,106 @@ export default function HSLSliders({ hsl, tokenName, isRgba = false, alpha = 1, 
   const [dropdownOpen, setDropdownOpen] = useState(false);
   const [oklchCopied, setOklchCopied] = useState(false);
 
+  const [contrastLockEnabled, setContrastLockEnabled] = useState(false);
+  const lockedContrastRatioRef = useRef<number | null>(null);
+  const [lockRatioError, setLockRatioError] = useState(0);
+
+  useEffect(() => {
+    lockedContrastRatioRef.current = null;
+    setContrastLockEnabled(false);
+    setLockRatioError(0);
+  }, [tokenName]);
+
   useEffect(() => {
     setLocalHSL(hsl);
     setHexInput(hslToHex(hsl.h, hsl.s, hsl.l));
+    setLocalOklch(tripletFromHsl(hsl));
   }, [hsl]);
 
   useEffect(() => {
     setLocalAlpha(alpha);
   }, [alpha]);
 
+  const getContrastBgHex = useCallback((): string | null => {
+    const t = currentColors[targetToken];
+    if (!t) return null;
+    return hslToHex(t.h, t.s, t.l);
+  }, [currentColors, targetToken]);
+
+  const applyContrastLockToHs = useCallback(
+    (h: number, s: number): { hsl: HSL; ratioError: number } | null => {
+      const r = lockedContrastRatioRef.current;
+      const bgHex = getContrastBgHex();
+      if (r == null || bgHex == null) return null;
+      return solveHslLightnessForContrastRatio(h, s, bgHex, r);
+    },
+    [getContrastBgHex],
+  );
+
+  const latestHslRef = useRef(localHSL);
+  latestHslRef.current = localHSL;
+
+  useEffect(() => {
+    if (!contrastLockEnabled || lockedContrastRatioRef.current == null) return;
+    const tColor = useColorStore.getState().currentColors[targetToken];
+    if (!tColor) return;
+    const bgHex = hslToHex(tColor.h, tColor.s, tColor.l);
+    const cur = latestHslRef.current;
+    const { hsl, ratioError } = solveHslLightnessForContrastRatio(
+      cur.h,
+      cur.s,
+      bgHex,
+      lockedContrastRatioRef.current,
+    );
+    setLockRatioError(ratioError);
+    setLocalHSL(hsl);
+    setHexInput(hslToHex(hsl.h, hsl.s, hsl.l));
+    setLocalOklch(tripletFromHsl(hsl));
+    const changed =
+      Math.round(hsl.h) !== Math.round(cur.h) ||
+      Math.round(hsl.s) !== Math.round(cur.s) ||
+      Math.round(hsl.l * 4) !== Math.round(cur.l * 4);
+    if (changed) {
+      onChange(hsl);
+    }
+  }, [targetToken, contrastLockEnabled, onChange]);
+
+  const updateContrastLockEnabled = useCallback(
+    (enabled: boolean) => {
+      if (!enabled) {
+        lockedContrastRatioRef.current = null;
+        setContrastLockEnabled(false);
+        setLockRatioError(0);
+        return;
+      }
+      const tColor = useColorStore.getState().currentColors[targetToken];
+      if (!tColor) return;
+      const bgHex = hslToHex(tColor.h, tColor.s, tColor.l);
+      const cur = latestHslRef.current;
+      const fgHex = hslToHex(cur.h, cur.s, cur.l);
+      lockedContrastRatioRef.current = getContrastRatioHex(fgHex, bgHex);
+      setContrastLockEnabled(true);
+    },
+    [targetToken],
+  );
+
   const handleSliderChange = useCallback((key: keyof HSL, value: number) => {
-    const newHSL = { ...localHSL, [key]: value };
+    if (contrastLockEnabled && lockedContrastRatioRef.current != null && key === 'l') {
+      return;
+    }
+    let newHSL: HSL = { ...localHSL, [key]: value };
+    if (contrastLockEnabled && lockedContrastRatioRef.current != null && (key === 'h' || key === 's')) {
+      const solved = applyContrastLockToHs(newHSL.h, newHSL.s);
+      if (solved) {
+        newHSL = solved.hsl;
+        setLockRatioError(solved.ratioError);
+      }
+    }
     setLocalHSL(newHSL);
     setHexInput(hslToHex(newHSL.h, newHSL.s, newHSL.l));
+    setLocalOklch(tripletFromHsl(newHSL));
     onChange(newHSL);
-  }, [localHSL, onChange]);
+  }, [localHSL, onChange, contrastLockEnabled, applyContrastLockToHs]);
 
   const handleAlphaChange = useCallback((value: number) => {
     setLocalAlpha(value);
@@ -57,11 +154,43 @@ export default function HSLSliders({ hsl, tokenName, isRgba = false, alpha = 1, 
   const handleHexChange = useCallback((value: string) => {
     setHexInput(value);
     if (/^#[0-9a-fA-F]{6}$/.test(value)) {
-      const newHSL = hexToHsl(value);
+      let newHSL = hexToHsl(value);
+      if (contrastLockEnabled && lockedContrastRatioRef.current != null) {
+        const solved = applyContrastLockToHs(newHSL.h, newHSL.s);
+        if (solved) {
+          newHSL = solved.hsl;
+          setLockRatioError(solved.ratioError);
+        }
+      }
       setLocalHSL(newHSL);
+      setLocalOklch(tripletFromHsl(newHSL));
       onChange(newHSL);
     }
-  }, [onChange]);
+  }, [onChange, contrastLockEnabled, applyContrastLockToHs]);
+
+  const handleOklchChange = useCallback((key: 'lPct' | 'c' | 'h', value: number) => {
+    if (contrastLockEnabled && lockedContrastRatioRef.current != null && key === 'lPct') {
+      return;
+    }
+    const next = { ...localOklch, [key]: value };
+    setLocalOklch(next);
+    const l = Math.max(0, Math.min(1, next.lPct / 100));
+    const c = Math.max(0, next.c);
+    const hue = ((next.h % 360) + 360) % 360;
+    const hex = oklchTripletToHexDirect(l, c, hue);
+    let newHsl = clampHSL(hexToHsl(hex));
+    if (contrastLockEnabled && lockedContrastRatioRef.current != null && (key === 'c' || key === 'h')) {
+      const solved = applyContrastLockToHs(newHsl.h, newHsl.s);
+      if (solved) {
+        newHsl = solved.hsl;
+        setLockRatioError(solved.ratioError);
+      }
+    }
+    setLocalHSL(newHsl);
+    setHexInput(hslToHex(newHsl.h, newHsl.s, newHsl.l));
+    setLocalOklch(tripletFromHsl(newHsl));
+    onChange(newHsl);
+  }, [localOklch, onChange, contrastLockEnabled, applyContrastLockToHs]);
 
   const handleInputChange = useCallback((key: keyof HSL, value: string) => {
     const num = parseInt(value);
@@ -97,57 +226,147 @@ export default function HSLSliders({ hsl, tokenName, isRgba = false, alpha = 1, 
         </div>
       </div>
 
-      <div className={styles.sliderGroup}>
-        <div className={styles.sliderRow}>
-          <label className={styles.label}>H</label>
-          <input
-            type="range" min={0} max={360} value={localHSL.h}
-            onChange={(e) => handleSliderChange('h', parseInt(e.target.value))}
-            className={styles.slider}
-            style={{ background: `linear-gradient(to right, hsl(0,${localHSL.s}%,${localHSL.l}%), hsl(60,${localHSL.s}%,${localHSL.l}%), hsl(120,${localHSL.s}%,${localHSL.l}%), hsl(180,${localHSL.s}%,${localHSL.l}%), hsl(240,${localHSL.s}%,${localHSL.l}%), hsl(300,${localHSL.s}%,${localHSL.l}%), hsl(360,${localHSL.s}%,${localHSL.l}%))` }}
-          />
-          <input type="number" min={0} max={360} value={localHSL.h}
-            onChange={(e) => handleInputChange('h', e.target.value)} className={styles.numInput} />
-        </div>
+      <div className={styles.colorTwoCol}>
+        <div className={styles.colorTwoColCol}>
+          <div className={styles.colTitle}>HSL</div>
+          <div className={styles.sliderGroup}>
+            <div className={styles.sliderRow}>
+              <label className={styles.label}>H</label>
+              <input
+                type="range" min={0} max={360} value={localHSL.h}
+                onChange={(e) => handleSliderChange('h', parseInt(e.target.value))}
+                className={styles.slider}
+                style={{ background: `linear-gradient(to right, hsl(0,${localHSL.s}%,${localHSL.l}%), hsl(60,${localHSL.s}%,${localHSL.l}%), hsl(120,${localHSL.s}%,${localHSL.l}%), hsl(180,${localHSL.s}%,${localHSL.l}%), hsl(240,${localHSL.s}%,${localHSL.l}%), hsl(300,${localHSL.s}%,${localHSL.l}%), hsl(360,${localHSL.s}%,${localHSL.l}%))` }}
+              />
+              <input type="number" min={0} max={360} value={localHSL.h}
+                onChange={(e) => handleInputChange('h', e.target.value)} className={styles.numInput} />
+            </div>
 
-        <div className={styles.sliderRow}>
-          <label className={styles.label}>S</label>
-          <input
-            type="range" min={0} max={100} value={localHSL.s}
-            onChange={(e) => handleSliderChange('s', parseInt(e.target.value))}
-            className={styles.slider}
-            style={{ background: `linear-gradient(to right, hsl(${localHSL.h},0%,${localHSL.l}%), hsl(${localHSL.h},100%,${localHSL.l}%))` }}
-          />
-          <input type="number" min={0} max={100} value={localHSL.s}
-            onChange={(e) => handleInputChange('s', e.target.value)} className={styles.numInput} />
-        </div>
+            <div className={styles.sliderRow}>
+              <label className={styles.label}>S</label>
+              <input
+                type="range" min={0} max={100} value={localHSL.s}
+                onChange={(e) => handleSliderChange('s', parseInt(e.target.value))}
+                className={styles.slider}
+                style={{ background: `linear-gradient(to right, hsl(${localHSL.h},0%,${localHSL.l}%), hsl(${localHSL.h},100%,${localHSL.l}%))` }}
+              />
+              <input type="number" min={0} max={100} value={localHSL.s}
+                onChange={(e) => handleInputChange('s', e.target.value)} className={styles.numInput} />
+            </div>
 
-        <div className={styles.sliderRow}>
-          <label className={styles.label}>L</label>
-          <input
-            type="range" min={0} max={100} value={localHSL.l}
-            onChange={(e) => handleSliderChange('l', parseInt(e.target.value))}
-            className={styles.slider}
-            style={{ background: `linear-gradient(to right, hsl(${localHSL.h},${localHSL.s}%,0%), hsl(${localHSL.h},${localHSL.s}%,50%), hsl(${localHSL.h},${localHSL.s}%,100%))` }}
-          />
-          <input type="number" min={0} max={100} value={localHSL.l}
-            onChange={(e) => handleInputChange('l', e.target.value)} className={styles.numInput} />
-        </div>
+            <div className={styles.sliderRow}>
+              <label className={styles.label}>L</label>
+              <input
+                type="range" min={0} max={100} value={localHSL.l}
+                disabled={contrastLockEnabled}
+                onChange={(e) => handleSliderChange('l', parseInt(e.target.value))}
+                className={styles.slider}
+                style={{ background: `linear-gradient(to right, hsl(${localHSL.h},${localHSL.s}%,0%), hsl(${localHSL.h},${localHSL.s}%,50%), hsl(${localHSL.h},${localHSL.s}%,100%))` }}
+              />
+              <input type="number" min={0} max={100} value={localHSL.l}
+                disabled={contrastLockEnabled}
+                onChange={(e) => handleInputChange('l', e.target.value)} className={styles.numInput} />
+            </div>
 
-        {isRgba && (
-          <div className={styles.sliderRow}>
-            <label className={styles.label}>A</label>
-            <input
-              type="range" min={0} max={100} value={Math.round(localAlpha * 100)}
-              onChange={(e) => handleAlphaChange(parseInt(e.target.value) / 100)}
-              className={styles.slider}
-              style={{ background: `linear-gradient(to right, rgba(${r},${g},${b},0), rgba(${r},${g},${b},1))` }}
-            />
-            <input type="number" min={0} max={100} value={Math.round(localAlpha * 100)}
-              onChange={(e) => { const v = parseInt(e.target.value); if (!isNaN(v)) handleAlphaChange(Math.max(0, Math.min(100, v)) / 100); }}
-              className={styles.numInput} />
+            {isRgba && (
+              <div className={styles.sliderRow}>
+                <label className={styles.label}>A</label>
+                <input
+                  type="range" min={0} max={100} value={Math.round(localAlpha * 100)}
+                  onChange={(e) => handleAlphaChange(parseInt(e.target.value) / 100)}
+                  className={styles.slider}
+                  style={{ background: `linear-gradient(to right, rgba(${r},${g},${b},0), rgba(${r},${g},${b},1))` }}
+                />
+                <input type="number" min={0} max={100} value={Math.round(localAlpha * 100)}
+                  onChange={(e) => { const v = parseInt(e.target.value); if (!isNaN(v)) handleAlphaChange(Math.max(0, Math.min(100, v)) / 100); }}
+                  className={styles.numInput} />
+              </div>
+            )}
           </div>
-        )}
+        </div>
+
+        <div className={styles.colorTwoColCol}>
+          <div className={styles.colTitle}>OKLCH</div>
+          <div className={styles.sliderGroup}>
+            <div className={styles.sliderRow}>
+              <label className={styles.label}>L</label>
+              <input
+                type="range"
+                min={0}
+                max={100}
+                step={0.1}
+                value={localOklch.lPct}
+                disabled={contrastLockEnabled}
+                onChange={(e) => handleOklchChange('lPct', parseFloat(e.target.value))}
+                className={styles.slider}
+              />
+              <input
+                type="number"
+                min={0}
+                max={100}
+                step={0.1}
+                value={localOklch.lPct}
+                disabled={contrastLockEnabled}
+                onChange={(e) => {
+                  const v = parseFloat(e.target.value);
+                  if (!Number.isNaN(v)) handleOklchChange('lPct', Math.max(0, Math.min(100, v)));
+                }}
+                className={styles.numInput}
+              />
+            </div>
+            <div className={styles.sliderRow}>
+              <label className={styles.label}>C</label>
+              <input
+                type="range"
+                min={0}
+                max={0.4}
+                step={0.001}
+                value={localOklch.c}
+                onChange={(e) => handleOklchChange('c', parseFloat(e.target.value))}
+                className={styles.slider}
+              />
+              <input
+                type="number"
+                min={0}
+                max={0.4}
+                step={0.001}
+                value={localOklch.c}
+                onChange={(e) => {
+                  const v = parseFloat(e.target.value);
+                  if (!Number.isNaN(v)) handleOklchChange('c', Math.max(0, Math.min(0.4, v)));
+                }}
+                className={styles.numInput}
+              />
+            </div>
+            <div className={styles.sliderRow}>
+              <label className={styles.label}>H</label>
+              <input
+                type="range"
+                min={0}
+                max={360}
+                step={0.5}
+                value={localOklch.h}
+                onChange={(e) => handleOklchChange('h', parseFloat(e.target.value))}
+                className={styles.slider}
+              />
+              <input
+                type="number"
+                min={0}
+                max={360}
+                step={0.5}
+                value={localOklch.h}
+                onChange={(e) => {
+                  const v = parseFloat(e.target.value);
+                  if (!Number.isNaN(v)) handleOklchChange('h', ((v % 360) + 360) % 360);
+                }}
+                className={styles.numInput}
+              />
+            </div>
+            {isRgba && (
+              <p className={styles.oklchSideHint}>OKLCH adjusts RGB only; alpha stays on the left.</p>
+            )}
+          </div>
+        </div>
       </div>
 
       <div className={styles.hexRow}>
@@ -286,7 +505,7 @@ export default function HSLSliders({ hsl, tokenName, isRgba = false, alpha = 1, 
               );
             })()}
           </div>
-          {(() => {
+            {(() => {
             const tColor = currentColors[targetToken] || { h: 0, s: 0, l: 100 };
             const tHex = hslToHex(tColor.h, tColor.s, tColor.l);
             const ratio = getContrastRatioHex(currentHex, tHex);
@@ -304,6 +523,22 @@ export default function HSLSliders({ hsl, tokenName, isRgba = false, alpha = 1, 
               </div>
             );
           })()}
+          <label className={styles.contrastLockRow}>
+            <input
+              type="checkbox"
+              checked={contrastLockEnabled}
+              onChange={(e) => updateContrastLockEnabled(e.target.checked)}
+              disabled={!currentColors[targetToken]}
+            />
+            <span className={styles.contrastLockLabel}>
+              Lock contrast ratio vs target (HSL L and OKLCH L follow automatically)
+            </span>
+          </label>
+          {lockRatioError > 0.02 && contrastLockEnabled && (
+            <p className={styles.contrastLockWarn}>
+              This hue/saturation cannot hit the locked ratio exactly in sRGB; showing closest match (error ≈ {lockRatioError.toFixed(3)}:1).
+            </p>
+          )}
         </div>
       ) : (
         <div className={styles.contrastPassedBox}>

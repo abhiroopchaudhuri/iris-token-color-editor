@@ -14,8 +14,8 @@ export interface SelectionRule {
 
 export interface GlobalHslSelectionFilter {
   /**
-   * When non-null, global HSL only affects these token keys (see globalSelectionTokenKey).
-   * null = not committed — rings show a live preview from rules; global HSL affects all colors.
+   * When non-null, global HSL/OKLCH only affects these token keys (see globalSelectionTokenKey).
+   * null = not committed — rings show a live preview from rules; global HSL/OKLCH affects all colors.
    */
   globalHslFrozenTokenKeys: string[] | null;
   /** null = any color group */
@@ -165,7 +165,7 @@ export function globalHslSelectionHasConstraints(filter: GlobalHslSelectionFilte
   );
 }
 
-/** Global HSL is limited to the frozen token set (after commit). */
+/** Global HSL/OKLCH is limited to the frozen token set (after commit). */
 export function globalHslSelectionRestrictsGlobal(filter: GlobalHslSelectionFilter): boolean {
   return filter.globalHslFrozenTokenKeys !== null && filter.globalHslFrozenTokenKeys.length > 0;
 }

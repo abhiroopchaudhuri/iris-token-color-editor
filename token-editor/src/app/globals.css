@@ -24,6 +24,7 @@
 }
 
 body.light-theme {
+  color-scheme: light;
   --bg: #ffffff;
   --surface-1: transparent;
   --surface-2: transparent;
@@ -51,6 +52,8 @@ body.light-theme {
 
 html {
   scroll-behavior: smooth;
+  /* Native <select> popups follow OS unless we declare a scheme (fixes light list + pale text on Windows). */
+  color-scheme: dark;
 }
 
 body {

@@ -1,194 +1,108 @@
-# Design System Inspired by SpaceX
+# IRIS Token Color Editor — Design Reference
 
-## 1. Visual Theme & Atmosphere
+This document describes the **implemented** visual language and UI components in the `token-editor` Next.js app (IRIS). It replaces an earlier draft that described a purely photographic SpaceX marketing layout; the live product is a **browser-based CSS token editor** that **reuses** a compact dark “spectral / industrial” token set and extends it with tool-specific surfaces, accent colors, and monospace data typography.
 
-SpaceX's website is a full-screen cinematic experience that treats aerospace engineering like a film — every section is a scene, every photograph is a frame, and the interface disappears entirely behind the imagery. The design is pure black (`#000000`) with photography of rockets, space, and planets occupying 100% of the viewport. Text overlays sit directly on these photographs with no background panels, cards, or containers — just type on image, bold and unapologetic.
+## 1. Product & Screen Structure
 
-The typography system uses D-DIN, an industrial geometric typeface with DIN heritage (the German industrial standard). The defining characteristic is that virtually ALL text is uppercase with positive letter-spacing (0.96px–1.17px), creating a military/aerospace labeling system where every word feels stenciled onto a spacecraft hull. D-DIN-Bold at 48px with uppercase and 0.96px tracking for the hero creates headlines that feel like mission briefing titles. Even body text at 16px maintains the uppercase/tracked treatment at smaller scales.
+- **Entry (`page.tsx`)**: After session restore, either **`UploadZone`** (no file loaded) or **`ColorEditor`** (file loaded).
+- **`UploadZone`**: Centered hero (logo, title, subtitle), dashed drop zone, optional paste flow. Decorative **conic rainbow blur** and **panning grid** behind content.
+- **`ColorEditor`**: Full-height column layout — **`GlobalControls`** (sticky), file/info bar, **`SwatchGrid`**, optional fixed **`HSLSliders`** drawer when a swatch is active. **Filter** and **OKLCH harmonize** open as **fixed-position portaled popovers** anchored to toolbar buttons. Drag-over-CSS shows a **blur overlay**.
 
-What makes SpaceX distinctive is its radical minimalism: no shadows, no borders (except one ghost button border at `rgba(240,240,250,0.35)`), no color (only black and a spectral near-white `#f0f0fa`), no cards, no grids. The only visual element is photography + text. The ghost button with `rgba(240,240,250,0.1)` background and 32px radius is the sole interactive element — barely visible, floating over the imagery like a heads-up display. This isn't a design system in the traditional sense — it's a photographic exhibition with a type system and a single button.
+## 2. Global Theme Tokens (`globals.css`)
 
-**Key Characteristics:**
-- Pure black canvas with full-viewport cinematic photography — the interface is invisible
-- D-DIN / D-DIN-Bold — industrial DIN-heritage typeface
-- Universal uppercase + positive letter-spacing (0.96px–1.17px) — aerospace stencil aesthetic
-- Near-white spectral text (`#f0f0fa`) — not pure white, a slight blue-violet tint
-- Zero shadows, zero cards, zero containers — text on image only
-- Single ghost button: `rgba(240,240,250,0.1)` background with spectral border
-- Full-viewport sections — each section is a cinematic "scene"
-- No decorative elements — every pixel serves the photography
+CSS variables on `:root` define the default **dark** theme (comments in code call this “SpaceX Dark”):
 
-## 2. Color Palette & Roles
+| Token | Dark value | Role |
+|--------|------------|------|
+| `--bg` | `#000000` | Page background |
+| `--surface-1`–`--surface-2` | `transparent` | Unused as solid fills in many places |
+| `--surface-3` | `rgba(240, 240, 250, 0.05)` | Subtle fill |
+| `--surface-4` | `rgba(240, 240, 250, 0.1)` | Hover / track surfaces (“ghost”) |
+| `--text-primary` | `#f0f0fa` | Primary copy |
+| `--text-secondary` | `rgba(240, 240, 250, 0.7)` | Secondary |
+| `--text-tertiary` | `rgba(240, 240, 250, 0.5)` | Muted |
+| `--border-color` | `rgba(240, 240, 250, 0.35)` | Default borders |
+| `--border-subtle` | `rgba(240, 240, 250, 0.15)` | Dividers |
+| `--accent` / `--accent-hover` | `0.1` / `0.2` spectral white | Ghost fills, slider thumbs |
+| `--radius` | `0px` | Declared; components still use explicit radii |
 
-### Primary
-- **Space Black** (`#000000`): Page background, the void of space — at 50% opacity for overlay gradient
-- **Spectral White** (`#f0f0fa`): Text color — not pure white, a slight blue-violet tint that mimics starlight
+**Light theme**: Adding class **`body.light-theme`** (done when the user picks a **light** background in **GlobalControls** so contrast flips) inverts the palette to white / near-black spectral tints (`rgba(0, 0, 10, …)`).
 
-### Interactive
-- **Ghost Surface** (`rgba(240, 240, 250, 0.1)`): Button background — nearly invisible, 10% opacity
-- **Ghost Border** (`rgba(240, 240, 250, 0.35)`): Button border — spectral, 35% opacity
-- **Hover White** (`var(--white-100)`): Link hover state — full spectral white
+**Other globals**: Smooth scroll; thin **scrollbar** thumb; **`select`** extra end padding; **`::selection`** purple tint `rgba(111, 33, 228, 0.3)`; **`:focus-visible`** outline uses `var(--accent)`.
 
-### Gradient
-- **Dark Overlay** (`rgba(0, 0, 0, 0.5)`): Gradient overlay on photographs to ensure text legibility
+## 3. Typography
 
-## 3. Typography Rules
+- **Default UI (`body`)**: `'D-DIN', 'D-DIN-Bold', Arial, Verdana, sans-serif` with **`text-transform: uppercase`** and **`letter-spacing: 0.96px`**. The repo does **not** ship `@font-face` for D-DIN in this app — browsers use **Arial/Verdana** unless D-DIN is installed locally.
+- **Google Fonts** are imported in `globals.css` (Inter weight 300–700 and a bundle including **Orbitron**, Cormorant, etc.). **`GlobalControls`** uses **Orbitron** for the wordmark with a **silver gradient** clip.
+- **Data / tokens**: **`JetBrains Mono`** is used across editors, swatch labels, numeric inputs, paste areas, and OKLCH UI. It is **not** added to the Google Fonts `@import` in `globals.css`; expect **system monospace** fallback unless the user has JetBrains Mono installed.
+- **Exceptions**: **`UploadZone`** hero **title** uses **sentence case**, negative tracking (`-0.01em`), and **`text-transform: none`** to read as a product headline, not all-caps chrome.
 
-### Font Families
-- **Display**: `D-DIN-Bold` — bold industrial geometric
-- **Body / UI**: `D-DIN`, fallbacks: `Arial, Verdana`
+## 4. Layout & Density
 
-### Hierarchy
+- **Spacing**: Mostly **rem**-based (`0.35rem`–`1.5rem` gaps, `1rem` swatch area padding). Sticky header uses **`backdrop-filter`** for depth.
+- **Radius vocabulary** (implemented, not only `--radius`): **32px** pills for primary actions and toggles; **0px** for some panels, inputs, and drop zone; **12px** color swatches; **16px** popover shells; **6–10px** small controls in panels.
+- **Elevation**: Unlike a flat photo site, the editor uses **blur**, **borders**, and **box-shadow** on popovers, sliders, hover swatches, and active toggles.
 
-| Role | Font | Size | Weight | Line Height | Letter Spacing | Notes |
-|------|------|------|--------|-------------|----------------|-------|
-| Display Hero | D-DIN-Bold | 48px (3.00rem) | 700 | 1.00 (tight) | 0.96px | `text-transform: uppercase` |
-| Body | D-DIN | 16px (1.00rem) | 400 | 1.50–1.70 | normal | Standard reading text |
-| Nav Link Bold | D-DIN | 13px (0.81rem) | 700 | 0.94 (tight) | 1.17px | `text-transform: uppercase` |
-| Nav Link | D-DIN | 12px (0.75rem) | 400 | 2.00 (relaxed) | normal | `text-transform: uppercase` |
-| Caption Bold | D-DIN | 13px (0.81rem) | 700 | 0.94 (tight) | 1.17px | `text-transform: uppercase` |
-| Caption | D-DIN | 12px (0.75rem) | 400 | 1.00 (tight) | normal | `text-transform: uppercase` |
-| Micro | D-DIN | 10px (0.63rem) | 400 | 0.94 (tight) | 1px | `text-transform: uppercase` |
+## 5. Component Inventory & Styling Notes
 
-### Principles
-- **Universal uppercase**: Nearly every text element uses `text-transform: uppercase`. This creates a systematic military/aerospace voice where all communication feels like official documentation.
-- **Positive letter-spacing as identity**: 0.96px on display, 1.17px on nav — the wide tracking creates the stenciled, industrial feel that connects to DIN's heritage as a German engineering standard.
-- **Two weights, strict hierarchy**: D-DIN-Bold (700) for headlines and nav emphasis, D-DIN (400) for body. No medium or semibold weights exist in the system.
-- **Tight line-heights**: 0.94–1.00 across most text — compressed, efficient, mission-critical communication.
+| Component | Responsibility | Notable styling |
+|-----------|----------------|-----------------|
+| **`UploadZone`** | Load CSS via drop, click, or paste | Animated conic background + grid; dashed border dropzone; purple hover shadow (`rgba(111, 33, 228, …)`); pill **Paste** / **Cancel** / **Load** |
+| **`GlobalControls`** | Logo, view/sort, BG picker, global HSL, undo/redo, reset, copy, export | Sticky bar `rgba(0,0,0,0.5)` + blur; segmented **32px** view buttons; **green** active state for **Global HSL**; **coral** reset family; **mono** global numeric inputs **sharp** corners |
+| **`ColorEditor`** | Orchestrates grid, drawer, popovers, drag replace | Info bar with **mono** filename; **Usage** row = pill + **hidden checkbox** + mini **toggle** (green when on); **Filter Rules** green active ring; **OKLCH harmonize** **purple** active; **Storybook** link gradient pink/purple + **pulse** live dot; **New file** coral outline |
+| **`SwatchGrid`** | Grouped or list + interleaved / hex-first sort | Uppercase family headers; optional **per-group HSL** compact panel (`8px` radius); list mode uses mono token names |
+| **`ColorSwatch`** | Single token tile | **72×72**, **12px** radius, checkerboard for alpha; hover scale + shadow; **selection** white outline; **locked** hatch overlay |
+| **`HSLSliders`** | Per-token editor | **Fixed right** `300px` drawer, dark glass, **slide-in** animation; checkerboard preview; mono labels/values |
+| **`SelectionFilterPanel`** | Advanced HSL selection rules | Glass panel `16px` radius inside popover; uppercase section labels |
+| **`OklchHarmonizePanel`** | OKLCH harmonize workflow | Same popover pattern; mono for code-like strings; mode buttons and export row |
 
-## 4. Component Stylings
+**Storybook**: Toolbar link to **`mds-storybook/`** (static preview) with external Storybook symbol image.
 
-### Buttons
+## 6. Semantic Accent Colors (beyond CSS variables)
 
-**Ghost Button**
-- Background: `rgba(240, 240, 250, 0.1)` (barely visible)
-- Text: Spectral White (`#f0f0fa`)
-- Padding: 18px
-- Radius: 32px
-- Border: `1px solid rgba(240, 240, 250, 0.35)`
-- Hover: background brightens, text to `var(--white-100)`
-- Use: The only button variant — "LEARN MORE" CTAs on photography
+Used consistently in modules:
 
-### Cards & Containers
-- **None.** SpaceX does not use cards, panels, or containers. All content is text directly on full-viewport photographs. The absence of containers IS the design.
+- **Success / active filter / usage on**: greens e.g. `rgba(34, 197, 94, …)`, `#27b933` (live dot, copied state).
+- **OKLCH / purple tooling**: `rgba(168, 85, 247, …)`, violet shadows on harmonize toggle.
+- **Destructive / reset / clear**: coral `#f56b4f` / `#ff8c73` (reset buttons, New file, some hovers).
+- **Storybook / “live”**: pink gradient `#f472b6`, `#fbcfe8`.
+- **Purple UX highlights** (upload hover, selection): `rgba(111, 33, 228, …)` aligned with selection highlight.
 
-### Inputs & Forms
-- Not present on the homepage. The site is purely presentational.
+## 7. Interaction Patterns
 
-### Navigation
-- Transparent overlay nav on photography
-- D-DIN 13px weight 700, uppercase, 1.17px tracking
-- Spectral white text on dark imagery
-- Logo: SpaceX wordmark at 147x19px
-- Mobile: hamburger collapse
+- **Session**: Zustand store + **`localStorage`** (`token-editor-state`, usage overlay flag).
+- **Popovers**: `createPortal` to `document.body`, position from button `getBoundingClientRect`, max height from **visual viewport**, scroll contained inside **`popoverScroll`**.
+- **Global HSL**: Live incremental deltas with undo snapshot on drag start; persists on slider **mouseup** / **touchend**.
+- **Drag-and-drop**: Replace file from editor surface; overlay with dashed `var(--accent)` border and blur.
 
-### Image Treatment
-- Full-viewport (100vh) photography sections
-- Professional aerospace photography: rockets, Mars, space
-- Dark gradient overlays (`rgba(0,0,0,0.5)`) for text legibility
-- Each section = one full-screen photograph with text overlay
-- No border radius, no frames — edge-to-edge imagery
+## 8. Responsive & Accessibility Notes
 
-## 5. Layout Principles
+- Controls **`flex-wrap`** on narrow widths; popover **`max-width: calc(100vw - 1.5rem)`**.
+- Icon-only buttons rely on **`title`**; some switches pair **visually hidden** `<input>` with custom UI — maintain label + focus styles when changing markup.
+- **`prefers-reduced-motion`**: Not globally handled; consider when extending animations.
 
-### Spacing System
-- Base unit: 8px
-- Scale: 3px, 5px, 12px, 15px, 18px, 20px, 24px, 30px
-- Minimal scale — spacing is not the organizing principle; photography is
+## 9. Agent Prompt Guide (for this codebase)
 
-### Grid & Container
-- No traditional grid — each section is a full-viewport cinematic frame
-- Text is positioned absolutely or with generous padding over imagery
-- Left-aligned text blocks on photography backgrounds
-- No max-width container — content bleeds to viewport edges
+**Quick tokens**
 
-### Whitespace Philosophy
-- **Photography IS the whitespace**: Empty space in the design is never empty — it's filled with the dark expanse of space, the curve of a planet, or the flame of a rocket engine. Traditional whitespace concepts don't apply.
-- **Vertical pacing through viewport**: Each section is exactly one viewport tall, creating a rhythmic scroll where each "page" reveals a new scene.
+- Background: `var(--bg)` / `#000000` default  
+- Text: `var(--text-primary)` `#f0f0fa`  
+- Borders: `var(--border-color)`  
+- Ghost control fill: `var(--surface-4)` / `var(--accent)`  
+- Active filter: green `rgba(34, 197, 94, 0.45)` borders + light glow  
+- Harmonize active: purple `rgba(168, 85, 247, 0.5)`  
+- Mono strings: `font-family: 'JetBrains Mono', monospace`
 
-### Border Radius Scale
-- Sharp (4px): Small dividers, utility elements
-- Button (32px): Ghost buttons — the only rounded element
+**Example prompts**
 
-## 6. Depth & Elevation
+- “Add a toolbar control: **32px** pill, `1px solid var(--border-color)`, transparent background, `0.8rem` medium weight text, hover `var(--surface-4)`, icon + label like existing **Filter Rules**.”
+- “Add a settings row in **`GlobalControls`**: use **`globalRow`** / **`globalLabel`** spacing; numeric field **`JetBrains Mono`**, sharp border, `var(--border-color)`.”
+- “Add a popover panel: fixed position, **`border-radius: 16px`**, `backdrop-filter: blur(24px)`, border `rgba(255,255,255,0.1)`, shadow from **`.popoverAnchor`** in **`ColorEditor.module.css`**, scroll child with **`min-height: 0`** and **`overflow-y: auto`**.”
 
-| Level | Treatment | Use |
-|-------|-----------|-----|
-| Photography (Level 0) | Full-viewport imagery | Background layer — always present |
-| Overlay (Level 1) | `rgba(0, 0, 0, 0.5)` gradient | Text legibility layer over photography |
-| Text (Level 2) | Spectral white text, no shadow | Content layer — text floats directly on image |
-| Ghost (Level 3) | `rgba(240, 240, 250, 0.1)` surface | Barely-visible interactive layer |
+**Iteration checklist**
 
-**Shadow Philosophy**: SpaceX uses ZERO shadows. In a design built entirely on photography, shadows are meaningless — every surface is already a photograph with natural lighting. Depth comes from the photographic content itself: the receding curvature of Earth, the diminishing trail of a rocket, the atmospheric haze around Mars.
-
-## 7. Do's and Don'ts
-
-### Do
-- Use full-viewport photography as the primary design element — every section is a scene
-- Apply uppercase + positive letter-spacing to ALL text — the aerospace stencil voice
-- Use D-DIN exclusively — no other fonts exist in the system
-- Keep the color palette to black + spectral white (`#f0f0fa`) only
-- Use ghost buttons (`rgba(240,240,250,0.1)`) as the sole interactive element
-- Apply dark gradient overlays for text legibility on photographs
-- Let photography carry the emotional weight — the type system is functional, not expressive
-
-### Don't
-- Don't add cards, panels, or containers — text sits directly on photography
-- Don't use shadows — they have no meaning in a photographic context
-- Don't introduce colors — the palette is strictly achromatic with spectral tint
-- Don't use sentence case — everything is uppercase
-- Don't use negative letter-spacing — all tracking is positive (0.96px–1.17px)
-- Don't reduce photography to thumbnails — every image is full-viewport
-- Don't add decorative elements (icons, badges, dividers) — the design is photography + type + one button
-
-## 8. Responsive Behavior
-
-### Breakpoints
-| Name | Width | Key Changes |
-|------|-------|-------------|
-| Mobile | <600px | Stacked, reduced padding, smaller type |
-| Tablet Small | 600–960px | Adjusted layout |
-| Tablet | 960–1280px | Standard scaling |
-| Desktop | 1280–1350px | Full layout |
-| Large Desktop | 1350–1500px | Expanded |
-| Ultra-wide | >1500px | Maximum viewport |
-
-### Touch Targets
-- Ghost buttons: 18px padding provides adequate touch area
-- Navigation links: uppercase with generous letter-spacing aids readability
-
-### Collapsing Strategy
-- Photography: maintains full-viewport at all sizes, content reposition
-- Hero text: 48px → scales down proportionally
-- Navigation: horizontal → hamburger
-- Text blocks: reposition but maintain overlay-on-photography pattern
-- Full-viewport sections maintained on mobile
-
-### Image Behavior
-- Edge-to-edge photography at all viewport sizes
-- Background-size: cover with center focus
-- Dark overlay gradients adapt to content position
-- No art direction changes — same photographs, responsive positioning
-
-## 9. Agent Prompt Guide
-
-### Quick Color Reference
-- Background: Space Black (`#000000`)
-- Text: Spectral White (`#f0f0fa`)
-- Button background: Ghost (`rgba(240, 240, 250, 0.1)`)
-- Button border: Ghost Border (`rgba(240, 240, 250, 0.35)`)
-- Overlay: `rgba(0, 0, 0, 0.5)`
-
-### Example Component Prompts
-- "Create a full-viewport hero: background-image covering 100vh, dark gradient overlay rgba(0,0,0,0.5). Headline at 48px D-DIN-Bold, uppercase, letter-spacing 0.96px, spectral white (#f0f0fa) text. Ghost CTA button: rgba(240,240,250,0.1) bg, 1px solid rgba(240,240,250,0.35) border, 32px radius, 18px padding."
-- "Design a navigation: transparent over photography. D-DIN 13px weight 700, uppercase, letter-spacing 1.17px, spectral white text. SpaceX wordmark left-aligned."
-- "Build a content section: full-viewport height, background photography with dark overlay. Left-aligned text block with 48px D-DIN-Bold uppercase heading, 16px D-DIN body text, and ghost button below."
-- "Create a micro label: D-DIN 10px, uppercase, letter-spacing 1px, spectral white, line-height 0.94."
-
-### Iteration Guide
-1. Start with photography — the image IS the design
-2. All text is uppercase with positive letter-spacing — no exceptions
-3. Only two colors: black and spectral white (#f0f0fa)
-4. Ghost buttons are the only interactive element — transparent, spectral-bordered
-5. Zero shadows, zero cards, zero decorative elements
-6. Every section is full-viewport (100vh) — cinematic pacing
+1. Prefer **`var(--text-*)`**, **`var(--border-*)`**, **`var(--surface-*)`** for theme compatibility with **`body.light-theme`**.  
+2. Keep **toolbar** height and **sticky** behavior in mind (`GlobalControls`).  
+3. Reserve **green** for “active / success / global scope”, **purple** for OKLCH-specific affordances, **coral** for destructive reset.  
+4. Token names and hex/rgb copy → **monospace**; chrome labels → **uppercase D-DIN stack** unless deliberately human-readable (hero titles).  
+5. New overlays: follow **portal + layout** pattern in **`ColorEditor`** to avoid clipping by scroll parents.

@@ -47,17 +47,53 @@
   background: rgba(255, 255, 255, 0.08);
 }
 
-/* Per-group HSL panel */
-.groupHslPanel {
+/* Per-group HSL + OKLCH panel */
+.groupTunePanel {
   display: flex;
-  align-items: center;
-  gap: 0.75rem;
+  align-items: flex-end;
+  gap: 1rem;
   padding: 0.5rem 0.75rem;
   background: var(--surface-2);
   border: 1px solid var(--border-color);
   border-radius: 8px;
   animation: fadeIn 0.15s ease;
   flex-wrap: wrap;
+}
+
+.groupTuneCol {
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+  min-width: 0;
+}
+
+.groupTuneTitle {
+  font-size: 0.58rem;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--text-tertiary);
+}
+
+.groupChromaLimits {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: 0.25rem 0.4rem;
+  font-size: 0.58rem;
+  max-width: 220px;
+}
+
+.groupChromaRed {
+  font-family: 'JetBrains Mono', ui-monospace, monospace;
+  font-weight: 700;
+  color: #f87171;
+}
+
+.groupChromaNames {
+  font-family: 'JetBrains Mono', ui-monospace, monospace;
+  color: var(--text-tertiary);
+  font-size: 0.55rem;
 }
 
 @keyframes fadeIn {

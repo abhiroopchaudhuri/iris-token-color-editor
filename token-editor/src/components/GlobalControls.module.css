@@ -293,6 +293,248 @@
   color: var(--text-tertiary);
 }
 
+.globalContrastLock {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.5rem 0.75rem;
+  padding: 0.5rem 0.65rem;
+  border: 1px solid var(--border-color);
+  border-radius: 8px;
+  background: var(--surface-1);
+  font-size: 0.75rem;
+  color: var(--text-secondary);
+}
+
+.globalContrastLockLabel {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  cursor: pointer;
+  user-select: none;
+}
+
+.globalContrastLockLabel input {
+  width: 0.95rem;
+  height: 0.95rem;
+  accent-color: var(--accent);
+  cursor: pointer;
+}
+
+.globalContrastLockVs {
+  color: var(--text-tertiary);
+  font-size: 0.68rem;
+  text-transform: lowercase;
+}
+
+/* Custom contrast reference picker (native <select> cannot show swatches). */
+.contrastRefPicker {
+  flex: 1 1 160px;
+  min-width: 0;
+  max-width: 320px;
+  position: relative;
+}
+
+.contrastRefTrigger {
+  display: flex;
+  align-items: center;
+  gap: 0.45rem;
+  width: 100%;
+  padding: 0.35rem 0.5rem;
+  border: 1px solid var(--border-color);
+  border-radius: 6px;
+  background-color: rgba(14, 14, 18, 0.98);
+  color: #f0f0fa;
+  font-family: 'JetBrains Mono', ui-monospace, monospace;
+  font-size: 0.68rem;
+  cursor: pointer;
+  text-align: left;
+  transition: border-color 0.15s ease;
+}
+
+.contrastRefTrigger:hover {
+  border-color: var(--accent-hover);
+}
+
+.contrastRefSwatch {
+  width: 14px;
+  height: 14px;
+  border-radius: 4px;
+  border: 1px solid rgba(255, 255, 255, 0.22);
+  flex-shrink: 0;
+  box-sizing: border-box;
+}
+
+.contrastRefTokenText {
+  flex: 1;
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.contrastRefChevron {
+  flex-shrink: 0;
+  color: var(--text-tertiary);
+}
+
+.contrastRefMenu {
+  position: absolute;
+  top: calc(100% + 4px);
+  left: 0;
+  right: 0;
+  max-height: min(280px, 50vh);
+  overflow-y: auto;
+  z-index: 400;
+  display: flex;
+  flex-direction: column;
+  background: rgba(14, 14, 18, 0.98);
+  border: 1px solid var(--border-color);
+  border-radius: 6px;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.55);
+}
+
+.contrastRefOption {
+  display: flex;
+  align-items: center;
+  gap: 0.45rem;
+  padding: 0.4rem 0.5rem;
+  cursor: pointer;
+  color: #f0f0fa;
+  font-family: 'JetBrains Mono', ui-monospace, monospace;
+  font-size: 0.65rem;
+}
+
+.contrastRefOption:hover {
+  background: var(--surface-4);
+}
+
+.contrastRefOptionSelected {
+  background: rgba(59, 130, 246, 0.25);
+}
+
+.contrastRefOptionSelected:hover {
+  background: rgba(59, 130, 246, 0.35);
+}
+
+.contrastRefRgbaTag {
+  margin-left: 0.35rem;
+  font-size: 0.55rem;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  color: var(--text-tertiary);
+  text-transform: uppercase;
+}
+
+body.light-theme .contrastRefTrigger {
+  background-color: #fafafa;
+  color: #111111;
+}
+
+body.light-theme .contrastRefSwatch {
+  border-color: rgba(0, 0, 0, 0.2);
+}
+
+body.light-theme .contrastRefMenu {
+  background: #fafafa;
+}
+
+body.light-theme .contrastRefOption {
+  color: #111111;
+}
+
+body.light-theme .contrastRefOption:hover {
+  background: rgba(0, 0, 0, 0.06);
+}
+
+body.light-theme .contrastRefOptionSelected {
+  background: rgba(59, 130, 246, 0.18);
+}
+
+.globalSlider:disabled,
+.globalNum:disabled {
+  opacity: 0.45;
+  cursor: not-allowed;
+}
+
+.globalColumns {
+  display: flex;
+  flex-direction: row;
+  align-items: stretch;
+  gap: 1rem;
+  flex-wrap: wrap;
+}
+
+.globalColumn {
+  flex: 1 1 240px;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+}
+
+.globalColumnTitle {
+  font-size: 0.68rem;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--text-tertiary);
+}
+
+.globalColumnSep {
+  width: 1px;
+  background: var(--border-color);
+  flex: 0 0 auto;
+  align-self: stretch;
+  min-height: 120px;
+}
+
+.globalSubHint {
+  font-size: 0.62rem;
+  color: var(--text-tertiary);
+  line-height: 1.25;
+  margin: -0.15rem 0 0.15rem 72px;
+}
+
+.globalChromaMeta {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+  margin: -0.1rem 0 0.35rem 0;
+}
+
+.globalSubHintInline {
+  font-size: 0.62rem;
+  color: var(--text-tertiary);
+  line-height: 1.3;
+}
+
+.globalChromaLimits {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: 0.35rem 0.5rem;
+  font-size: 0.65rem;
+}
+
+.globalChromaAtCap,
+.globalChromaClipCount {
+  font-family: 'JetBrains Mono', ui-monospace, monospace;
+  font-weight: 700;
+  color: #f87171;
+}
+
+.globalChromaClipCount {
+  font-size: 0.72rem;
+}
+
+.globalChromaNames {
+  color: var(--text-tertiary);
+  font-family: 'JetBrains Mono', ui-monospace, monospace;
+  font-size: 0.6rem;
+  max-width: 100%;
+}
+
 .globalSliders {
   display: flex;
   flex-direction: column;

@@ -122,7 +122,7 @@ export default function SelectionFilterPanel({ onClose }: SelectionFilterPanelPr
       </div>
       <p className={styles.hint}>
         Groups, shades, and numeric rules combine with AND. Ringed swatches show who matches right now (preview).
-        Global HSL affects every unlocked color until you apply a scope at the bottom — then only that set moves until you Apply again or Reset.
+        Global HSL and OKLCH affect every unlocked color until you apply a scope at the bottom — then only that set moves until you Apply again or Reset.
       </p>
 
       <div>
@@ -224,7 +224,7 @@ export default function SelectionFilterPanel({ onClose }: SelectionFilterPanelPr
             hasConstraints
               ? isScoped
                 ? 'Re-run rules against current colors and update the scoped set'
-                : 'Global HSL will only affect the ringed tokens until you Apply again or Reset'
+                : 'Global HSL and OKLCH will only affect the ringed tokens until you Apply again or Reset'
               : 'Add at least one constraint first'
           }
         >

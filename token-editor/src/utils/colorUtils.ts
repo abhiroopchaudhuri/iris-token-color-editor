@@ -150,3 +150,32 @@ export function getContrastRatioHex(hex1: string, hex2: string): number {
   const darkest = Math.min(l1, l2);
   return (lightest + 0.05) / (darkest + 0.05);
 }
+
+/**
+ * WCAG contrast ratio vs a fixed background, scanning HSL lightness only (same hue & saturation).
+ * Used to keep contrast exactly stable while editing H/S or chroma/hue in other spaces.
+ */
+export function solveHslLightnessForContrastRatio(
+  h: number,
+  s: number,
+  bgHex: string,
+  targetRatio: number,
+): { hsl: HSL; ratioError: number } {
+  const hN = ((h % 360) + 360) % 360;
+  const sN = Math.max(0, Math.min(100, s));
+  let bestL = 50;
+  let bestErr = Infinity;
+  for (let li = 0; li <= 400; li++) {
+    const l = li * 0.25;
+    const hex = hslToHex(hN, sN, l);
+    const ratio = getContrastRatioHex(hex, bgHex);
+    const err = Math.abs(ratio - targetRatio);
+    if (err < bestErr) {
+      bestErr = err;
+      bestL = l;
+    }
+  }
+  const hsl = clampHSL({ h: hN, s: sN, l: Math.round(bestL * 4) / 4 });
+  const achieved = getContrastRatioHex(hslToHex(hsl.h, hsl.s, hsl.l), bgHex);
+  return { hsl, ratioError: Math.abs(achieved - targetRatio) };
+}

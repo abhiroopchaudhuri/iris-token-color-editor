@@ -19,6 +19,8 @@ import {
   type OklchHarmonizeOptions,
   type OklchHarmonizeResult,
 } from '@/utils/oklchHarmonize';
+import { applyOklchDeltaToHsl } from '@/utils/oklchGamut';
+import { isChromaSatExemptGlobalToken } from '@/utils/chromaSatExemptTokens';
 
 export type ViewMode = 'grouped' | 'list';
 export type SortMode = 'hex-first' | 'interleaved';
@@ -79,6 +81,10 @@ interface ColorStore {
   removeGlobalHslSelectionRule: (id: string) => void;
   clearGlobalHslSelectionFilter: () => void;
   applyIncrementalGlobalHslDelta: (dh: number, ds: number, dl: number) => void;
+  /** Additive OKLCH: dLPct is percentage points on L (0–100 scale), dC absolute chroma, dH degrees. */
+  applyIncrementalGlobalOklchDelta: (dLPct: number, dC: number, dH: number) => void;
+  /** Unlocked + selection scope (same as global HSL/OKLCH). */
+  tokenIncludedInGlobalShift: (tokenName: string, isRgba: boolean) => boolean;
 
   /** OKLCH harmonize: updates hex-backed tokens; navbar export stays hex. */
   applyOklchHarmonize: (opts: OklchHarmonizeOptions) => OklchHarmonizeResult;
@@ -273,20 +279,17 @@ export const useColorStore = create<ColorStore>((set, get) => ({
 
   /** Live global HSL during drag — does not persist (GlobalControls saves on pointer up). */
   applyIncrementalGlobalHslDelta: (dh: number, ds: number, dl: number) => {
-    const { currentColors, currentRgbaColors, lockedTokens, globalHslSelectionFilter } = get();
-    const frozen = globalHslSelectionFilter.globalHslFrozenTokenKeys;
-    const restrict = globalHslSelectionRestrictsGlobal(globalHslSelectionFilter);
-
-    const shouldShift = (name: string, isRgba: boolean): boolean => {
-      if (lockedTokens.has(name)) return false;
-      if (!restrict || !frozen) return true;
-      return frozen.includes(globalSelectionTokenKey(name, isRgba));
-    };
+    const { currentColors, currentRgbaColors } = get();
+    const shouldShift = get().tokenIncludedInGlobalShift;
 
     const newColors: Record<string, HSL> = {};
     for (const [name, hsl] of Object.entries(currentColors)) {
       newColors[name] = shouldShift(name, false)
-        ? clampHSL({ h: hsl.h + dh, s: hsl.s + ds, l: hsl.l + dl })
+        ? clampHSL({
+            h: hsl.h + dh,
+            s: hsl.s + (isChromaSatExemptGlobalToken(name) ? 0 : ds),
+            l: hsl.l + dl,
+          })
         : hsl;
     }
 
@@ -295,7 +298,43 @@ export const useColorStore = create<ColorStore>((set, get) => ({
       if (!shouldShift(name, true)) {
         newRgbaColors[name] = hsl;
       } else {
-        const c = clampHSL({ h: hsl.h + dh, s: hsl.s + ds, l: hsl.l + dl });
+        const effDs = isChromaSatExemptGlobalToken(name) ? 0 : ds;
+        const c = clampHSL({ h: hsl.h + dh, s: hsl.s + effDs, l: hsl.l + dl });
+        newRgbaColors[name] = { ...c, a: hsl.a };
+      }
+    }
+
+    set({ currentColors: newColors, currentRgbaColors: newRgbaColors });
+  },
+
+  tokenIncludedInGlobalShift: (tokenName: string, isRgba: boolean) => {
+    const { lockedTokens, globalHslSelectionFilter } = get();
+    if (lockedTokens.has(tokenName)) return false;
+    const frozen = globalHslSelectionFilter.globalHslFrozenTokenKeys;
+    const restrict = globalHslSelectionRestrictsGlobal(globalHslSelectionFilter);
+    if (!restrict || !frozen) return true;
+    return frozen.includes(globalSelectionTokenKey(tokenName, isRgba));
+  },
+
+  applyIncrementalGlobalOklchDelta: (dLPct: number, dC: number, dH: number) => {
+    if (dLPct === 0 && dC === 0 && dH === 0) return;
+    const { currentColors, currentRgbaColors } = get();
+    const shouldShift = get().tokenIncludedInGlobalShift;
+
+    const newColors: Record<string, HSL> = {};
+    for (const [name, hsl] of Object.entries(currentColors)) {
+      newColors[name] = shouldShift(name, false)
+        ? applyOklchDeltaToHsl(hsl, dLPct, isChromaSatExemptGlobalToken(name) ? 0 : dC, dH)
+        : hsl;
+    }
+
+    const newRgbaColors: Record<string, RgbaHSL> = {};
+    for (const [name, hsl] of Object.entries(currentRgbaColors)) {
+      if (!shouldShift(name, true)) {
+        newRgbaColors[name] = hsl;
+      } else {
+        const effDC = isChromaSatExemptGlobalToken(name) ? 0 : dC;
+        const c = applyOklchDeltaToHsl(hsl, dLPct, effDC, dH);
         newRgbaColors[name] = { ...c, a: hsl.a };
       }
     }

@@ -3,7 +3,15 @@
 import React, { useState, useCallback, useRef } from 'react';
 import { useColorStore, SortMode } from '@/hooks/useColorStore';
 import { getEditableTokens, getRgbaTokens, ParsedLine } from '@/utils/cssParser';
+import type { HSL } from '@/utils/colorUtils';
 import { hslToHex, clampHSL } from '@/utils/colorUtils';
+import { applyOklchDeltaToHsl } from '@/utils/oklchGamut';
+import {
+  applyNormalizedChromaPercent,
+  deriveMeanChromaPercent,
+  formatTokenShortName,
+  type RgbaHsl,
+} from '@/utils/oklchChromaNormalize';
 import ColorSwatch from './ColorSwatch';
 import { tokenShowsGlobalSelectionHighlight } from '@/utils/selectionFilter';
 import { useTokenUsageData, usageHeatForTotal } from '@/hooks/useTokenUsageData';
@@ -88,14 +96,54 @@ function GroupedView({ hexTokens, rgbaTokens, sortMode }: { hexTokens: ParsedLin
   );
 }
 
+type TuneBaseline = { hex: Record<string, HSL>; rgba: Record<string, RgbaHsl> };
+
 function FamilyGroup({ family, tokens }: { family: string; tokens: ParsedLine[] }) {
-  const [showHSL, setShowHSL] = useState(false);
+  const tuneBaselineRef = useRef<TuneBaseline | null>(null);
+  const [showTune, setShowTune] = useState(false);
   const [dh, setDh] = useState(0);
   const [ds, setDs] = useState(0);
   const [dl, setDl] = useState(0);
   const prevDelta = useRef({ h: 0, s: 0, l: 0 });
   const hasSnapped = useRef(false);
-  const applyGroupDelta = useColorStore(s => s.applyGroupDelta);
+
+  const [okL, setOkL] = useState(0);
+  const [okH, setOkH] = useState(0);
+  const prevOkDelta = useRef({ l: 0, h: 0 });
+  const hasSnappedOk = useRef(false);
+
+  const [liveChromaPct, setLiveChromaPct] = useState(100);
+  const hasSnappedChroma = useRef(false);
+  const prevClippedCount = useRef(0);
+  const [chromaClipSession, setChromaClipSession] = useState(0);
+  const [chromaLimitLabels, setChromaLimitLabels] = useState<string[]>([]);
+  const [chromaAtCapNow, setChromaAtCapNow] = useState(0);
+
+  const isGroupToken = useCallback((name: string, isRgba: boolean) => {
+    const locked = useColorStore.getState().lockedTokens;
+    if (locked.has(name)) return false;
+    return tokens.some(t => t.tokenName === name && (t.type === 'rgba') === isRgba);
+  }, [tokens]);
+
+  const captureTuneOpen = useCallback(() => {
+    const { currentColors, currentRgbaColors, lockedTokens } = useColorStore.getState();
+    const hex: Record<string, HSL> = {};
+    const rgba: Record<string, RgbaHsl> = {};
+    for (const t of tokens) {
+      const n = t.tokenName!;
+      if (lockedTokens.has(n)) continue;
+      if (t.type === 'hex' && currentColors[n]) hex[n] = { ...currentColors[n] };
+      else if (t.type === 'rgba' && currentRgbaColors[n]) rgba[n] = { ...currentRgbaColors[n] };
+    }
+    tuneBaselineRef.current = { hex, rgba };
+    const pct = deriveMeanChromaPercent(currentColors, currentRgbaColors, isGroupToken);
+    setLiveChromaPct(pct);
+    prevClippedCount.current = 0;
+    setChromaClipSession(0);
+    setChromaLimitLabels([]);
+    setChromaAtCapNow(0);
+    hasSnappedChroma.current = false;
+  }, [tokens, isGroupToken]);
 
   const handleLive = useCallback((ch: 'h' | 's' | 'l', value: number) => {
     if (!hasSnapped.current) {
@@ -138,6 +186,65 @@ function FamilyGroup({ family, tokens }: { family: string; tokens: ParsedLine[] 
     if (ch === 'l') setDl(newL);
   }, [dh, ds, dl, tokens]);
 
+  const handleLiveOklch = useCallback((ch: 'l' | 'h', value: number) => {
+    if (!hasSnappedOk.current) {
+      useColorStore.getState().pushSnapshot();
+      hasSnappedOk.current = true;
+    }
+
+    const newL = ch === 'l' ? value : okL;
+    const newH = ch === 'h' ? value : okH;
+
+    const dL = newL - prevOkDelta.current.l;
+    const dH = newH - prevOkDelta.current.h;
+
+    if (dL !== 0 || dH !== 0) {
+      const { currentColors, currentRgbaColors, lockedTokens } = useColorStore.getState();
+      const nc = { ...currentColors };
+      const nr = { ...currentRgbaColors };
+
+      for (const t of tokens) {
+        const name = t.tokenName!;
+        if (lockedTokens.has(name)) continue;
+        if (t.type === 'hex' && nc[name]) {
+          nc[name] = applyOklchDeltaToHsl(nc[name], dL, 0, dH);
+        } else if (t.type === 'rgba' && nr[name]) {
+          const c = applyOklchDeltaToHsl(nr[name], dL, 0, dH);
+          nr[name] = { ...c, a: nr[name].a };
+        }
+      }
+
+      useColorStore.setState({ currentColors: nc, currentRgbaColors: nr });
+    }
+
+    prevOkDelta.current = { l: newL, h: newH };
+    if (ch === 'l') setOkL(newL);
+    if (ch === 'h') setOkH(newH);
+  }, [okL, okH, tokens]);
+
+  const handleGroupChromaPercent = useCallback((value: number) => {
+    if (!hasSnappedChroma.current) {
+      useColorStore.getState().pushSnapshot();
+      hasSnappedChroma.current = true;
+    }
+    const s = useColorStore.getState();
+    const { nextColors, nextRgba, clippedTokens } = applyNormalizedChromaPercent(
+      value,
+      s.currentColors,
+      s.currentRgbaColors,
+      isGroupToken,
+    );
+    useColorStore.setState({ currentColors: nextColors, currentRgbaColors: nextRgba });
+    setLiveChromaPct(value);
+    const nClip = clippedTokens.length;
+    if (nClip > prevClippedCount.current) {
+      setChromaClipSession(c => c + (nClip - prevClippedCount.current));
+    }
+    prevClippedCount.current = nClip;
+    setChromaLimitLabels(clippedTokens.slice(0, 4).map(formatTokenShortName));
+    setChromaAtCapNow(nClip);
+  }, [isGroupToken]);
+
   const handleMouseUp = useCallback(() => {
     const { currentColors, currentRgbaColors, lockedTokens, fileName } = useColorStore.getState();
     try {
@@ -148,46 +255,140 @@ function FamilyGroup({ family, tokens }: { family: string; tokens: ParsedLine[] 
   }, []);
 
   const resetSliders = useCallback(() => {
-    useColorStore.getState().resetGroup(family);
+    const b = tuneBaselineRef.current;
+    if (b) {
+      const { currentColors, currentRgbaColors } = useColorStore.getState();
+      const nc = { ...currentColors };
+      const nr = { ...currentRgbaColors };
+      for (const [k, v] of Object.entries(b.hex)) nc[k] = { ...v };
+      for (const [k, v] of Object.entries(b.rgba)) nr[k] = { ...v };
+      useColorStore.setState({ currentColors: nc, currentRgbaColors: nr });
+    }
     setDh(0); setDs(0); setDl(0);
     prevDelta.current = { h: 0, s: 0, l: 0 };
     hasSnapped.current = false;
-  }, [family]);
+    setOkL(0); setOkH(0);
+    prevOkDelta.current = { l: 0, h: 0 };
+    hasSnappedOk.current = false;
+
+    const s = useColorStore.getState();
+    const pct = deriveMeanChromaPercent(s.currentColors, s.currentRgbaColors, isGroupToken);
+    setLiveChromaPct(pct);
+    hasSnappedChroma.current = false;
+    prevClippedCount.current = 0;
+    setChromaClipSession(0);
+    setChromaLimitLabels([]);
+    setChromaAtCapNow(0);
+
+    const { currentColors, currentRgbaColors, lockedTokens, fileName } = useColorStore.getState();
+    try {
+      localStorage.setItem('token-editor-state', JSON.stringify({
+        currentColors, currentRgbaColors, lockedTokens: Array.from(lockedTokens), fileName,
+      }));
+    } catch { /* ignore */ }
+  }, [isGroupToken]);
 
   return (
     <div className={styles.familyGroup}>
       <div className={styles.familyHeader}>
         <h3 className={styles.familyTitle}>{family}</h3>
-        <button className={styles.groupHslBtn} onClick={() => setShowHSL(!showHSL)} title="Adjust group HSL">
+        <button
+          className={styles.groupHslBtn}
+          onClick={() => {
+            if (showTune) {
+              setShowTune(false);
+              return;
+            }
+            captureTuneOpen();
+            setDh(0); setDs(0); setDl(0);
+            prevDelta.current = { h: 0, s: 0, l: 0 };
+            hasSnapped.current = false;
+            setOkL(0); setOkH(0);
+            prevOkDelta.current = { l: 0, h: 0 };
+            hasSnappedOk.current = false;
+            setShowTune(true);
+          }}
+          title="Adjust group colors (HSL and OKLCH)"
+        >
           <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
             <circle cx="12" cy="12" r="3" />
             <path d="M19.4 15a1.65 1.65 0 00.33 1.82l.06.06a2 2 0 010 2.83 2 2 0 01-2.83 0l-.06-.06a1.65 1.65 0 00-1.82-.33 1.65 1.65 0 00-1 1.51V21a2 2 0 01-4 0v-.09A1.65 1.65 0 009 19.4a1.65 1.65 0 00-1.82.33l-.06.06a2 2 0 01-2.83-2.83l.06-.06A1.65 1.65 0 004.68 15a1.65 1.65 0 00-1.51-1H3a2 2 0 010-4h.09A1.65 1.65 0 004.6 9a1.65 1.65 0 00-.33-1.82l-.06-.06a2 2 0 012.83-2.83l.06.06A1.65 1.65 0 009 4.68a1.65 1.65 0 001-1.51V3a2 2 0 014 0v.09a1.65 1.65 0 001 1.51 1.65 1.65 0 001.82-.33l.06-.06a2 2 0 012.83 2.83l-.06.06A1.65 1.65 0 0019.4 9a1.65 1.65 0 001.51 1H21a2 2 0 010 4h-.09a1.65 1.65 0 00-1.51 1z" />
           </svg>
-          HSL
+          Tune
         </button>
       </div>
 
-      {showHSL && (
-        <div className={styles.groupHslPanel}>
-          {(['h', 's', 'l'] as const).map((ch) => {
-            const val = ch === 'h' ? dh : ch === 's' ? ds : dl;
-            const min = ch === 'h' ? -180 : -100;
-            const max = ch === 'h' ? 180 : 100;
-            return (
-              <div key={ch} className={styles.groupSliderRow}>
-                <span className={styles.groupSliderLabel}>{ch.toUpperCase()}</span>
-                <input type="range" min={min} max={max} value={val}
-                  onChange={(e) => handleLive(ch, parseInt(e.target.value))}
-                  onMouseUp={handleMouseUp} onTouchEnd={handleMouseUp}
-                  className={styles.groupSlider} />
-                <input type="number" min={min} max={max} value={val}
-                  onChange={(e) => handleLive(ch, parseInt(e.target.value) || 0)}
-                  onBlur={handleMouseUp}
-                  className={styles.groupNum} />
+      {showTune && (
+        <div className={styles.groupTunePanel}>
+          <div className={styles.groupTuneCol}>
+            <span className={styles.groupTuneTitle}>HSL Δ</span>
+            {(['h', 's', 'l'] as const).map((ch) => {
+              const val = ch === 'h' ? dh : ch === 's' ? ds : dl;
+              const min = ch === 'h' ? -180 : -100;
+              const max = ch === 'h' ? 180 : 100;
+              return (
+                <div key={ch} className={styles.groupSliderRow}>
+                  <span className={styles.groupSliderLabel}>{ch.toUpperCase()}</span>
+                  <input type="range" min={min} max={max} value={val}
+                    onChange={(e) => handleLive(ch, parseInt(e.target.value))}
+                    onMouseUp={handleMouseUp} onTouchEnd={handleMouseUp}
+                    className={styles.groupSlider} />
+                  <input type="number" min={min} max={max} value={val}
+                    onChange={(e) => handleLive(ch, parseInt(e.target.value) || 0)}
+                    onBlur={handleMouseUp}
+                    className={styles.groupNum} />
+                </div>
+              );
+            })}
+          </div>
+          <div className={styles.groupTuneCol}>
+            <span className={styles.groupTuneTitle}>OKLCH</span>
+            <div className={styles.groupSliderRow}>
+              <span className={styles.groupSliderLabel}>C</span>
+              <input type="range" min={0} max={100} value={liveChromaPct}
+                onChange={(e) => handleGroupChromaPercent(parseInt(e.target.value))}
+                onMouseUp={handleMouseUp} onTouchEnd={handleMouseUp}
+                className={styles.groupSlider} />
+              <input type="number" min={0} max={100} value={liveChromaPct}
+                onChange={(e) => handleGroupChromaPercent(Math.max(0, Math.min(100, parseInt(e.target.value) || 0)))}
+                onBlur={handleMouseUp}
+                className={styles.groupNum} />
+            </div>
+            {(chromaAtCapNow > 0 || chromaClipSession > 0 || chromaLimitLabels.length > 0) && (
+              <div className={styles.groupChromaLimits}>
+                {chromaAtCapNow > 0 && <span className={styles.groupChromaRed}>{chromaAtCapNow}</span>}
+                {chromaClipSession > 0 && <span className={styles.groupChromaRed}>+{chromaClipSession}</span>}
+                {chromaLimitLabels.length > 0 && (
+                  <span className={styles.groupChromaNames}>{chromaLimitLabels.join(', ')}{chromaLimitLabels.length >= 4 ? '…' : ''}</span>
+                )}
               </div>
-            );
-          })}
-          <button className={styles.groupResetBtn} onClick={resetSliders}>Reset</button>
+            )}
+            <div className={styles.groupSliderRow}>
+              <span className={styles.groupSliderLabel}>L</span>
+              <input type="range" min={-100} max={100} value={okL}
+                onChange={(e) => handleLiveOklch('l', parseInt(e.target.value))}
+                onMouseUp={handleMouseUp} onTouchEnd={handleMouseUp}
+                className={styles.groupSlider} />
+              <input type="number" min={-100} max={100} value={okL}
+                onChange={(e) => handleLiveOklch('l', parseInt(e.target.value) || 0)}
+                onBlur={handleMouseUp}
+                className={styles.groupNum} />
+            </div>
+            <div className={styles.groupSliderRow}>
+              <span className={styles.groupSliderLabel}>H</span>
+              <input type="range" min={-180} max={180} value={okH}
+                onChange={(e) => handleLiveOklch('h', parseInt(e.target.value))}
+                onMouseUp={handleMouseUp} onTouchEnd={handleMouseUp}
+                className={styles.groupSlider} />
+              <input type="number" min={-180} max={180} value={okH}
+                onChange={(e) => handleLiveOklch('h', parseInt(e.target.value) || 0)}
+                onBlur={handleMouseUp}
+                className={styles.groupNum} />
+            </div>
+          </div>
+          <button className={styles.groupResetBtn} onClick={resetSliders} title="Restore this group to when Tune opened">
+            Reset
+          </button>
         </div>
       )}
 
